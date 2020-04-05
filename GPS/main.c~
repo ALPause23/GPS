@@ -1,0 +1,38 @@
+#include "ports.h"
+#include "init_perif.h"
+#include "uart_spi.h"
+
+// Declare your global variables here
+
+// External Interrupt 0 service routine
+interrupt [EXT_INT0] void ext_int0_isr(void)
+{
+    // Place your code here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+}
+
+// External Interrupt 1 service routine
+interrupt [EXT_INT1] void ext_int1_isr(void)
+{
+    // Place your code here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+}
+
+
+
+void main(void)
+{
+    // Declare your local variables here
+    init_ports();
+    init_periferal();
+
+
+    // Global enable interrupts
+    #asm("sei")
+
+    while (1)
+    {
+        // Place your code here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+
+    }
+}

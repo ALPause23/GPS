@@ -1,0 +1,12 @@
+VERSION:3 SOURCE_TIMESTAMP:50857860
+NODE:I LEVEL:0 LINE:1 "E:\GitHub\GPS\uart_spi.h"
+NODE:V LEVEL:0 LINE:4 "rx_buffer -> RAM:????"
+NODE:V LEVEL:0 LINE:6 "rx_wr_index -> R5"
+NODE:V LEVEL:0 LINE:6 "rx_rd_index -> R4"
+NODE:V LEVEL:0 LINE:8 "rx_counter -> R7"
+NODE:V LEVEL:0 LINE:10 "rx_buffer_overflow -> R2.0"
+NODE:V LEVEL:0 LINE:11 "i -> R8,R9"
+NODE:F LEVEL:0 LINE:14 "usart_rx_isr(void)"
+NODE:M LEVEL:0 LINE:44 "_ALTERNATE_GETCHAR_"
+NODE:F LEVEL:0 LINE:46 "getchar(void)"
+NODE:F LEVEL:0 LINE:62 "USARTReceiveChar(void)"

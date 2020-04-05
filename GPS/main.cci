@@ -1,0 +1,5 @@
+VERSION:3 SOURCE_TIMESTAMP:5083B54D
+NODE:I LEVEL:0 LINE:1 "E:\GitHub\GPS\ports.h"
+NODE:I LEVEL:0 LINE:2 "E:\GitHub\GPS\init_perif.h"
+NODE:I LEVEL:0 LINE:3 "E:\GitHub\GPS\uart_spi.h"
+NODE:F LEVEL:0 LINE:7 "main(void)"
