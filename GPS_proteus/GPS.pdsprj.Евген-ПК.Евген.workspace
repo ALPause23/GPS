@@ -33,7 +33,7 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="450" x="1381" flags="00000023" y="683" h="250" pid="0" iid="6">
+   <POPUP w="450" x="1442" flags="00000023" y="383" h="250" pid="0" iid="6">
     <PROPERTIES>
      <ITEM name="AutoEcho">0</ITEM>
      <ITEM name="HexMode">0</ITEM>
@@ -102,7 +102,7 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="238" flags="0000002b" y="328" h="400" pid="1" iid="1">
+   <POPUP w="600" x="238" flags="0000802b" y="328" h="400" pid="1" iid="1">
     <PROPERTIES>
      <ITEM name="Breakpoint 0">"main",00DE,0008,5A2E,4E63,-1
 </ITEM>
@@ -116,10 +116,10 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">3</ITEM>
+     <ITEM name="nBreakpoints">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="421" x="898" flags="0000000b" y="433" h="569" pid="2" iid="1">
+   <POPUP w="421" x="794" flags="0000000b" y="393" h="569" pid="2" iid="1">
     <PROPERTIES>
      <ITEM name="Address Column Width">94</ITEM>
      <ITEM name="AutoResize">No</ITEM>
@@ -139,7 +139,7 @@
    <POPUP w="290" x="38" flags="00000000" y="128" h="184" pid="0" iid="5">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="450" x="209" flags="00008023" y="95" h="250" pid="0" iid="7">
+   <POPUP w="450" x="209" flags="00000023" y="95" h="250" pid="0" iid="7">
     <PROPERTIES>
      <ITEM name="HSplitter1Pos">100</ITEM>
      <ITEM name="VSplitter1Pos">238</ITEM>
