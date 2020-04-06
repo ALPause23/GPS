@@ -6,10 +6,10 @@ CV=3.12 Advanced
 A=
 C=
 D=27.03.2020
-Files=3
-OpenedFiles=1
+Files=4
+OpenedFiles=8
 OF1=main.c
-Active1=1
+Active1=0
 DebugOutputListFilesDirectory=Debug\List
 DebugOutputObjectFilesDirectory=Debug
 DebugOutputExecutableFilesDirectory=Debug\Exe
@@ -18,7 +18,7 @@ OutputListFilesDirectory=Release\List
 OutputObjectFilesDirectory=Release
 OutputExecutableFilesDirectory=Release\Exe
 OutputLinkerFilesDirectory=Release\Exe
-AllowDisplayFunctionCallTree=0
+AllowDisplayFunctionCallTree=1
 CleanUp=2
 EditorPanelMode=0
 ActiveEditorPanel=0
@@ -26,17 +26,48 @@ Active0=0
 EditorPanel0=0
 PageIndex0=0
 EditorPanel1=0
-TimeStamp1=1350280896
+TimeStamp1=1350808909
 PageIndex1=1
 TimeStamp0=1350280896
-OF2=C:\Program Files (x86)\CodeVisionAVR\inc\interrupt.h
+OF2=ports.h
 Active2=0
 EditorPanel2=0
-TimeStamp2=1098154488
+TimeStamp2=1350284384
 PageIndex2=2
 F1=main.c
 F2=init_perif.c
 F3=ports.c
+F4=uart_spi.c
+OF3=init_perif.c
+Active3=1
+EditorPanel3=0
+TimeStamp3=1350924384
+PageIndex3=5
+OF4=ports.c
+Active4=0
+EditorPanel4=0
+TimeStamp4=1350924384
+PageIndex4=3
+OF5=init_perif.h
+Active5=0
+EditorPanel5=0
+TimeStamp5=1350872852
+PageIndex5=4
+OF6=uart_spi.c
+Active6=0
+EditorPanel6=0
+TimeStamp6=1350924384
+PageIndex6=6
+OF7=uart_spi.h
+Active7=0
+EditorPanel7=0
+TimeStamp7=1350871072
+PageIndex7=7
+OF8=spi.c
+Active8=0
+EditorPanel8=0
+TimeStamp8=1350870678
+PageIndex8=8
 [CompilerDebug]
 Chip=ATmega16
 CPUClock=40000000
@@ -135,8 +166,8 @@ WatchAVR8LAutoVariables=0
 UseEEPROMLocation0=1
 RebuildAll=0
 LinkageInformationPresent=1
-COFFileTimeStamp=1350285573
-Build=4
+COFFileTimeStamp=1350924385
+Build=31
 [DefinedSymbolsDebug]
 Count=0
 [Compiler]
@@ -238,7 +269,7 @@ UseEEPROMLocation0=1
 RebuildAll=1
 LinkageInformationPresent=0
 COFFileTimeStamp=-1
-Build=4
+Build=31
 IncludePath0=
 IncludePath1=
 IncludePath2=
@@ -390,7 +421,7 @@ UserProgWorkDir=
 ProgrammChip=0
 MergeROMFile=0
 ROMFilePath=
-SCKFrequency=10000000
+SCKFrequency=460800
 LockBits=0
 BootLockBits0=0
 BootLockBits1=0
@@ -458,9 +489,9 @@ Row=0
 Column=0
 ScrollPosX=0
 ScrollPosY=0
-TimeStamp=1350280896
+TimeStamp=1350961678
 [BookmarksFoldedCode]
-Files=9
+Files=15
 F1=main.c
 F2=C:\Program Files (x86)\CodeVisionAVR\inc\interrupt.h
 F3=E:\GitHub\GPS\ports.h
@@ -470,9 +501,15 @@ F6=C:\Program Files (x86)\CodeVisionAVR\inc\spi.h
 F7=E:\GitHub\GPS\spi.c
 F8=E:\GitHub\GPS\timer.c
 F9=spi.c
+F10=init_perif.c
+F11=uart_spi.c
+F12=E:\GitHub\GPS\uart_spi.h
+F13=E:\GitHub\GPS\init_perif.h
+F14=uart_spi.h
+F15=init_perif.h
 [Bookmarks1]
-TimeStamp=1350280896
-Row=23
+TimeStamp=1350808909
+Row=6
 Column=0
 ScrollPosX=0
 ScrollPosY=0
@@ -503,10 +540,10 @@ L13=Enhanced function parameters passing: Yes
 L14=Automatic register allocation: Yes
 L15=Smart register allocation: Yes
 L16=
-L17=Build: 4
-L18=11831 line(s) compiled
+L17=Build: 30
+L18=12727 line(s) compiled
 L19=No errors
-L20=1 warning(s)
+L20=3 warning(s)
 L21=
 L22=Bit variables area: 0x2 to 0x2
 L23=Bit variables size: 1 byte(s)
@@ -524,19 +561,19 @@ L34=
 L35=Heap size: 0 byte(s)
 L36=
 L37=EEPROM usage: 0 byte(s), 0,0% of EEPROM
-L38=Program size: 216 words (432 bytes), 2,6% of FLASH
+L38=Program size: 205 words (410 bytes), 2,5% of FLASH
 L39=0 words (0 bytes), 0,0% reduced by Code Compression
 Lines=39
 [BuildInfoAssembler]
 L1=AVRASM: AVR macro assembler 2.1.30 (build 592 Nov  7 2008 12:38:17)
 L2=Copyright (C) 1995-2008 ATMEL Corporation
 L3=
-L4=E:\GitHub\GPS\Debug\List\GPS.asm(1675): No EEPROM data, deleting E:\GitHub\GPS\Debug\Exe\GPS.eep
+L4=E:\GitHub\GPS\Debug\List\GPS.asm(1651): No EEPROM data, deleting E:\GitHub\GPS\Debug\Exe\GPS.eep
 L5=
 L6=ATmega16 memory use summary [bytes]:
 L7=Segment   Begin    End      Code   Data   Used    Size   Use%
 L8=---------------------------------------------------------------
-L9=[.cseg] 0x000000 0x0001b0    394     38    432   16384   2.6%
+L9=[.cseg] 0x000000 0x00019a    370     40    410   16384   2.5%
 L10=[.dseg] 0x000060 0x0001b0      0     80     80    1024   7.8%
 L11=[.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 L12=
@@ -577,16 +614,12 @@ BK8=-1
 BK9=-1
 [FoldedCode3]
 Blocks=0
-[FoldedCode1]
-Line1=54
-Line2=80
-Blocks=2
 [Bookmarks4]
-TimeStamp=1350281467
-Row=43
+TimeStamp=1350284384
+Row=0
 Column=0
 ScrollPosX=0
-ScrollPosY=0
+ScrollPosY=18
 BK0=-1
 BK1=-1
 BK2=-1
@@ -597,12 +630,10 @@ BK6=-1
 BK7=-1
 BK8=-1
 BK9=-1
-[FoldedCode4]
-Blocks=0
 [Bookmarks5]
-TimeStamp=1350281468
-Row=2
-Column=0
+TimeStamp=1350924384
+Row=13
+Column=17
 ScrollPosX=0
 ScrollPosY=0
 BK0=-1
@@ -615,8 +646,6 @@ BK6=-1
 BK7=-1
 BK8=-1
 BK9=-1
-[FoldedCode5]
-Blocks=0
 [Bookmarks6]
 TimeStamp=1011984394
 Row=0
@@ -636,8 +665,8 @@ BK9=-1
 [FoldedCode6]
 Blocks=0
 [Bookmarks7]
-TimeStamp=1350282005
-Row=0
+TimeStamp=1350870678
+Row=1
 Column=0
 ScrollPosX=0
 ScrollPosY=0
@@ -651,8 +680,6 @@ BK6=-1
 BK7=-1
 BK8=-1
 BK9=-1
-[FoldedCode7]
-Blocks=0
 [Bookmarks8]
 TimeStamp=1350283771
 Row=0
@@ -678,35 +705,8 @@ HIDGeneric=0
 HIDKeyboard=0
 HIDMouse=0
 HIDJoystick=0
-[HeadersList]
-Files=3
-F1=E:\GitHub\GPS\main.c
-F2=E:\GitHub\GPS\init_perif.c
-F3=E:\GitHub\GPS\ports.c
-[Header1]
-Files=7
-F1=ports.h
-F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
-F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
-F4=C:\Program Files (x86)\CodeVisionAVR\inc\stdio.h
-F5=C:\Program Files (x86)\CodeVisionAVR\inc\io.h
-F6=C:\Program Files (x86)\CodeVisionAVR\inc\stdarg.h
-F7=init_perif.h
-[Header2]
-Files=3
-F1=init_perif.h
-F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
-F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
-[Header3]
-Files=6
-F1=ports.h
-F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
-F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
-F4=C:\Program Files (x86)\CodeVisionAVR\inc\stdio.h
-F5=C:\Program Files (x86)\CodeVisionAVR\inc\io.h
-F6=C:\Program Files (x86)\CodeVisionAVR\inc\stdarg.h
 [Bookmarks9]
-TimeStamp=1350282005
+TimeStamp=1350870678
 Row=0
 Column=0
 ScrollPosX=0
@@ -721,5 +721,155 @@ BK6=-1
 BK7=-1
 BK8=-1
 BK9=-1
+[Bookmarks10]
+TimeStamp=1350924384
+Row=104
+Column=4
+ScrollPosX=0
+ScrollPosY=78
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[Bookmarks11]
+TimeStamp=1350924384
+Row=67
+Column=0
+ScrollPosX=0
+ScrollPosY=36
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[Bookmarks12]
+TimeStamp=1350305400
+Row=8
+Column=0
+ScrollPosX=0
+ScrollPosY=0
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[FoldedCode12]
+Blocks=0
+[Bookmarks13]
+TimeStamp=1350284562
+Row=2
+Column=0
+ScrollPosX=0
+ScrollPosY=0
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[FoldedCode13]
+Blocks=0
+[Bookmarks14]
+TimeStamp=1350871072
+Row=16
+Column=0
+ScrollPosX=0
+ScrollPosY=0
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[Bookmarks15]
+TimeStamp=1350872852
+Row=2
+Column=20
+ScrollPosX=0
+ScrollPosY=0
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[FoldedCode7]
+Blocks=0
+[HeadersList]
+Files=4
+F1=E:\GitHub\GPS\main.c
+F2=E:\GitHub\GPS\init_perif.c
+F3=E:\GitHub\GPS\ports.c
+F4=E:\GitHub\GPS\uart_spi.c
+[Header1]
+Files=8
+F1=ports.h
+F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
+F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
+F4=C:\Program Files (x86)\CodeVisionAVR\inc\stdio.h
+F5=C:\Program Files (x86)\CodeVisionAVR\inc\io.h
+F6=C:\Program Files (x86)\CodeVisionAVR\inc\stdarg.h
+F7=init_perif.h
+F8=uart_spi.h
+[Header2]
+Files=3
+F1=init_perif.h
+F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
+F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
+[Header3]
+Files=6
+F1=ports.h
+F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
+F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
+F4=C:\Program Files (x86)\CodeVisionAVR\inc\stdio.h
+F5=C:\Program Files (x86)\CodeVisionAVR\inc\io.h
+F6=C:\Program Files (x86)\CodeVisionAVR\inc\stdarg.h
+[Header4]
+Files=3
+F1=uart_spi.h
+F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
+F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
+[FoldedCode1]
+Blocks=0
+[FoldedCode10]
+Blocks=0
+[FoldedCode5]
+Blocks=0
+[FoldedCode11]
+Blocks=0
 [FoldedCode9]
+Blocks=0
+[FoldedCode14]
+Blocks=0
+[FoldedCode15]
+Blocks=0
+[FoldedCode4]
 Blocks=0

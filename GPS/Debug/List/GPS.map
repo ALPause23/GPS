@@ -19,7 +19,8 @@ i                                                                               
 FLASH Allocation [words]
 Function                                                                          Address   Size
 ------------------------------------------------------------------------------------------------
-main                                                                              0x0006B      6
-init_periferal                                                                    0x00071     45
-init_ports                                                                        0x0009E     12
-usart_rx_isr                                                                      0x000AA     35
+SPI_WriteByte                                                                     0x0006B      7
+main                                                                              0x00072     11
+init_periferal                                                                    0x0007D     45
+init_ports                                                                        0x000AA     12
+usart_rx_isr                                                                      0x000B6     35

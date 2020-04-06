@@ -6,7 +6,7 @@
 ;Build configuration    : Debug
 ;Chip type              : ATmega16
 ;Program type           : Application
-;Clock frequency        : 40,000000 MHz
+;Clock frequency        : 8,000000 MHz
 ;Memory model           : Small
 ;Optimize for           : Size
 ;(s)printf features     : int, width
@@ -1236,36 +1236,60 @@ __GLOBAL_INI_END:
 	#endif
 ;#include "init_perif.h"
 ;#include "uart_spi.h"
+;#include "delay.h"
 ;
 ;// Declare your global variables here
-;
-;void main(void)
+;void SPI_WriteByte()
 ; 0000 0008 {
 
 	.CSEG
+_SPI_WriteByte:
+; .FSTART _SPI_WriteByte
+; 0000 0009    PORTB &= ~(1<<PORTB4);
+	CBI  0x18,4
+; 0000 000A    SPDR = 0b00110000;
+	LDI  R30,LOW(48)
+	OUT  0xF,R30
+; 0000 000B    while(!(SPSR & (1<<SPIF)));
+_0x3:
+	SBIS 0xE,7
+	RJMP _0x3
+; 0000 000C    PORTB |= (1<<PORTB4);
+	SBI  0x18,4
+; 0000 000D }
+	RET
+; .FEND
+;
+;void main(void)
+; 0000 0010 {
 _main:
 ; .FSTART _main
-; 0000 0009     // Declare your local variables here
-; 0000 000A     init_ports();
+; 0000 0011     // Declare your local variables here
+; 0000 0012     init_ports();
 	CALL _init_ports
-; 0000 000B     init_periferal();
+; 0000 0013     init_periferal();
 	RCALL _init_periferal
-; 0000 000C 
-; 0000 000D 
-; 0000 000E     // Global enable interrupts
-; 0000 000F     #asm("sei")
-	sei
-; 0000 0010 
-; 0000 0011     while (1)
-_0x3:
-; 0000 0012     {
-; 0000 0013         // Place your code here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 ; 0000 0014 
-; 0000 0015     }
-	RJMP _0x3
-; 0000 0016 }
+; 0000 0015 
+; 0000 0016     // Global enable interrupts
+; 0000 0017     #asm("sei")
+	sei
+; 0000 0018 
+; 0000 0019     while (1)
 _0x6:
+; 0000 001A     {
+; 0000 001B         // Place your code here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+; 0000 001C         delay_ms(100);
+	LDI  R26,LOW(100)
+	LDI  R27,0
+	CALL _delay_ms
+; 0000 001D         SPI_WriteByte();
+	RCALL _SPI_WriteByte
+; 0000 001E     }
 	RJMP _0x6
+; 0000 001F }
+_0x9:
+	RJMP _0x9
 ; .FEND
 ;#include "init_perif.h"
 	#ifndef __SLEEP_DEFINED__
@@ -1646,5 +1670,16 @@ _rx_buffer:
 	.CSEG
 
 	.CSEG
+_delay_ms:
+	adiw r26,0
+	breq __delay_ms1
+__delay_ms0:
+	__DELAY_USW 0x7D0
+	wdr
+	sbiw r26,1
+	brne __delay_ms0
+__delay_ms1:
+	ret
+
 ;END OF CODE MARKER
 __END_OF_CODE:
