@@ -3,53 +3,53 @@ GPS.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000fa  00000000  00000000  00000094  2**1
+  0 .text         0000016e  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000002  00800060  000000fa  0000018e  2**0
-                  CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000002  00800062  00800062  00000190  2**0
+  1 .bss          00000004  00800060  00800060  000001e2  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000190  2**0
+  2 .comment      00000030  00000000  00000000  000001e2  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000020  00000000  00000000  000001c0  2**0
+  3 .debug_aranges 00000028  00000000  00000000  00000212  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   0000018b  00000000  00000000  000001e0  2**0
+  4 .debug_info   00000198  00000000  00000000  0000023a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000000e6  00000000  00000000  0000036b  2**0
+  5 .debug_abbrev 00000118  00000000  00000000  000003d2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000014a  00000000  00000000  00000451  2**0
+  6 .debug_line   000001b7  00000000  00000000  000004ea  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000024  00000000  00000000  0000059c  2**2
+  7 .debug_frame  00000034  00000000  00000000  000006a4  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000157  00000000  00000000  000005c0  2**0
+  8 .debug_str    0000015f  00000000  00000000  000006d8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000010  00000000  00000000  00000717  2**0
+  9 .debug_loc    00000041  00000000  00000000  00000837  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000018  00000000  00000000  00000878  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
    0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
-   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
 
 00000054 <__ctors_end>:
   54:	11 24       	eor	r1, r1
@@ -59,127 +59,314 @@ Disassembly of section .text:
   5c:	de bf       	out	0x3e, r29	; 62
   5e:	cd bf       	out	0x3d, r28	; 61
 
-00000060 <__do_copy_data>:
-  60:	10 e0       	ldi	r17, 0x00	; 0
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ea ef       	ldi	r30, 0xFA	; 250
-  68:	f0 e0       	ldi	r31, 0x00	; 0
-  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
-  6c:	05 90       	lpm	r0, Z+
-  6e:	0d 92       	st	X+, r0
-  70:	a2 36       	cpi	r26, 0x62	; 98
-  72:	b1 07       	cpc	r27, r17
-  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
 
-00000076 <__do_clear_bss>:
-  76:	20 e0       	ldi	r18, 0x00	; 0
-  78:	a2 e6       	ldi	r26, 0x62	; 98
-  7a:	b0 e0       	ldi	r27, 0x00	; 0
-  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
 
-0000007e <.do_clear_bss_loop>:
-  7e:	1d 92       	st	X+, r1
+0000006a <.do_clear_bss_start>:
+  6a:	a4 36       	cpi	r26, 0x64	; 100
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 73 00 	call	0xe6	; 0xe6 <main>
+  74:	0c 94 b5 00 	jmp	0x16a	; 0x16a <_exit>
 
-00000080 <.do_clear_bss_start>:
-  80:	a4 36       	cpi	r26, 0x64	; 100
-  82:	b2 07       	cpc	r27, r18
-  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 49 00 	call	0x92	; 0x92 <main>
-  8a:	0c 94 7b 00 	jmp	0xf6	; 0xf6 <_exit>
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-0000008e <__bad_interrupt>:
-  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
-
-00000092 <main>:
+0000007c <InitLed>:
+	};*/
+uint16_t i;
 uint8_t a,b;
 
-int main(void)
-
+void InitLed()
 {
-	DDRB |= ((1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
-  92:	87 b3       	in	r24, 0x17	; 23
-  94:	80 6b       	ori	r24, 0xB0	; 176
-  96:	87 bb       	out	0x17, r24	; 23
+  7c:	84 e0       	ldi	r24, 0x04	; 4
+  7e:	90 e0       	ldi	r25, 0x00	; 0
+	for(int i = 0; i < 4; i++)
+	{
+		// инициализация дисплея
+		PORTB &= ~(1<<PORTB4);
+		SPDR = 0x0F;
+  80:	2f e0       	ldi	r18, 0x0F	; 15
+		while(!(SPSR & (1<<SPIF)));
+		PORTB |= (1<<PORTB4);
+		
+		
+		PORTB &= ~(1<<PORTB4);
+		SPDR = 0x0C;
+  82:	ec e0       	ldi	r30, 0x0C	; 12
+		while(!(SPSR & (1<<SPIF)));
+		//PORTB |= (1<<PORTB4); //высокий уровень
+		//_delay_ms(50);
+		
+		//PORTB &= ~(1<<PORTB4); //низкий уровень
+		SPDR = 0x01;
+  84:	71 e0       	ldi	r23, 0x01	; 1
+		while(!(SPSR & (1<<SPIF)));
+		PORTB |= (1<<PORTB4);
+		
+		
+		PORTB &= ~(1<<PORTB4);
+		SPDR = 0x0A;
+  86:	6a e0       	ldi	r22, 0x0A	; 10
+		while(!(SPSR & (1<<SPIF)));
+		PORTB |= (1<<PORTB4);
+		
+		
+		PORTB &= ~(1<<PORTB4);
+		SPDR = 0x0B;
+  88:	5b e0       	ldi	r21, 0x0B	; 11
+		while(!(SPSR & (1<<SPIF)));
+		//PORTB |= (1<<PORTB4); //высокий уровень
+		//_delay_ms(50);
+		
+		//PORTB &= ~(1<<PORTB4); //низкий уровень
+		SPDR = 0x07;
+  8a:	47 e0       	ldi	r20, 0x07	; 7
+		while(!(SPSR & (1<<SPIF)));
+		PORTB |= (1<<PORTB4);
+		
+		
+		PORTB &= ~(1<<PORTB4);
+		SPDR = 0x09;
+  8c:	39 e0       	ldi	r19, 0x09	; 9
+void InitLed()
+{
+	for(int i = 0; i < 4; i++)
+	{
+		// инициализация дисплея
+		PORTB &= ~(1<<PORTB4);
+  8e:	c4 98       	cbi	0x18, 4	; 24
+		SPDR = 0x0F;
+  90:	2f b9       	out	0x0f, r18	; 15
+		while(!(SPSR & (1<<SPIF)));
+  92:	77 9b       	sbis	0x0e, 7	; 14
+  94:	fe cf       	rjmp	.-4      	; 0x92 <InitLed+0x16>
+		//PORTB |= (1<<PORTB4); //высокий уровень
+		//_delay_ms(50);
+		
+		//PORTB &= ~(1<<PORTB4); //низкий уровень
+		SPDR = 0x00;
+  96:	1f b8       	out	0x0f, r1	; 15
+		while(!(SPSR & (1<<SPIF)));
+  98:	77 9b       	sbis	0x0e, 7	; 14
+  9a:	fe cf       	rjmp	.-4      	; 0x98 <InitLed+0x1c>
+		PORTB |= (1<<PORTB4);
+  9c:	c4 9a       	sbi	0x18, 4	; 24
+		
+		
+		PORTB &= ~(1<<PORTB4);
+  9e:	c4 98       	cbi	0x18, 4	; 24
+		SPDR = 0x0C;
+  a0:	ef b9       	out	0x0f, r30	; 15
+		while(!(SPSR & (1<<SPIF)));
+  a2:	77 9b       	sbis	0x0e, 7	; 14
+  a4:	fe cf       	rjmp	.-4      	; 0xa2 <InitLed+0x26>
+		//PORTB |= (1<<PORTB4); //высокий уровень
+		//_delay_ms(50);
+		
+		//PORTB &= ~(1<<PORTB4); //низкий уровень
+		SPDR = 0x01;
+  a6:	7f b9       	out	0x0f, r23	; 15
+		while(!(SPSR & (1<<SPIF)));
+  a8:	77 9b       	sbis	0x0e, 7	; 14
+  aa:	fe cf       	rjmp	.-4      	; 0xa8 <InitLed+0x2c>
+		PORTB |= (1<<PORTB4);
+  ac:	c4 9a       	sbi	0x18, 4	; 24
+		
+		
+		PORTB &= ~(1<<PORTB4);
+  ae:	c4 98       	cbi	0x18, 4	; 24
+		SPDR = 0x0A;
+  b0:	6f b9       	out	0x0f, r22	; 15
+		while(!(SPSR & (1<<SPIF)));
+  b2:	77 9b       	sbis	0x0e, 7	; 14
+  b4:	fe cf       	rjmp	.-4      	; 0xb2 <InitLed+0x36>
+		//PORTB |= (1<<PORTB4); //высокий уровень
+		//_delay_ms(50);
+		
+		//PORTB &= ~(1<<PORTB4); //низкий уровень
+		SPDR = 0x0F;
+  b6:	2f b9       	out	0x0f, r18	; 15
+		while(!(SPSR & (1<<SPIF)));
+  b8:	77 9b       	sbis	0x0e, 7	; 14
+  ba:	fe cf       	rjmp	.-4      	; 0xb8 <InitLed+0x3c>
+		PORTB |= (1<<PORTB4);
+  bc:	c4 9a       	sbi	0x18, 4	; 24
+		
+		
+		PORTB &= ~(1<<PORTB4);
+  be:	c4 98       	cbi	0x18, 4	; 24
+		SPDR = 0x0B;
+  c0:	5f b9       	out	0x0f, r21	; 15
+		while(!(SPSR & (1<<SPIF)));
+  c2:	77 9b       	sbis	0x0e, 7	; 14
+  c4:	fe cf       	rjmp	.-4      	; 0xc2 <InitLed+0x46>
+		//PORTB |= (1<<PORTB4); //высокий уровень
+		//_delay_ms(50);
+		
+		//PORTB &= ~(1<<PORTB4); //низкий уровень
+		SPDR = 0x07;
+  c6:	4f b9       	out	0x0f, r20	; 15
+		while(!(SPSR & (1<<SPIF)));
+  c8:	77 9b       	sbis	0x0e, 7	; 14
+  ca:	fe cf       	rjmp	.-4      	; 0xc8 <InitLed+0x4c>
+		PORTB |= (1<<PORTB4);
+  cc:	c4 9a       	sbi	0x18, 4	; 24
+		
+		
+		PORTB &= ~(1<<PORTB4);
+  ce:	c4 98       	cbi	0x18, 4	; 24
+		SPDR = 0x09;
+  d0:	3f b9       	out	0x0f, r19	; 15
+		while(!(SPSR & (1<<SPIF)));
+  d2:	77 9b       	sbis	0x0e, 7	; 14
+  d4:	fe cf       	rjmp	.-4      	; 0xd2 <InitLed+0x56>
+		//PORTB |= (1<<PORTB4); //высокий уровень
+		//_delay_ms(50);
+				
+		//PORTB &= ~(1<<PORTB4); //низкий уровень
+		SPDR = 0x00;
+  d6:	1f b8       	out	0x0f, r1	; 15
+		while(!(SPSR & (1<<SPIF)));
+  d8:	77 9b       	sbis	0x0e, 7	; 14
+  da:	fe cf       	rjmp	.-4      	; 0xd8 <InitLed+0x5c>
+		PORTB |= (1<<PORTB4);
+  dc:	c4 9a       	sbi	0x18, 4	; 24
+  de:	01 97       	sbiw	r24, 0x01	; 1
+uint16_t i;
+uint8_t a,b;
+
+void InitLed()
+{
+	for(int i = 0; i < 4; i++)
+  e0:	00 97       	sbiw	r24, 0x00	; 0
+  e2:	a9 f6       	brne	.-86     	; 0x8e <InitLed+0x12>
+		//PORTB &= ~(1<<PORTB4); //низкий уровень
+		SPDR = 0x00;
+		while(!(SPSR & (1<<SPIF)));
+		PORTB |= (1<<PORTB4);
+	}
+}
+  e4:	08 95       	ret
+
+000000e6 <main>:
+
+int main(void)
+{
+	int j = 0;
+	DDRB |= ((1<<PORTB0)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
+  e6:	87 b3       	in	r24, 0x17	; 23
+  e8:	81 6b       	ori	r24, 0xB1	; 177
+  ea:	87 bb       	out	0x17, r24	; 23
+	
 	PORTB &= ~((1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
-  98:	88 b3       	in	r24, 0x18	; 24
-  9a:	8f 74       	andi	r24, 0x4F	; 79
-  9c:	88 bb       	out	0x18, r24	; 24
+  ec:	88 b3       	in	r24, 0x18	; 24
+  ee:	8f 74       	andi	r24, 0x4F	; 79
+  f0:	88 bb       	out	0x18, r24	; 24
+	PORTB |= (1<<PORTB0);
+  f2:	c0 9a       	sbi	0x18, 0	; 24
 	
 	SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
-  9e:	80 e5       	ldi	r24, 0x50	; 80
-  a0:	8d b9       	out	0x0d, r24	; 13
+  f4:	80 e5       	ldi	r24, 0x50	; 80
+  f6:	8d b9       	out	0x0d, r24	; 13
 	SPSR=(0<<SPI2X);
-  a2:	1e b8       	out	0x0e, r1	; 14
-		
-	{
+  f8:	1e b8       	out	0x0e, r1	; 14
+	
+	InitLed();
+  fa:	0e 94 3e 00 	call	0x7c	; 0x7c <InitLed>
+	
+	
+	
+	i = 0x13c;	
+  fe:	8c e3       	ldi	r24, 0x3C	; 60
+ 100:	91 e0       	ldi	r25, 0x01	; 1
+ 102:	90 93 62 00 	sts	0x0062, r25
+ 106:	80 93 61 00 	sts	0x0061, r24
 		a = (i >> 8);
-  a4:	90 91 60 00 	lds	r25, 0x0060
-  a8:	80 91 61 00 	lds	r24, 0x0061
-  ac:	80 93 63 00 	sts	0x0063, r24
+ 10a:	81 e0       	ldi	r24, 0x01	; 1
+ 10c:	80 93 63 00 	sts	0x0063, r24
 		b = i;
-  b0:	90 93 62 00 	sts	0x0062, r25
+ 110:	8c e3       	ldi	r24, 0x3C	; 60
+ 112:	80 93 60 00 	sts	0x0060, r24
 		
 		
+		PORTB &= ~(1<<PORTB4);
+ 116:	c4 98       	cbi	0x18, 4	; 24
 		SPDR = a;
-  b4:	8f b9       	out	0x0f, r24	; 15
-		while(!(SPSR & (1<<SPIF)));//подождем пока данные передадутся
-  b6:	77 9b       	sbis	0x0e, 7	; 14
-  b8:	fe cf       	rjmp	.-4      	; 0xb6 <main+0x24>
-		//сгенерируем отрицательный фронт для записи в STORAGE REGISTER
-		PORTB |= (1<<PORTB4); //высокий уровень
-  ba:	c4 9a       	sbi	0x18, 4	; 24
-		PORTB &= ~(1<<PORTB4); //низкий уровень
-  bc:	c4 98       	cbi	0x18, 4	; 24
+ 118:	80 91 63 00 	lds	r24, 0x0063
+ 11c:	8f b9       	out	0x0f, r24	; 15
+		while(!(SPSR & (1<<SPIF)));
+ 11e:	77 9b       	sbis	0x0e, 7	; 14
+ 120:	fe cf       	rjmp	.-4      	; 0x11e <main+0x38>
+		//PORTB |= (1<<PORTB4); //высокий уровень
+		//_delay_ms(50);
+		
+		//PORTB &= ~(1<<PORTB4); //низкий уровень
+		SPDR = b;
+ 122:	80 91 60 00 	lds	r24, 0x0060
+ 126:	8f b9       	out	0x0f, r24	; 15
+		while(!(SPSR & (1<<SPIF)));
+ 128:	77 9b       	sbis	0x0e, 7	; 14
+ 12a:	fe cf       	rjmp	.-4      	; 0x128 <main+0x42>
+		PORTB |= (1<<PORTB4);
+ 12c:	c4 9a       	sbi	0x18, 4	; 24
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  be:	2f e7       	ldi	r18, 0x7F	; 127
-  c0:	88 e3       	ldi	r24, 0x38	; 56
-  c2:	91 e0       	ldi	r25, 0x01	; 1
-  c4:	21 50       	subi	r18, 0x01	; 1
-  c6:	80 40       	sbci	r24, 0x00	; 0
-  c8:	90 40       	sbci	r25, 0x00	; 0
-  ca:	e1 f7       	brne	.-8      	; 0xc4 <main+0x32>
-  cc:	00 c0       	rjmp	.+0      	; 0xce <main+0x3c>
-  ce:	00 00       	nop
+ 12e:	2f ef       	ldi	r18, 0xFF	; 255
+ 130:	89 e6       	ldi	r24, 0x69	; 105
+ 132:	98 e1       	ldi	r25, 0x18	; 24
+ 134:	21 50       	subi	r18, 0x01	; 1
+ 136:	80 40       	sbci	r24, 0x00	; 0
+ 138:	90 40       	sbci	r25, 0x00	; 0
+ 13a:	e1 f7       	brne	.-8      	; 0x134 <main+0x4e>
+ 13c:	00 c0       	rjmp	.+0      	; 0x13e <main+0x58>
+ 13e:	00 00       	nop
 		
-		//PORTB &= ~(1<<PORTB4);
-		_delay_ms(50);
+		_delay_ms(1000);
 		
+		i = 0x242;
+ 140:	82 e4       	ldi	r24, 0x42	; 66
+ 142:	92 e0       	ldi	r25, 0x02	; 2
+ 144:	90 93 62 00 	sts	0x0062, r25
+ 148:	80 93 61 00 	sts	0x0061, r24
+		PORTB &= ~(1<<PORTB4);
+ 14c:	c4 98       	cbi	0x18, 4	; 24
+		SPDR = a;
+ 14e:	80 91 63 00 	lds	r24, 0x0063
+ 152:	8f b9       	out	0x0f, r24	; 15
+		while(!(SPSR & (1<<SPIF)));
+ 154:	77 9b       	sbis	0x0e, 7	; 14
+ 156:	fe cf       	rjmp	.-4      	; 0x154 <main+0x6e>
+		//PORTB |= (1<<PORTB4); //высокий уровень
+		//_delay_ms(50);
+		
+		//PORTB &= ~(1<<PORTB4); //низкий уровень
 		SPDR = b;
-  d0:	80 91 62 00 	lds	r24, 0x0062
-  d4:	8f b9       	out	0x0f, r24	; 15
-		while(!(SPSR & (1<<SPIF)));//подождем пока данные передадутся
-  d6:	77 9b       	sbis	0x0e, 7	; 14
-  d8:	fe cf       	rjmp	.-4      	; 0xd6 <main+0x44>
-		//сгенерируем отрицательный фронт для записи в STORAGE REGISTER
-		PORTB |= (1<<PORTB4); //высокий уровень
-  da:	c4 9a       	sbi	0x18, 4	; 24
-		PORTB &= ~(1<<PORTB4); //низкий уровень
-  dc:	c4 98       	cbi	0x18, 4	; 24
-  de:	2f e7       	ldi	r18, 0x7F	; 127
-  e0:	88 e3       	ldi	r24, 0x38	; 56
-  e2:	91 e0       	ldi	r25, 0x01	; 1
-  e4:	21 50       	subi	r18, 0x01	; 1
-  e6:	80 40       	sbci	r24, 0x00	; 0
-  e8:	90 40       	sbci	r25, 0x00	; 0
-  ea:	e1 f7       	brne	.-8      	; 0xe4 <main+0x52>
-  ec:	00 c0       	rjmp	.+0      	; 0xee <main+0x5c>
-  ee:	00 00       	nop
+ 158:	80 91 60 00 	lds	r24, 0x0060
+ 15c:	8f b9       	out	0x0f, r24	; 15
+		while(!(SPSR & (1<<SPIF)));
+ 15e:	77 9b       	sbis	0x0e, 7	; 14
+ 160:	fe cf       	rjmp	.-4      	; 0x15e <main+0x78>
+		PORTB |= (1<<PORTB4);
+ 162:	c4 9a       	sbi	0x18, 4	; 24
 		
-		//PORTB &= ~(1<<PORTB4);
-		_delay_ms(50);	
-	}
-  f0:	80 e0       	ldi	r24, 0x00	; 0
-  f2:	90 e0       	ldi	r25, 0x00	; 0
-  f4:	08 95       	ret
+	
+ 164:	80 e0       	ldi	r24, 0x00	; 0
+ 166:	90 e0       	ldi	r25, 0x00	; 0
+ 168:	08 95       	ret
 
-000000f6 <_exit>:
-  f6:	f8 94       	cli
+0000016a <_exit>:
+ 16a:	f8 94       	cli
 
-000000f8 <__stop_program>:
-  f8:	ff cf       	rjmp	.-2      	; 0xf8 <__stop_program>
+0000016c <__stop_program>:
+ 16c:	ff cf       	rjmp	.-2      	; 0x16c <__stop_program>

@@ -7,9 +7,9 @@
  </FRAME>
  <MODULE name="VSMDEBUG">
   <PWI>
-   <POPUP w="800" x="38" flags="00000002" y="128" h="200" pid="0" iid="-1">
+   <POPUP w="800" x="38" flags="00000003" y="128" h="200" pid="0" iid="-1">
     <PROPERTIES>
-     <ITEM name="Message Column Width">663</ITEM>
+     <ITEM name="Message Column Width">542</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
      <ITEM name="Source Column Width">100</ITEM>
      <ITEM name="Time Column Width">120</ITEM>
@@ -33,10 +33,12 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="450" x="1442" flags="00000023" y="383" h="250" pid="0" iid="6">
+   <POPUP w="788" x="285" flags="00000023" y="121" h="382" pid="0" iid="6">
     <PROPERTIES>
      <ITEM name="AutoEcho">0</ITEM>
+     <ITEM name="HSplitter1Pos">100</ITEM>
      <ITEM name="HexMode">0</ITEM>
+     <ITEM name="VSplitter1Pos">238</ITEM>
     </PROPERTIES>
    </POPUP>
    <POPUP w="30" x="98" flags="00000008" y="188" h="16" pid="3" iid="1">
@@ -102,13 +104,41 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="238" flags="0000802b" y="328" h="400" pid="1" iid="1">
+   <POPUP w="600" x="10" flags="0000802b" y="125" h="400" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"main",00DE,0008,5A2E,4E63,-1
+     <ITEM name="Breakpoint 0">"main",00FA,0014,796F,2438,-1
 </ITEM>
-     <ITEM name="Breakpoint 1">"usart_rx_isr",015A,0000,F7A2,2559,-1
+     <ITEM name="Breakpoint 1">"main",010C,0026,98C6,2438,-1
 </ITEM>
-     <ITEM name="Breakpoint 2">"usart_rx_isr",0170,0016,4F4F,2559,1
+     <ITEM name="Breakpoint 10">"main",011E,008C,3769,2438,-1
+</ITEM>
+     <ITEM name="Breakpoint 11">"main",017A,00E8,4645,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 12">"main",0142,00B0,FEAA,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 13">"main",0150,00BE,5F9D,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 14">"main",0156,00C4,5F9D,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 15">"main",0174,00E2,5F9D,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 16">"main",0174,00E2,132D,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 2">"main",011C,0036,E62D,2438,-1
+</ITEM>
+     <ITEM name="Breakpoint 3">"main",012C,0046,EA1F,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 4">"main",012C,0046,9F50,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 5">"main",012E,0048,F528,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 6">"main",0132,004C,BE92,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 7">"main",0100,006E,9F50,2438,1
+</ITEM>
+     <ITEM name="Breakpoint 8">"main",0114,0082,F3C6,2438,-1
+</ITEM>
+     <ITEM name="Breakpoint 9">"main",0114,0082,5F9D,2438,1
 </ITEM>
      <ITEM name="CaseSensitive">No</ITEM>
      <ITEM name="DISPADDRS">Yes</ITEM>
@@ -119,19 +149,19 @@
      <ITEM name="nBreakpoints">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="421" x="794" flags="0000000b" y="393" h="569" pid="2" iid="1">
+   <POPUP w="421" x="1429" flags="0000000b" y="129" h="569" pid="2" iid="1">
     <PROPERTIES>
-     <ITEM name="Address Column Width">94</ITEM>
+     <ITEM name="Address Column Width">78</ITEM>
      <ITEM name="AutoResize">No</ITEM>
      <ITEM name="Gridlines">Yes</ITEM>
-     <ITEM name="Name Column Width">147</ITEM>
+     <ITEM name="Name Column Width">93</ITEM>
      <ITEM name="ShowAddresses">Yes</ITEM>
      <ITEM name="ShowGlobals">Yes</ITEM>
      <ITEM name="ShowPreviousValues">No</ITEM>
      <ITEM name="ShowTypes">No</ITEM>
      <ITEM name="ShowWatchPoint">No</ITEM>
      <ITEM name="TriggerMode">0</ITEM>
-     <ITEM name="Value Column Width">94</ITEM>
+     <ITEM name="Value Column Width">159</ITEM>
      <ITEM name="Version">100</ITEM>
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
@@ -157,6 +187,12 @@
      <ITEM name="ComboBox1007">P</ITEM>
      <ITEM name="ComboBox1008">A</ITEM>
      <ITEM name="ComboBox1009">N</ITEM>
+     <ITEM name="HSplitter1Pos">100</ITEM>
+     <ITEM name="VSplitter1Pos">238</ITEM>
+    </PROPERTIES>
+   </POPUP>
+   <POPUP w="616" x="932" flags="00000023" y="530" h="379" pid="0" iid="12">
+    <PROPERTIES>
      <ITEM name="HSplitter1Pos">100</ITEM>
      <ITEM name="VSplitter1Pos">238</ITEM>
     </PROPERTIES>

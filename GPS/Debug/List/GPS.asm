@@ -1238,70 +1238,280 @@ __GLOBAL_INI_END:
 ;#include "uart_spi.h"
 ;#include "delay.h"
 ;
-;// Declare your global variables here
-;void SPI_WriteByte()
-; 0000 0008 {
+;
+;
+;void InitLed()
+; 0000 0009 {
 
 	.CSEG
-; 0000 0009    PORTB &= ~(1<<PORTB4);
-; 0000 000A    SPDR = 0b100011111111;
-; 0000 000B    while(!(SPSR & (1<<SPIF)));
-; 0000 000C    PORTB |= (1<<PORTB4);
-; 0000 000D }
-;
-;void main(void)
-; 0000 0010 {    int qaz;
-_main:
-; .FSTART _main
-; 0000 0011     // Declare your local variables here
-; 0000 0012     init_ports();
-;	qaz -> R16,R17
-	CALL _init_ports
-; 0000 0013     init_periferal();
-	RCALL _init_periferal
-; 0000 0014     //
-; 0000 0015     // Global enable interrupts
-; 0000 0016     #asm("sei")
-	sei
-; 0000 0017 
-; 0000 0018     while (1)
-_0x6:
-; 0000 0019     {
-; 0000 001A         // Place your code here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-; 0000 001B         //delay_ms(100);
-; 0000 001C         //SPI_WriteByte();
-; 0000 001D         for (qaz = 0; qaz < 256; qaz++)
+_InitLed:
+; .FSTART _InitLed
+; 0000 000A     int i = 0;
+; 0000 000B     for(i; i < 4; i++)
+	ST   -Y,R17
+	ST   -Y,R16
+;	i -> R16,R17
 	__GETWRN 16,17,0
-_0xA:
-	__CPWRN 16,17,256
-	BRGE _0xB
-; 0000 001E           {
-; 0000 001F             SPDR = qaz;
-	OUT  0xF,R16
-; 0000 0020             while(!(SPSR & (1<<SPIF)));//подождем пока данные передадутся
+	MOVW R30,R16
+_0x4:
+	__CPWRN 16,17,4
+	BRGE _0x5
+; 0000 000C     {
+; 0000 000D         // инициализация дисплея
+; 0000 000E         PORTB &= ~(1<<PORTB4);
+	CBI  0x18,4
+; 0000 000F         SPDR = 0x0F;
+	LDI  R30,LOW(15)
+	OUT  0xF,R30
+; 0000 0010         while(!(SPSR & (1<<SPIF)));
+_0x6:
+	SBIS 0xE,7
+	RJMP _0x6
+; 0000 0011         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0012         //_delay_ms(50);
+; 0000 0013 
+; 0000 0014         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 0015         SPDR = 0x00;
+	LDI  R30,LOW(0)
+	OUT  0xF,R30
+; 0000 0016         while(!(SPSR & (1<<SPIF)));
+_0x9:
+	SBIS 0xE,7
+	RJMP _0x9
+; 0000 0017         PORTB |= (1<<PORTB4);
+	SBI  0x18,4
+; 0000 0018 
+; 0000 0019 
+; 0000 001A         PORTB &= ~(1<<PORTB4);
+	CBI  0x18,4
+; 0000 001B         SPDR = 0x0C;
+	LDI  R30,LOW(12)
+	OUT  0xF,R30
+; 0000 001C         while(!(SPSR & (1<<SPIF)));
 _0xC:
 	SBIS 0xE,7
 	RJMP _0xC
-; 0000 0021             //сгенерируем отрицательный фронт для записи в STORAGE REGISTER
-; 0000 0022             PORTB |= (1<<PORTB4); //высокий уровень
-	SBI  0x18,4
-; 0000 0023             PORTB &= ~(1<<PORTB4); //низкий уровень
-	CBI  0x18,4
-; 0000 0024             delay_ms(5000);
-	LDI  R26,LOW(5000)
-	LDI  R27,HIGH(5000)
-	CALL _delay_ms
-; 0000 0025           }
-	__ADDWRN 16,17,1
-	RJMP _0xA
-_0xB:
-; 0000 0026           qaz = 0;
-	__GETWRN 16,17,0
-; 0000 0027     }
-	RJMP _0x6
-; 0000 0028 }
+; 0000 001D         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 001E         //_delay_ms(50);
+; 0000 001F 
+; 0000 0020         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 0021         SPDR = 0x01;
+	LDI  R30,LOW(1)
+	OUT  0xF,R30
+; 0000 0022         while(!(SPSR & (1<<SPIF)));
 _0xF:
+	SBIS 0xE,7
 	RJMP _0xF
+; 0000 0023         PORTB |= (1<<PORTB4);
+	SBI  0x18,4
+; 0000 0024 
+; 0000 0025 
+; 0000 0026         PORTB &= ~(1<<PORTB4);
+	CBI  0x18,4
+; 0000 0027         SPDR = 0x0A;
+	LDI  R30,LOW(10)
+	OUT  0xF,R30
+; 0000 0028         while(!(SPSR & (1<<SPIF)));
+_0x12:
+	SBIS 0xE,7
+	RJMP _0x12
+; 0000 0029         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 002A         //_delay_ms(50);
+; 0000 002B 
+; 0000 002C         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 002D         SPDR = 0x0F;
+	LDI  R30,LOW(15)
+	OUT  0xF,R30
+; 0000 002E         while(!(SPSR & (1<<SPIF)));
+_0x15:
+	SBIS 0xE,7
+	RJMP _0x15
+; 0000 002F         PORTB |= (1<<PORTB4);
+	SBI  0x18,4
+; 0000 0030 
+; 0000 0031 
+; 0000 0032         PORTB &= ~(1<<PORTB4);
+	CBI  0x18,4
+; 0000 0033         SPDR = 0x0B;
+	LDI  R30,LOW(11)
+	OUT  0xF,R30
+; 0000 0034         while(!(SPSR & (1<<SPIF)));
+_0x18:
+	SBIS 0xE,7
+	RJMP _0x18
+; 0000 0035         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0036         //_delay_ms(50);
+; 0000 0037 
+; 0000 0038         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 0039         SPDR = 0x07;
+	LDI  R30,LOW(7)
+	OUT  0xF,R30
+; 0000 003A         while(!(SPSR & (1<<SPIF)));
+_0x1B:
+	SBIS 0xE,7
+	RJMP _0x1B
+; 0000 003B         PORTB |= (1<<PORTB4);
+	SBI  0x18,4
+; 0000 003C 
+; 0000 003D 
+; 0000 003E         PORTB &= ~(1<<PORTB4);
+	CBI  0x18,4
+; 0000 003F         SPDR = 0x09;
+	LDI  R30,LOW(9)
+	OUT  0xF,R30
+; 0000 0040         while(!(SPSR & (1<<SPIF)));
+_0x1E:
+	SBIS 0xE,7
+	RJMP _0x1E
+; 0000 0041         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0042         //_delay_ms(50);
+; 0000 0043 
+; 0000 0044         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 0045 		SPDR = 0x00;
+	LDI  R30,LOW(0)
+	OUT  0xF,R30
+; 0000 0046 		while(!(SPSR & (1<<SPIF)));
+_0x21:
+	SBIS 0xE,7
+	RJMP _0x21
+; 0000 0047 		PORTB |= (1<<PORTB4);
+	SBI  0x18,4
+; 0000 0048 	}
+	__ADDWRN 16,17,1
+	RJMP _0x4
+_0x5:
+; 0000 0049 }
+	LD   R16,Y+
+	LD   R17,Y+
+	RET
+; .FEND
+;
+;// Declare your global variables here
+;void SPI_WriteByte()
+; 0000 004D {
+; 0000 004E    PORTB &= ~(1<<PORTB4);
+; 0000 004F    SPDR = 0b100011111111;
+; 0000 0050    while(!(SPSR & (1<<SPIF)));
+; 0000 0051    PORTB |= (1<<PORTB4);
+; 0000 0052 }
+;
+;void SendLed(int i)
+; 0000 0055 {
+_SendLed:
+; .FSTART _SendLed
+; 0000 0056 
+; 0000 0057     char a, b;
+; 0000 0058     a = (i >> 8);
+	ST   -Y,R27
+	ST   -Y,R26
+	ST   -Y,R17
+	ST   -Y,R16
+;	i -> Y+2
+;	a -> R17
+;	b -> R16
+	LDD  R30,Y+2
+	LDD  R31,Y+2+1
+	CALL __ASRW8
+	MOV  R17,R30
+; 0000 0059     b = i;
+	LDD  R16,Y+2
+; 0000 005A 
+; 0000 005B 
+; 0000 005C     PORTB &= ~(1<<PORTB4);
+	CBI  0x18,4
+; 0000 005D     SPDR = a;
+	OUT  0xF,R17
+; 0000 005E     while(!(SPSR & (1<<SPIF)));
+_0x27:
+	SBIS 0xE,7
+	RJMP _0x27
+; 0000 005F     //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0060     //_delay_ms(50);
+; 0000 0061 
+; 0000 0062     //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 0063     SPDR = b;
+	OUT  0xF,R16
+; 0000 0064     while(!(SPSR & (1<<SPIF)));
+_0x2A:
+	SBIS 0xE,7
+	RJMP _0x2A
+; 0000 0065     PORTB |= (1<<PORTB4);
+	SBI  0x18,4
+; 0000 0066 }
+	LDD  R17,Y+1
+	LDD  R16,Y+0
+	ADIW R28,4
+	RET
+; .FEND
+;
+;void main(void)
+; 0000 0069 {
+_main:
+; .FSTART _main
+; 0000 006A     int qaz;
+; 0000 006B 
+; 0000 006C     // Declare your local variables here
+; 0000 006D     init_ports();
+;	qaz -> R16,R17
+	CALL _init_ports
+; 0000 006E     init_periferal();
+	RCALL _init_periferal
+; 0000 006F     //
+; 0000 0070     // Global enable interrupts
+; 0000 0071     #asm("sei")
+	sei
+; 0000 0072     InitLed();
+	RCALL _InitLed
+; 0000 0073 
+; 0000 0074 
+; 0000 0075     while (1)
+_0x2D:
+; 0000 0076     {
+; 0000 0077          SendLed(0x00);
+	LDI  R26,LOW(0)
+	LDI  R27,0
+	RCALL _SendLed
+; 0000 0078         SendLed(0x100);
+	LDI  R26,LOW(256)
+	LDI  R27,HIGH(256)
+	RCALL _SendLed
+; 0000 0079         SendLed(0x200);
+	LDI  R26,LOW(512)
+	LDI  R27,HIGH(512)
+	RCALL _SendLed
+; 0000 007A         SendLed(0x300);
+	LDI  R26,LOW(768)
+	LDI  R27,HIGH(768)
+	RCALL _SendLed
+; 0000 007B         SendLed(0x400);
+	LDI  R26,LOW(1024)
+	LDI  R27,HIGH(1024)
+	RCALL _SendLed
+; 0000 007C         SendLed(0x500);
+	LDI  R26,LOW(1280)
+	LDI  R27,HIGH(1280)
+	RCALL _SendLed
+; 0000 007D         SendLed(0x600);
+	LDI  R26,LOW(1536)
+	LDI  R27,HIGH(1536)
+	RCALL _SendLed
+; 0000 007E         SendLed(0x700);
+	LDI  R26,LOW(1792)
+	LDI  R27,HIGH(1792)
+	RCALL _SendLed
+; 0000 007F         SendLed(0x800);
+	LDI  R26,LOW(2048)
+	LDI  R27,HIGH(2048)
+	RCALL _SendLed
+; 0000 0080         delay_ms(1000);
+	LDI  R26,LOW(1000)
+	LDI  R27,HIGH(1000)
+	CALL _delay_ms
+; 0000 0081     }
+	RJMP _0x2D
+; 0000 0082 }
+_0x30:
+	RJMP _0x30
 ; .FEND
 ;#include "init_perif.h"
 	#ifndef __SLEEP_DEFINED__
@@ -1504,18 +1714,19 @@ _init_ports:
 	OUT  0x1B,R30
 ; 0002 000B 
 ; 0002 000C     // Port B initialization
-; 0002 000D     // Function: Bit7=Out Bit6=In Bit5=Out Bit4=Out Bit3=In Bit2=In Bit1=In Bit0=In
-; 0002 000E     DDRB=(1<<DDB7) | (0<<DDB6) | (1<<DDB5) | (1<<DDB4) | (0<<DDB3) | (0<<DDB2) | (0<<DDB1) | (0<<DDB0);
-	LDI  R30,LOW(176)
+; 0002 000D     // Function: Bit7=Out Bit6=In Bit5=Out Bit4=Out Bit3=In Bit2=In Bit1=In Bit0=Out
+; 0002 000E     DDRB=(1<<DDB7) | (0<<DDB6) | (1<<DDB5) | (1<<DDB4) | (0<<DDB3) | (0<<DDB2) | (0<<DDB1) | (1<<DDB0);
+	LDI  R30,LOW(177)
 	OUT  0x17,R30
 ; 0002 000F     // State: Bit7=0 Bit6=T Bit5=0 Bit4=0 Bit3=T Bit2=T Bit1=T Bit0=T
-; 0002 0010     PORTB=(0<<PORTB7) | (0<<PORTB6) | (0<<PORTB5) | (0<<PORTB4) | (0<<PORTB3) | (0<<PORTB2) | (0<<PORTB1) | (0<<PORTB0);
-	LDI  R30,LOW(0)
+; 0002 0010     PORTB=(0<<PORTB7) | (0<<PORTB6) | (0<<PORTB5) | (0<<PORTB4) | (0<<PORTB3) | (0<<PORTB2) | (0<<PORTB1) | (1<<PORTB0);
+	LDI  R30,LOW(1)
 	OUT  0x18,R30
 ; 0002 0011 
 ; 0002 0012     // Port C initialization
 ; 0002 0013     // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
 ; 0002 0014     DDRC=(0<<DDC7) | (0<<DDC6) | (0<<DDC5) | (0<<DDC4) | (0<<DDC3) | (0<<DDC2) | (0<<DDC1) | (0<<DDC0);
+	LDI  R30,LOW(0)
 	OUT  0x14,R30
 ; 0002 0015     // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
 ; 0002 0016     PORTC=(0<<PORTC7) | (0<<PORTC6) | (0<<PORTC5) | (0<<PORTC4) | (0<<PORTC3) | (0<<PORTC2) | (0<<PORTC1) | (0<<PORTC0);
@@ -1692,6 +1903,13 @@ __delay_ms0:
 	brne __delay_ms0
 __delay_ms1:
 	ret
+
+__ASRW8:
+	MOV  R30,R31
+	CLR  R31
+	SBRC R30,7
+	SER  R31
+	RET
 
 ;END OF CODE MARKER
 __END_OF_CODE:
