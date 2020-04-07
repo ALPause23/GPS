@@ -1243,53 +1243,65 @@ __GLOBAL_INI_END:
 ; 0000 0008 {
 
 	.CSEG
-_SPI_WriteByte:
-; .FSTART _SPI_WriteByte
 ; 0000 0009    PORTB &= ~(1<<PORTB4);
-	CBI  0x18,4
-; 0000 000A    SPDR = 0b00110000;
-	LDI  R30,LOW(48)
-	OUT  0xF,R30
+; 0000 000A    SPDR = 0b100011111111;
 ; 0000 000B    while(!(SPSR & (1<<SPIF)));
-_0x3:
-	SBIS 0xE,7
-	RJMP _0x3
 ; 0000 000C    PORTB |= (1<<PORTB4);
-	SBI  0x18,4
 ; 0000 000D }
-	RET
-; .FEND
 ;
 ;void main(void)
-; 0000 0010 {
+; 0000 0010 {    int qaz;
 _main:
 ; .FSTART _main
 ; 0000 0011     // Declare your local variables here
 ; 0000 0012     init_ports();
+;	qaz -> R16,R17
 	CALL _init_ports
 ; 0000 0013     init_periferal();
 	RCALL _init_periferal
-; 0000 0014 
-; 0000 0015 
-; 0000 0016     // Global enable interrupts
-; 0000 0017     #asm("sei")
+; 0000 0014     //
+; 0000 0015     // Global enable interrupts
+; 0000 0016     #asm("sei")
 	sei
-; 0000 0018 
-; 0000 0019     while (1)
+; 0000 0017 
+; 0000 0018     while (1)
 _0x6:
-; 0000 001A     {
-; 0000 001B         // Place your code here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-; 0000 001C         delay_ms(100);
-	LDI  R26,LOW(100)
-	LDI  R27,0
+; 0000 0019     {
+; 0000 001A         // Place your code here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+; 0000 001B         //delay_ms(100);
+; 0000 001C         //SPI_WriteByte();
+; 0000 001D         for (qaz = 0; qaz < 256; qaz++)
+	__GETWRN 16,17,0
+_0xA:
+	__CPWRN 16,17,256
+	BRGE _0xB
+; 0000 001E           {
+; 0000 001F             SPDR = qaz;
+	OUT  0xF,R16
+; 0000 0020             while(!(SPSR & (1<<SPIF)));//подождем пока данные передадутся
+_0xC:
+	SBIS 0xE,7
+	RJMP _0xC
+; 0000 0021             //сгенерируем отрицательный фронт для записи в STORAGE REGISTER
+; 0000 0022             PORTB |= (1<<PORTB4); //высокий уровень
+	SBI  0x18,4
+; 0000 0023             PORTB &= ~(1<<PORTB4); //низкий уровень
+	CBI  0x18,4
+; 0000 0024             delay_ms(5000);
+	LDI  R26,LOW(5000)
+	LDI  R27,HIGH(5000)
 	CALL _delay_ms
-; 0000 001D         SPI_WriteByte();
-	RCALL _SPI_WriteByte
-; 0000 001E     }
+; 0000 0025           }
+	__ADDWRN 16,17,1
+	RJMP _0xA
+_0xB:
+; 0000 0026           qaz = 0;
+	__GETWRN 16,17,0
+; 0000 0027     }
 	RJMP _0x6
-; 0000 001F }
-_0x9:
-	RJMP _0x9
+; 0000 0028 }
+_0xF:
+	RJMP _0xF
 ; .FEND
 ;#include "init_perif.h"
 	#ifndef __SLEEP_DEFINED__

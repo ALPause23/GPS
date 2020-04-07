@@ -7,7 +7,7 @@
  </FRAME>
  <MODULE name="VSMDEBUG">
   <PWI>
-   <POPUP w="657" x="151" flags="00000003" y="52" h="403" pid="0" iid="-1">
+   <POPUP w="657" x="21" flags="00000002" y="50" h="403" pid="0" iid="-1">
     <PROPERTIES>
      <ITEM name="Message Column Width">520</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
@@ -78,7 +78,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="16" x="228" flags="80000000" y="288" h="32" pid="14" iid="1">
+   <POPUP w="16" x="228" flags="00000000" y="288" h="32" pid="14" iid="1">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>
@@ -108,15 +108,15 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="57" flags="0000802b" y="53" h="400" pid="1" iid="1">
+   <POPUP w="536" x="23" flags="0000802b" y="209" h="360" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"main",0080,0004,3C50,2438,-1
+     <ITEM name="Breakpoint 0">"main",00D0,003E,4718,2438,-1
 </ITEM>
-     <ITEM name="Breakpoint 1">"main",0090,0014,80DC,2438,-1
+     <ITEM name="Breakpoint 1">"main",009C,001A,AFD1,2438,1
 </ITEM>
-     <ITEM name="Breakpoint 2">"main",0094,0018,28C7,2438,-1
+     <ITEM name="Breakpoint 2">"main",00A0,001E,9BF5,2438,-1
 </ITEM>
-     <ITEM name="Breakpoint 3">"main",0096,001A,F26F,2438,-1
+     <ITEM name="Breakpoint 3">"main",00A0,001E,9F50,2438,1
 </ITEM>
      <ITEM name="Breakpoint 4">"main",0096,001A,5EDD,2438,1
 </ITEM>
@@ -130,12 +130,12 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">0</ITEM>
+     <ITEM name="nBreakpoints">1</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="300" x="1032" flags="0000000b" y="402" h="300" pid="2" iid="1">
+   <POPUP w="394" x="903" flags="0000000b" y="85" h="289" pid="2" iid="1">
     <PROPERTIES>
-     <ITEM name="Address Column Width">94</ITEM>
+     <ITEM name="Address Column Width">60</ITEM>
      <ITEM name="AutoResize">No</ITEM>
      <ITEM name="Gridlines">Yes</ITEM>
      <ITEM name="Name Column Width">94</ITEM>
@@ -145,7 +145,7 @@
      <ITEM name="ShowTypes">No</ITEM>
      <ITEM name="ShowWatchPoint">No</ITEM>
      <ITEM name="TriggerMode">0</ITEM>
-     <ITEM name="Value Column Width">94</ITEM>
+     <ITEM name="Value Column Width">193</ITEM>
      <ITEM name="Version">100</ITEM>
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>

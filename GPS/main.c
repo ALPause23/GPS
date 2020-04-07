@@ -7,25 +7,34 @@
 void SPI_WriteByte()
 {  
    PORTB &= ~(1<<PORTB4); 
-   SPDR = 0b00110000;
+   SPDR = 0b100011111111;
    while(!(SPSR & (1<<SPIF)));
    PORTB |= (1<<PORTB4); 
 }
 
 void main(void)
-{
+{    int qaz;
     // Declare your local variables here
     init_ports();
     init_periferal();
-
-
+    //
     // Global enable interrupts
     #asm("sei")
 
     while (1)
-    {
+    {   
         // Place your code here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-        delay_ms(100);
-        SPI_WriteByte();
+        //delay_ms(100);
+        //SPI_WriteByte();
+        for (qaz = 0; qaz < 256; qaz++)
+          {
+            SPDR = qaz;
+            while(!(SPSR & (1<<SPIF)));//подождем пока данные передадутся
+            //сгенерируем отрицательный фронт для записи в STORAGE REGISTER
+            PORTB |= (1<<PORTB4); //высокий уровень
+            PORTB &= ~(1<<PORTB4); //низкий уровень
+            delay_ms(5000);
+          }
+          qaz = 0;
     }
 }
