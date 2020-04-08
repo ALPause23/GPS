@@ -1085,11 +1085,7 @@ __DELAY_USW_LOOP:
 	.ENDM
 
 ;NAME DEFINITIONS FOR GLOBAL VARIABLES ALLOCATED TO REGISTERS
-	.DEF _rx_wr_index=R5
-	.DEF _rx_rd_index=R4
-	.DEF _rx_counter=R7
-	.DEF _i=R8
-	.DEF _i_msb=R9
+	.DEF _rx_counter=R5
 
 	.CSEG
 	.ORG 0x00
@@ -1132,8 +1128,7 @@ __REG_BIT_VARS:
 
 ;GLOBAL REGISTER VARIABLES INITIALIZATION
 __REG_VARS:
-	.DB  0x0,0x0,0x0,0x0
-	.DB  0x0,0x0
+	.DB  0x0
 
 
 __GLOBAL_INI_TBL:
@@ -1141,8 +1136,8 @@ __GLOBAL_INI_TBL:
 	.DW  0x02
 	.DW  __REG_BIT_VARS*2
 
-	.DW  0x06
-	.DW  0x04
+	.DW  0x01
+	.DW  0x05
 	.DW  __REG_VARS*2
 
 _0xFFFFFFFF:
@@ -1247,13 +1242,12 @@ __GLOBAL_INI_END:
 _InitLed:
 ; .FSTART _InitLed
 ; 0000 000A     int i = 0;
-; 0000 000B     for(i; i < 4; i++)
+; 0000 000B     while(i < 4)
 	ST   -Y,R17
 	ST   -Y,R16
 ;	i -> R16,R17
 	__GETWRN 16,17,0
-	MOVW R30,R16
-_0x4:
+_0x3:
 	__CPWRN 16,17,4
 	BRGE _0x5
 ; 0000 000C     {
@@ -1376,67 +1370,86 @@ _0x21:
 	RJMP _0x21
 ; 0000 0047 		PORTB |= (1<<PORTB4);
 	SBI  0x18,4
-; 0000 0048 	}
+; 0000 0048 
+; 0000 0049         i++;
 	__ADDWRN 16,17,1
-	RJMP _0x4
+; 0000 004A 	}
+	RJMP _0x3
 _0x5:
-; 0000 0049 }
+; 0000 004B }
 	LD   R16,Y+
 	LD   R17,Y+
 	RET
 ; .FEND
 ;
 ;// Declare your global variables here
-;void SPI_WriteByte()
-; 0000 004D {
-; 0000 004E    PORTB &= ~(1<<PORTB4);
-; 0000 004F    SPDR = 0b100011111111;
-; 0000 0050    while(!(SPSR & (1<<SPIF)));
-; 0000 0051    PORTB |= (1<<PORTB4);
-; 0000 0052 }
-;
-;void SendLed(int i)
-; 0000 0055 {
-_SendLed:
-; .FSTART _SendLed
-; 0000 0056 
-; 0000 0057     char a, b;
-; 0000 0058     a = (i >> 8);
-	ST   -Y,R27
+;void SPI_WriteStartByte(char data)
+; 0000 004F {
+_SPI_WriteStartByte:
+; .FSTART _SPI_WriteStartByte
+; 0000 0050    PORTB &= ~(1<<PORTB4);
 	ST   -Y,R26
-	ST   -Y,R17
-	ST   -Y,R16
-;	i -> Y+2
-;	a -> R17
-;	b -> R16
-	LDD  R30,Y+2
-	LDD  R31,Y+2+1
-	CALL __ASRW8
-	MOV  R17,R30
-; 0000 0059     b = i;
-	LDD  R16,Y+2
-; 0000 005A 
-; 0000 005B 
-; 0000 005C     PORTB &= ~(1<<PORTB4);
+;	data -> Y+0
 	CBI  0x18,4
-; 0000 005D     SPDR = a;
-	OUT  0xF,R17
-; 0000 005E     while(!(SPSR & (1<<SPIF)));
+; 0000 0051    SPDR = data;
+	LD   R30,Y
+	OUT  0xF,R30
+; 0000 0052    while(!(SPSR & (1<<SPIF)));
+_0x24:
+	SBIS 0xE,7
+	RJMP _0x24
+; 0000 0053 }
+	RJMP _0x2060001
+; .FEND
+;
+;void SPI_WriteEndByte(char data)
+; 0000 0056 {
+_SPI_WriteEndByte:
+; .FSTART _SPI_WriteEndByte
+; 0000 0057    SPDR = data;
+	ST   -Y,R26
+;	data -> Y+0
+	LD   R30,Y
+	OUT  0xF,R30
+; 0000 0058    while(!(SPSR & (1<<SPIF)));
 _0x27:
 	SBIS 0xE,7
 	RJMP _0x27
-; 0000 005F     //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 0060     //_delay_ms(50);
-; 0000 0061 
-; 0000 0062     //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 0063     SPDR = b;
-	OUT  0xF,R16
-; 0000 0064     while(!(SPSR & (1<<SPIF)));
-_0x2A:
-	SBIS 0xE,7
-	RJMP _0x2A
-; 0000 0065     PORTB |= (1<<PORTB4);
+; 0000 0059    PORTB |= (1<<PORTB4);
 	SBI  0x18,4
+; 0000 005A }
+_0x2060001:
+	ADIW R28,1
+	RET
+; .FEND
+;
+;void SendLed(char adr, char data)
+; 0000 005D {
+_SendLed:
+; .FSTART _SendLed
+; 0000 005E     char a, b;
+; 0000 005F     a = adr;
+	ST   -Y,R26
+	ST   -Y,R17
+	ST   -Y,R16
+;	adr -> Y+3
+;	data -> Y+2
+;	a -> R17
+;	b -> R16
+	LDD  R17,Y+3
+; 0000 0060     b = data;
+	LDD  R16,Y+2
+; 0000 0061 
+; 0000 0062     SPI_WriteStartByte(adr);
+	LDD  R26,Y+3
+	RCALL _SPI_WriteStartByte
+; 0000 0063     delay_ms(10);
+	CALL SUBOPT_0x0
+; 0000 0064     SPI_WriteEndByte(data);
+	LDD  R26,Y+2
+	RCALL _SPI_WriteEndByte
+; 0000 0065     delay_ms(10);
+	CALL SUBOPT_0x0
 ; 0000 0066 }
 	LDD  R17,Y+1
 	LDD  R16,Y+0
@@ -1448,68 +1461,89 @@ _0x2A:
 ; 0000 0069 {
 _main:
 ; .FSTART _main
-; 0000 006A     int qaz;
-; 0000 006B 
-; 0000 006C     // Declare your local variables here
-; 0000 006D     init_ports();
-;	qaz -> R16,R17
+; 0000 006A      int i = 0;// Declare your local variables here
+; 0000 006B     init_ports();
+;	i -> R16,R17
+	__GETWRN 16,17,0
 	CALL _init_ports
-; 0000 006E     init_periferal();
+; 0000 006C     init_periferal();
 	RCALL _init_periferal
-; 0000 006F     //
-; 0000 0070     // Global enable interrupts
-; 0000 0071     #asm("sei")
+; 0000 006D     //
+; 0000 006E     // Global enable interrupts
+; 0000 006F     #asm("sei")
 	sei
-; 0000 0072     InitLed();
+; 0000 0070     InitLed();
 	RCALL _InitLed
-; 0000 0073 
-; 0000 0074 
-; 0000 0075     while (1)
+; 0000 0071 
+; 0000 0072 
+; 0000 0073     while(i <= 4)
+_0x2A:
+	__CPWRN 16,17,5
+	BRGE _0x2C
+; 0000 0074     {
+; 0000 0075         SendLed(0,0);
+	LDI  R30,LOW(0)
+	CALL SUBOPT_0x1
+; 0000 0076         SendLed(1,0);
+	LDI  R30,LOW(1)
+	CALL SUBOPT_0x1
+; 0000 0077         SendLed(2,0);
+	LDI  R30,LOW(2)
+	CALL SUBOPT_0x1
+; 0000 0078         SendLed(3,0);
+	LDI  R30,LOW(3)
+	CALL SUBOPT_0x1
+; 0000 0079         SendLed(4,0);
+	LDI  R30,LOW(4)
+	CALL SUBOPT_0x1
+; 0000 007A         SendLed(5,0);
+	LDI  R30,LOW(5)
+	CALL SUBOPT_0x1
+; 0000 007B         SendLed(6,0);
+	LDI  R30,LOW(6)
+	CALL SUBOPT_0x1
+; 0000 007C         SendLed(7,0);
+	LDI  R30,LOW(7)
+	CALL SUBOPT_0x1
+; 0000 007D         SendLed(8,0);
+	LDI  R30,LOW(8)
+	CALL SUBOPT_0x1
+; 0000 007E         i++;
+	__ADDWRN 16,17,1
+; 0000 007F         delay_ms(10);
+	CALL SUBOPT_0x0
+; 0000 0080     }
+	RJMP _0x2A
+_0x2C:
+; 0000 0081 
+; 0000 0082     SendLed(1, 7);
+	LDI  R30,LOW(1)
+	ST   -Y,R30
+	LDI  R26,LOW(7)
+	RCALL _SendLed
+; 0000 0083     SendLed(2, 7);
+	LDI  R30,LOW(2)
+	ST   -Y,R30
+	LDI  R26,LOW(7)
+	RCALL _SendLed
+; 0000 0084 //    delay_ms(1);
+; 0000 0085 //    SendLed(1,2);
+; 0000 0086 //    delay_ms(1);
+; 0000 0087 //    SendLed(1,3);
+; 0000 0088 //    delay_ms(1);
+; 0000 0089 //    SendLed(1,4);
+; 0000 008A //    delay_ms(1);
+; 0000 008B //    SendLed(1,5);
+; 0000 008C //    delay_ms(1);
+; 0000 008D //    SendLed(2,255);
+; 0000 008E 
+; 0000 008F     while (1)
 _0x2D:
-; 0000 0076     {
-; 0000 0077          SendLed(0x00);
-	LDI  R26,LOW(0)
-	LDI  R27,0
-	RCALL _SendLed
-; 0000 0078         SendLed(0x100);
-	LDI  R26,LOW(256)
-	LDI  R27,HIGH(256)
-	RCALL _SendLed
-; 0000 0079         SendLed(0x200);
-	LDI  R26,LOW(512)
-	LDI  R27,HIGH(512)
-	RCALL _SendLed
-; 0000 007A         SendLed(0x300);
-	LDI  R26,LOW(768)
-	LDI  R27,HIGH(768)
-	RCALL _SendLed
-; 0000 007B         SendLed(0x400);
-	LDI  R26,LOW(1024)
-	LDI  R27,HIGH(1024)
-	RCALL _SendLed
-; 0000 007C         SendLed(0x500);
-	LDI  R26,LOW(1280)
-	LDI  R27,HIGH(1280)
-	RCALL _SendLed
-; 0000 007D         SendLed(0x600);
-	LDI  R26,LOW(1536)
-	LDI  R27,HIGH(1536)
-	RCALL _SendLed
-; 0000 007E         SendLed(0x700);
-	LDI  R26,LOW(1792)
-	LDI  R27,HIGH(1792)
-	RCALL _SendLed
-; 0000 007F         SendLed(0x800);
-	LDI  R26,LOW(2048)
-	LDI  R27,HIGH(2048)
-	RCALL _SendLed
-; 0000 0080         delay_ms(1000);
-	LDI  R26,LOW(1000)
-	LDI  R27,HIGH(1000)
-	CALL _delay_ms
-; 0000 0081     }
+; 0000 0090     {
+; 0000 0091 
+; 0000 0092     }
 	RJMP _0x2D
-; 0000 0082 }
+; 0000 0093 }
 _0x30:
 	RJMP _0x30
 ; .FEND
@@ -1759,16 +1793,15 @@ _init_ports:
 ;
 ;char rx_buffer[RX_BUFFER_SIZE];
 ;
-;unsigned char rx_wr_index = 0, rx_rd_index = 0;
+;
 ;
 ;unsigned char rx_counter = 0;
 ;
 ;bit rx_buffer_overflow;
-;int i = 0;
 ;
 ;// USART Receiver interrupt service routine
 ;interrupt [USART_RXC] void usart_rx_isr(void)
-; 0003 000F {
+; 0003 000E {
 
 	.CSEG
 _usart_rx_isr:
@@ -1777,46 +1810,49 @@ _usart_rx_isr:
 	ST   -Y,R31
 	IN   R30,SREG
 	ST   -Y,R30
-; 0003 0010     //rx_buffer[i++] = USARTReceiveChar();
+; 0003 000F     //rx_buffer[i++] = USARTReceiveChar();
+; 0003 0010     unsigned char rx_wr_index = 0, rx_rd_index = 0;
 ; 0003 0011     char status,data;
 ; 0003 0012     status = UCSRA;
-	ST   -Y,R17
-	ST   -Y,R16
-;	status -> R17
-;	data -> R16
-	IN   R17,11
+	CALL __SAVELOCR4
+;	rx_wr_index -> R17
+;	rx_rd_index -> R16
+;	status -> R19
+;	data -> R18
+	LDI  R17,0
+	LDI  R16,0
+	IN   R19,11
 ; 0003 0013     data = UDR;
-	IN   R16,12
+	IN   R18,12
 ; 0003 0014     if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
-	MOV  R30,R17
+	MOV  R30,R19
 	ANDI R30,LOW(0x1C)
 	BRNE _0x60003
 ; 0003 0015        {
 ; 0003 0016        rx_buffer[rx_wr_index++] = data;
-	MOV  R30,R5
-	INC  R5
+	MOV  R30,R17
+	SUBI R17,-1
 	LDI  R31,0
 	SUBI R30,LOW(-_rx_buffer)
 	SBCI R31,HIGH(-_rx_buffer)
-	ST   Z,R16
+	ST   Z,R18
 ; 0003 0017     #if RX_BUFFER_SIZE == 256
 ; 0003 0018        // special case for receiver buffer size=256
 ; 0003 0019        if (++rx_counter == 0) rx_buffer_overflow=1;
 ; 0003 001A     #else
 ; 0003 001B        if (rx_wr_index == RX_BUFFER_SIZE) rx_wr_index=0;
-	LDI  R30,LOW(80)
-	CP   R30,R5
+	CPI  R17,80
 	BRNE _0x60004
-	CLR  R5
+	LDI  R17,LOW(0)
 ; 0003 001C        if (++rx_counter == RX_BUFFER_SIZE)
 _0x60004:
-	INC  R7
+	INC  R5
 	LDI  R30,LOW(80)
-	CP   R30,R7
+	CP   R30,R5
 	BRNE _0x60005
 ; 0003 001D           {
 ; 0003 001E           rx_counter = 0;
-	CLR  R7
+	CLR  R5
 ; 0003 001F           rx_buffer_overflow = 1;
 	SET
 	BLD  R2,0
@@ -1826,8 +1862,8 @@ _0x60004:
 _0x60005:
 ; 0003 0023 }
 _0x60003:
-	LD   R16,Y+
-	LD   R17,Y+
+	CALL __LOADLOCR4
+	ADIW R28,4
 	LD   R30,Y+
 	OUT  SREG,R30
 	LD   R31,Y+
@@ -1842,31 +1878,8 @@ _0x60003:
 ;
 ;#ifndef _DEBUG_TERMINAL_IO_
 ;// Get a character from the USART Receiver buffer
-;#define _ALTERNATE_GETCHAR_
-;#pragma used+
-;char getchar(void)
-; 0003 002F {
-; 0003 0030     char data;
-; 0003 0031     while (rx_counter == 0);
-;	data -> R17
-; 0003 0032     data = rx_buffer[rx_rd_index++];
-; 0003 0033     #if RX_BUFFER_SIZE != 256
-; 0003 0034     if (rx_rd_index == RX_BUFFER_SIZE) rx_rd_index = 0;
-; 0003 0035     #endif
-; 0003 0036     #asm("cli")
-; 0003 0037     --rx_counter;
-; 0003 0038     #asm("sei")
-; 0003 0039     return data;
-; 0003 003A }
-;#pragma used-
-;#endif
 ;
-;char USARTReceiveChar(void) {
-; 0003 003E char USARTReceiveChar(void) {
-; 0003 003F   //  Устанавливается, когда регистр свободен
-; 0003 0040   while(!(UCSRA & (1<<RXC)));
-; 0003 0041   return UDR;
-; 0003 0042 }
+;#endif
 ;
 	#ifndef __SLEEP_DEFINED__
 	#define __SLEEP_DEFINED__
@@ -1891,6 +1904,18 @@ _rx_buffer:
 	.BYTE 0x50
 
 	.CSEG
+;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
+SUBOPT_0x0:
+	LDI  R26,LOW(10)
+	LDI  R27,0
+	JMP  _delay_ms
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 9 TIMES, CODE SIZE REDUCTION:13 WORDS
+SUBOPT_0x1:
+	ST   -Y,R30
+	LDI  R26,LOW(0)
+	JMP  _SendLed
+
 
 	.CSEG
 _delay_ms:
@@ -1904,11 +1929,22 @@ __delay_ms0:
 __delay_ms1:
 	ret
 
-__ASRW8:
-	MOV  R30,R31
-	CLR  R31
-	SBRC R30,7
-	SER  R31
+__SAVELOCR4:
+	ST   -Y,R19
+__SAVELOCR3:
+	ST   -Y,R18
+__SAVELOCR2:
+	ST   -Y,R17
+	ST   -Y,R16
+	RET
+
+__LOADLOCR4:
+	LDD  R19,Y+3
+__LOADLOCR3:
+	LDD  R18,Y+2
+__LOADLOCR2:
+	LDD  R17,Y+1
+	LD   R16,Y
 	RET
 
 ;END OF CODE MARKER

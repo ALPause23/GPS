@@ -10,18 +10,17 @@ Variable                                                                        
 Register Allocation
 Variable                                                                          Register  Size
 ------------------------------------------------------------------------------------------------
-rx_wr_index                                                                       R5           1
-rx_rd_index                                                                       R4           1
-rx_counter                                                                        R7           1
+rx_counter                                                                        R5           1
 rx_buffer_overflow                                                                R2.0      1bit
-i                                                                                 R8,R9        2
 
 FLASH Allocation [words]
 Function                                                                          Address   Size
 ------------------------------------------------------------------------------------------------
-InitLed                                                                           0x0006B     65
-SendLed                                                                           0x000AC     22
-main                                                                              0x000C2     38
-init_periferal                                                                    0x000E8     45
-init_ports                                                                        0x00115     13
-usart_rx_isr                                                                      0x00122     35
+InitLed                                                                           0x00069     64
+SPI_WriteStartByte                                                                0x000A9      7
+SPI_WriteEndByte                                                                  0x000B0      8
+SendLed                                                                           0x000B8     17
+main                                                                              0x000C9     53
+init_periferal                                                                    0x000FE     45
+init_ports                                                                        0x0012B     13
+usart_rx_isr                                                                      0x00138     37

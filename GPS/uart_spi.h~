@@ -10,7 +10,7 @@
 #define RX_BUFFER_SIZE 80
 
 char getchar(void);
-char USARTReceiveChar();
+
 //interrupt [USART_RXC] void usart_rx_isr(void);
 //#pragma vector = USART_RXC
 //__interrupt void usart_rx_isr(void)

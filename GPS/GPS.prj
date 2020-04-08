@@ -166,8 +166,8 @@ WatchAVR8LAutoVariables=0
 UseEEPROMLocation0=1
 RebuildAll=0
 LinkageInformationPresent=1
-COFFileTimeStamp=1351092364
-Build=45
+COFFileTimeStamp=1351115046
+Build=75
 [DefinedSymbolsDebug]
 Count=0
 [Compiler]
@@ -269,7 +269,7 @@ UseEEPROMLocation0=1
 RebuildAll=1
 LinkageInformationPresent=0
 COFFileTimeStamp=-1
-Build=45
+Build=75
 IncludePath0=
 IncludePath1=
 IncludePath2=
@@ -540,17 +540,17 @@ L13=Enhanced function parameters passing: Yes
 L14=Automatic register allocation: Yes
 L15=Smart register allocation: Yes
 L16=
-L17=Build: 44
-L18=12849 line(s) compiled
+L17=Build: 75
+L18=12843 line(s) compiled
 L19=No errors
-L20=6 warning(s)
+L20=4 warning(s)
 L21=
 L22=Bit variables area: 0x2 to 0x2
 L23=Bit variables size: 1 byte(s)
 L24=
 L25=Data Stack area: 0x60 to 0x15F
 L26=Data Stack size: 256 byte(s)
-L27=Estimated Data Stack usage: 9 byte(s)
+L27=Estimated Data Stack usage: 12 byte(s)
 L28=
 L29=RAM Global variables area: 0x160 to 0x1AF
 L30=RAM Global variables size: 80 byte(s)
@@ -561,19 +561,19 @@ L34=
 L35=Heap size: 0 byte(s)
 L36=
 L37=EEPROM usage: 0 byte(s), 0,0% of EEPROM
-L38=Program size: 340 words (680 bytes), 4,2% of FLASH
-L39=0 words (0 bytes), 0,0% reduced by Code Compression
+L38=Program size: 377 words (754 bytes), 4,6% of FLASH
+L39=14 words (28 bytes), 3,6% reduced by Code Compression
 Lines=39
 [BuildInfoAssembler]
 L1=AVRASM: AVR macro assembler 2.1.30 (build 592 Nov  7 2008 12:38:17)
 L2=Copyright (C) 1995-2008 ATMEL Corporation
 L3=
-L4=E:\GitHub\GPS\GPS\Debug\List\GPS.asm(1916): No EEPROM data, deleting E:\GitHub\GPS\GPS\Debug\Exe\GPS.eep
+L4=D:\GitHub\GPS\GPS\Debug\List\GPS.asm(1952): No EEPROM data, deleting D:\GitHub\GPS\GPS\Debug\Exe\GPS.eep
 L5=
 L6=ATmega16 memory use summary [bytes]:
 L7=Segment   Begin    End      Code   Data   Used    Size   Use%
 L8=---------------------------------------------------------------
-L9=[.cseg] 0x000000 0x0002a8    640     40    680   16384   4.2%
+L9=[.cseg] 0x000000 0x0002f2    718     36    754   16384   4.6%
 L10=[.dseg] 0x000060 0x0001b0      0     80     80    1024   7.8%
 L11=[.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 L12=
@@ -823,41 +823,6 @@ BK8=-1
 BK9=-1
 [FoldedCode7]
 Blocks=0
-[HeadersList]
-Files=4
-F1=E:\GitHub\GPS\GPS\main.c
-F2=E:\GitHub\GPS\GPS\init_perif.c
-F3=E:\GitHub\GPS\GPS\ports.c
-F4=E:\GitHub\GPS\GPS\uart_spi.c
-[Header1]
-Files=9
-F1=ports.h
-F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
-F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
-F4=C:\Program Files (x86)\CodeVisionAVR\inc\stdio.h
-F5=C:\Program Files (x86)\CodeVisionAVR\inc\io.h
-F6=C:\Program Files (x86)\CodeVisionAVR\inc\stdarg.h
-F7=init_perif.h
-F8=uart_spi.h
-F9=C:\Program Files (x86)\CodeVisionAVR\inc\delay.h
-[Header2]
-Files=3
-F1=init_perif.h
-F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
-F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
-[Header3]
-Files=6
-F1=ports.h
-F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
-F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
-F4=C:\Program Files (x86)\CodeVisionAVR\inc\stdio.h
-F5=C:\Program Files (x86)\CodeVisionAVR\inc\io.h
-F6=C:\Program Files (x86)\CodeVisionAVR\inc\stdarg.h
-[Header4]
-Files=3
-F1=uart_spi.h
-F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
-F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
 [FoldedCode1]
 Blocks=0
 [FoldedCode10]
@@ -874,3 +839,38 @@ Blocks=0
 Blocks=0
 [FoldedCode4]
 Blocks=0
+[HeadersList]
+Files=4
+F1=D:\GitHub\GPS\GPS\main.c
+F2=D:\GitHub\GPS\GPS\init_perif.c
+F3=D:\GitHub\GPS\GPS\ports.c
+F4=D:\GitHub\GPS\GPS\uart_spi.c
+[Header1]
+Files=9
+F1=ports.h
+F2=C:\cvavr\inc\mega16.h
+F3=C:\cvavr\inc\mega16_bits.h
+F4=C:\cvavr\inc\stdio.h
+F5=C:\cvavr\inc\io.h
+F6=C:\cvavr\inc\stdarg.h
+F7=init_perif.h
+F8=uart_spi.h
+F9=C:\cvavr\inc\delay.h
+[Header2]
+Files=3
+F1=init_perif.h
+F2=C:\cvavr\inc\mega16.h
+F3=C:\cvavr\inc\mega16_bits.h
+[Header3]
+Files=6
+F1=ports.h
+F2=C:\cvavr\inc\mega16.h
+F3=C:\cvavr\inc\mega16_bits.h
+F4=C:\cvavr\inc\stdio.h
+F5=C:\cvavr\inc\io.h
+F6=C:\cvavr\inc\stdarg.h
+[Header4]
+Files=3
+F1=uart_spi.h
+F2=C:\cvavr\inc\mega16.h
+F3=C:\cvavr\inc\mega16_bits.h

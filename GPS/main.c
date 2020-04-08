@@ -8,7 +8,7 @@
 void InitLed()
 {
     int i = 0;
-    for(i; i < 4; i++)
+    while(i < 4)
     {
         // инициализация дисплея
         PORTB &= ~(1<<PORTB4);
@@ -69,62 +69,79 @@ void InitLed()
 		SPDR = 0x00;
 		while(!(SPSR & (1<<SPIF)));
 		PORTB |= (1<<PORTB4);
+        
+        i++;
 	}
 }
 
 // Declare your global variables here
-void SPI_WriteByte()
+void SPI_WriteStartByte(char data)
 {
    PORTB &= ~(1<<PORTB4);
-   SPDR = 0b100011111111;
+   SPDR = data;
+   while(!(SPSR & (1<<SPIF))); 
+}
+
+void SPI_WriteEndByte(char data)
+{
+   SPDR = data;
    while(!(SPSR & (1<<SPIF)));
    PORTB |= (1<<PORTB4);
 }
 
-void SendLed(int i)
+void SendLed(char adr, char data)
 {
-
     char a, b;
-    a = (i >> 8);
-    b = i;
-
-
-    PORTB &= ~(1<<PORTB4);
-    SPDR = a;
-    while(!(SPSR & (1<<SPIF)));
-    //PORTB |= (1<<PORTB4); //высокий уровень
-    //_delay_ms(50);
-
-    //PORTB &= ~(1<<PORTB4); //низкий уровень
-    SPDR = b;
-    while(!(SPSR & (1<<SPIF)));
-    PORTB |= (1<<PORTB4);
+    a = adr;
+    b = data;
+    
+    SPI_WriteStartByte(adr);
+    delay_ms(10);
+    SPI_WriteEndByte(data);
+    delay_ms(10);
 }
 
 void main(void)
 {
-    int qaz;
-
-    // Declare your local variables here
+     int i = 0;// Declare your local variables here
     init_ports();
     init_periferal();
     //
     // Global enable interrupts
     #asm("sei")
     InitLed();
+       
 
-
+    while(i <= 4)
+    {
+        SendLed(0,0);
+        SendLed(1,0);
+        SendLed(2,0);
+        SendLed(3,0);
+        SendLed(4,0);
+        SendLed(5,0);
+        SendLed(6,0);
+        SendLed(7,0);
+        SendLed(8,0);
+        i++;
+        delay_ms(10);
+    }
+    
+    SendLed(1, 7);
+    SendLed(2, 7);
+//    delay_ms(1); 
+//    SendLed(1,2);
+//    delay_ms(1);
+//    SendLed(1,3);
+//    delay_ms(1);
+//    SendLed(1,4);
+//    delay_ms(1);
+//    SendLed(1,5);
+//    delay_ms(1);
+//    SendLed(2,255);
+    
     while (1)
     {
-        SendLed(0x00);
-        SendLed(0x100);
-        SendLed(0x200);
-        SendLed(0x300);
-        SendLed(0x400);
-        SendLed(0x500);
-        SendLed(0x600);
-        SendLed(0x700);
-        SendLed(0x800);
-        delay_ms(1000);
+        
     }
 }

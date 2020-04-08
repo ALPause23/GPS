@@ -1,9 +1,10 @@
-VERSION:3 SOURCE_TIMESTAMP:5088088C
-NODE:I LEVEL:0 LINE:1 "E:\GitHub\GPS\GPS\ports.h"
-NODE:I LEVEL:0 LINE:2 "E:\GitHub\GPS\GPS\init_perif.h"
-NODE:I LEVEL:0 LINE:3 "E:\GitHub\GPS\GPS\uart_spi.h"
-NODE:I LEVEL:0 LINE:4 "C:\Program Files (x86)\CodeVisionAVR\inc\delay.h"
+VERSION:3 SOURCE_TIMESTAMP:50886125
+NODE:I LEVEL:0 LINE:1 "D:\GitHub\GPS\GPS\ports.h"
+NODE:I LEVEL:0 LINE:2 "D:\GitHub\GPS\GPS\init_perif.h"
+NODE:I LEVEL:0 LINE:3 "D:\GitHub\GPS\GPS\uart_spi.h"
+NODE:I LEVEL:0 LINE:4 "C:\cvavr\inc\delay.h"
 NODE:F LEVEL:0 LINE:8 "InitLed(void)"
-NODE:F LEVEL:0 LINE:76 "SPI_WriteByte(void)"
-NODE:F LEVEL:0 LINE:84 "SendLed(int i)"
+NODE:F LEVEL:0 LINE:78 "SPI_WriteStartByte(unsigned char data)"
+NODE:F LEVEL:0 LINE:85 "SPI_WriteEndByte(unsigned char data)"
+NODE:F LEVEL:0 LINE:92 "SendLed(unsigned char adr,unsigned char data)"
 NODE:F LEVEL:0 LINE:104 "main(void)"

@@ -110,9 +110,9 @@
    </POPUP>
    <POPUP w="536" x="23" flags="0000802b" y="209" h="360" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"main",00D0,003E,4718,2438,-1
+     <ITEM name="Breakpoint 0">"main",01CC,005A,FC45,4E9D,-1
 </ITEM>
-     <ITEM name="Breakpoint 1">"main",009C,001A,AFD1,2438,1
+     <ITEM name="Breakpoint 1">"main",01D4,0062,984A,4E9D,1
 </ITEM>
      <ITEM name="Breakpoint 2">"main",00A0,001E,9BF5,2438,-1
 </ITEM>
@@ -130,7 +130,7 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">1</ITEM>
+     <ITEM name="nBreakpoints">2</ITEM>
     </PROPERTIES>
    </POPUP>
    <POPUP w="394" x="903" flags="0000000b" y="85" h="289" pid="2" iid="1">
