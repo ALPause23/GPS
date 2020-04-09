@@ -19,8 +19,8 @@ Function                                                                        
 InitLed                                                                           0x00069     64
 SPI_WriteStartByte                                                                0x000A9      7
 SPI_WriteEndByte                                                                  0x000B0      8
-SendLed                                                                           0x000B8     17
-main                                                                              0x000C9     53
-init_periferal                                                                    0x000FE     45
-init_ports                                                                        0x0012B     13
-usart_rx_isr                                                                      0x00138     37
+SendLed                                                                           0x000B8     13
+main                                                                              0x000C5     33
+init_periferal                                                                    0x000E6     45
+init_ports                                                                        0x00113     13
+usart_rx_isr                                                                      0x00120     37

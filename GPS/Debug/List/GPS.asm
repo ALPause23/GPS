@@ -1443,13 +1443,11 @@ _SendLed:
 ; 0000 0062     SPI_WriteStartByte(adr);
 	LDD  R26,Y+3
 	RCALL _SPI_WriteStartByte
-; 0000 0063     delay_ms(10);
-	CALL SUBOPT_0x0
+; 0000 0063     //delay_ms(10);
 ; 0000 0064     SPI_WriteEndByte(data);
 	LDD  R26,Y+2
 	RCALL _SPI_WriteEndByte
-; 0000 0065     delay_ms(10);
-	CALL SUBOPT_0x0
+; 0000 0065     //delay_ms(10);
 ; 0000 0066 }
 	LDD  R17,Y+1
 	LDD  R16,Y+0
@@ -1461,91 +1459,88 @@ _SendLed:
 ; 0000 0069 {
 _main:
 ; .FSTART _main
-; 0000 006A      int i = 0;// Declare your local variables here
-; 0000 006B     init_ports();
+; 0000 006A     int i = 0;// Declare your local variables here
+; 0000 006B     char j = 0;
+; 0000 006C     init_ports();
 ;	i -> R16,R17
+;	j -> R19
 	__GETWRN 16,17,0
+	LDI  R19,0
 	CALL _init_ports
-; 0000 006C     init_periferal();
+; 0000 006D     init_periferal();
 	RCALL _init_periferal
-; 0000 006D     //
-; 0000 006E     // Global enable interrupts
-; 0000 006F     #asm("sei")
+; 0000 006E     //
+; 0000 006F     // Global enable interrupts
+; 0000 0070     #asm("sei")
 	sei
-; 0000 0070     InitLed();
+; 0000 0071     InitLed();
 	RCALL _InitLed
-; 0000 0071 
 ; 0000 0072 
-; 0000 0073     while(i <= 4)
+; 0000 0073 
+; 0000 0074     while(i <= 4)
 _0x2A:
 	__CPWRN 16,17,5
 	BRGE _0x2C
-; 0000 0074     {
-; 0000 0075         SendLed(0,0);
-	LDI  R30,LOW(0)
-	CALL SUBOPT_0x1
-; 0000 0076         SendLed(1,0);
-	LDI  R30,LOW(1)
-	CALL SUBOPT_0x1
-; 0000 0077         SendLed(2,0);
-	LDI  R30,LOW(2)
-	CALL SUBOPT_0x1
-; 0000 0078         SendLed(3,0);
-	LDI  R30,LOW(3)
-	CALL SUBOPT_0x1
-; 0000 0079         SendLed(4,0);
-	LDI  R30,LOW(4)
-	CALL SUBOPT_0x1
-; 0000 007A         SendLed(5,0);
-	LDI  R30,LOW(5)
-	CALL SUBOPT_0x1
-; 0000 007B         SendLed(6,0);
-	LDI  R30,LOW(6)
-	CALL SUBOPT_0x1
-; 0000 007C         SendLed(7,0);
-	LDI  R30,LOW(7)
-	CALL SUBOPT_0x1
-; 0000 007D         SendLed(8,0);
-	LDI  R30,LOW(8)
-	CALL SUBOPT_0x1
-; 0000 007E         i++;
+; 0000 0075     {
+; 0000 0076         for(j = 0; j <= 8; j++)
+	LDI  R19,LOW(0)
+_0x2E:
+	CPI  R19,9
+	BRSH _0x2F
+; 0000 0077         {
+; 0000 0078             SendLed(j,0);
+	ST   -Y,R19
+	LDI  R26,LOW(0)
+	RCALL _SendLed
+; 0000 0079         }
+	SUBI R19,-1
+	RJMP _0x2E
+_0x2F:
+; 0000 007A //        SendLed(1,0);
+; 0000 007B //        SendLed(2,0);
+; 0000 007C //        SendLed(3,0);
+; 0000 007D //        SendLed(4,0);
+; 0000 007E //        SendLed(5,0);
+; 0000 007F //        SendLed(6,0);
+; 0000 0080 //        SendLed(7,0);
+; 0000 0081 //        SendLed(8,0);
+; 0000 0082         i++;
 	__ADDWRN 16,17,1
-; 0000 007F         delay_ms(10);
-	CALL SUBOPT_0x0
-; 0000 0080     }
+; 0000 0083         //delay_ms(10);
+; 0000 0084     }
 	RJMP _0x2A
 _0x2C:
-; 0000 0081 
-; 0000 0082     SendLed(1, 7);
-	LDI  R30,LOW(1)
+; 0000 0085 
+; 0000 0086     SendLed(0, 1);
+	LDI  R30,LOW(0)
+	ST   -Y,R30
+	LDI  R26,LOW(1)
+	RCALL _SendLed
+; 0000 0087     SendLed(5, 7);
+	LDI  R30,LOW(5)
 	ST   -Y,R30
 	LDI  R26,LOW(7)
 	RCALL _SendLed
-; 0000 0083     SendLed(2, 7);
-	LDI  R30,LOW(2)
-	ST   -Y,R30
-	LDI  R26,LOW(7)
-	RCALL _SendLed
-; 0000 0084 //    delay_ms(1);
-; 0000 0085 //    SendLed(1,2);
-; 0000 0086 //    delay_ms(1);
-; 0000 0087 //    SendLed(1,3);
 ; 0000 0088 //    delay_ms(1);
-; 0000 0089 //    SendLed(1,4);
+; 0000 0089 //    SendLed(1,2);
 ; 0000 008A //    delay_ms(1);
-; 0000 008B //    SendLed(1,5);
+; 0000 008B //    SendLed(1,3);
 ; 0000 008C //    delay_ms(1);
-; 0000 008D //    SendLed(2,255);
-; 0000 008E 
-; 0000 008F     while (1)
-_0x2D:
-; 0000 0090     {
-; 0000 0091 
-; 0000 0092     }
-	RJMP _0x2D
-; 0000 0093 }
+; 0000 008D //    SendLed(1,4);
+; 0000 008E //    delay_ms(1);
+; 0000 008F //    SendLed(1,5);
+; 0000 0090 //    delay_ms(1);
+; 0000 0091 //    SendLed(2,255);
+; 0000 0092 
+; 0000 0093     while (1)
 _0x30:
+; 0000 0094     {
+; 0000 0095 
+; 0000 0096     }
 	RJMP _0x30
+; 0000 0097 }
+_0x33:
+	RJMP _0x33
 ; .FEND
 ;#include "init_perif.h"
 	#ifndef __SLEEP_DEFINED__
@@ -1904,31 +1899,8 @@ _rx_buffer:
 	.BYTE 0x50
 
 	.CSEG
-;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x0:
-	LDI  R26,LOW(10)
-	LDI  R27,0
-	JMP  _delay_ms
-
-;OPTIMIZER ADDED SUBROUTINE, CALLED 9 TIMES, CODE SIZE REDUCTION:13 WORDS
-SUBOPT_0x1:
-	ST   -Y,R30
-	LDI  R26,LOW(0)
-	JMP  _SendLed
-
 
 	.CSEG
-_delay_ms:
-	adiw r26,0
-	breq __delay_ms1
-__delay_ms0:
-	__DELAY_USW 0x7D0
-	wdr
-	sbiw r26,1
-	brne __delay_ms0
-__delay_ms1:
-	ret
-
 __SAVELOCR4:
 	ST   -Y,R19
 __SAVELOCR3:

@@ -9,7 +9,7 @@
   <PWI>
    <POPUP w="800" x="38" flags="00000003" y="128" h="200" pid="0" iid="-1">
     <PROPERTIES>
-     <ITEM name="Message Column Width">542</ITEM>
+     <ITEM name="Message Column Width">663</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
      <ITEM name="Source Column Width">100</ITEM>
      <ITEM name="Time Column Width">120</ITEM>
@@ -33,9 +33,19 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="788" x="285" flags="00000023" y="121" h="382" pid="0" iid="6">
+   <POPUP w="788" x="81" flags="00008023" y="506" h="382" pid="0" iid="6">
     <PROPERTIES>
      <ITEM name="AutoEcho">0</ITEM>
+     <ITEM name="ComboBox1000">S</ITEM>
+     <ITEM name="ComboBox1001">Sr</ITEM>
+     <ITEM name="ComboBox1002">P</ITEM>
+     <ITEM name="ComboBox1003">A</ITEM>
+     <ITEM name="ComboBox1004">N</ITEM>
+     <ITEM name="ComboBox1005">S</ITEM>
+     <ITEM name="ComboBox1006">Sr</ITEM>
+     <ITEM name="ComboBox1007">P</ITEM>
+     <ITEM name="ComboBox1008">A</ITEM>
+     <ITEM name="ComboBox1009">N</ITEM>
      <ITEM name="HSplitter1Pos">100</ITEM>
      <ITEM name="HexMode">0</ITEM>
      <ITEM name="VSplitter1Pos">238</ITEM>
@@ -104,9 +114,9 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="10" flags="0000802b" y="125" h="400" pid="1" iid="1">
+   <POPUP w="600" x="10" flags="0000002b" y="125" h="400" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"main",00FA,0014,796F,2438,-1
+     <ITEM name="Breakpoint 0">"main",00F4,0012,C913,2438,1
 </ITEM>
      <ITEM name="Breakpoint 1">"main",010C,0026,98C6,2438,-1
 </ITEM>
@@ -146,7 +156,7 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">0</ITEM>
+     <ITEM name="nBreakpoints">1</ITEM>
     </PROPERTIES>
    </POPUP>
    <POPUP w="421" x="1429" flags="0000000b" y="129" h="569" pid="2" iid="1">

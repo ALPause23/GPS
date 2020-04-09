@@ -7,142 +7,179 @@
 
 #include "main.h"
 
-#define MOSI 5								/* Define SPI bus pins */
-#define MISO 6
-#define SCK 7
-#define SPI_SS     4
 
-/*uint16_t i[16] = {
-	0b000100000001,
-	0b000100000010,
-	0b000100000011,
-	0b000100000100,
-	0b100000000101,
-	0b100000000110,
-	0b100000000111,
-	0b100000001000,
-	0b000100000001,
-	0b000100000010,
-	0b000100000011,
-	0b000100000100,
-	0b000100000101,
-	0b100100000110,
-	0b100100000111,
-	0b100100001000, 
-	};*/
 uint16_t i;
 uint8_t a,b;
 
 void InitLed()
 {
-	for(int i = 0; i < 4; i++)
-	{
-		// инициализация дисплея
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x0F;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-		
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x00;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-		
-		
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x0C;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-		
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x01;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-		
-		
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x0A;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-		
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x0F;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-		
-		
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x0B;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-		
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x07;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-		
-		
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x09;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-				
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x00;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
+	while(i < 4){
+	// инициализация дисплея
+	PORTB &= ~(1<<PORTB4);
+	SPDR = 0x0F;
+	while(!(SPSR & (1<<SPIF)));
+	//PORTB |= (1<<PORTB4); //высокий уровень
+	//_delay_ms(50);
+
+	//PORTB &= ~(1<<PORTB4); //низкий уровень
+	SPDR = 0x00;
+	while(!(SPSR & (1<<SPIF)));
+	PORTB |= (1<<PORTB4);
+
+
+	PORTB &= ~(1<<PORTB4);
+	SPDR = 0x0C;
+	while(!(SPSR & (1<<SPIF)));
+	//PORTB |= (1<<PORTB4); //высокий уровень
+	//_delay_ms(50);
+
+	//PORTB &= ~(1<<PORTB4); //низкий уровень
+	SPDR = 0x01;
+	while(!(SPSR & (1<<SPIF)));
+	PORTB |= (1<<PORTB4);
+
+
+	PORTB &= ~(1<<PORTB4);
+	SPDR = 0x0A;
+	while(!(SPSR & (1<<SPIF)));
+	//PORTB |= (1<<PORTB4); //высокий уровень
+	//_delay_ms(50);
+
+	//PORTB &= ~(1<<PORTB4); //низкий уровень
+	SPDR = 0x0F;
+	while(!(SPSR & (1<<SPIF)));
+	PORTB |= (1<<PORTB4);
+
+
+	PORTB &= ~(1<<PORTB4);
+	SPDR = 0x0B;
+	while(!(SPSR & (1<<SPIF)));
+	//PORTB |= (1<<PORTB4); //высокий уровень
+	//_delay_ms(50);
+
+	//PORTB &= ~(1<<PORTB4); //низкий уровень
+	SPDR = 0x07;
+	while(!(SPSR & (1<<SPIF)));
+	PORTB |= (1<<PORTB4);
+
+
+	PORTB &= ~(1<<PORTB4);
+	SPDR = 0x09;
+	while(!(SPSR & (1<<SPIF)));
+	//PORTB |= (1<<PORTB4); //высокий уровень
+	//_delay_ms(50);
+
+	//PORTB &= ~(1<<PORTB4); //низкий уровень
+	SPDR = 0x00;
+	while(!(SPSR & (1<<SPIF)));
+	PORTB |= (1<<PORTB4);
+	
+	i++;
 	}
+}
+
+void SPI_WriteStartByte(char data)
+{
+	PORTB &= ~(1<<PORTB4);
+	SPDR = data;
+	while(!(SPSR & (1<<SPIF)));
+}
+
+void SPI_WriteEndByte(char data)
+{
+	SPDR = data;
+	while(!(SPSR & (1<<SPIF)));
+	PORTB |= (1<<PORTB4);
+}
+
+void SendLed(char adr, char data)
+{
+	SPI_WriteStartByte(adr);
+	_delay_ms(10);
+	SPI_WriteEndByte(data);
+	_delay_ms(10);
+}
+
+void ClearDisplay()
+{
+	int i = 0;
+    while(i <= 4)
+    {
+		for(char j = 1; j <= 8; j++)
+		{
+			SendLed(j,0);
+		}
+	    i++;
+	    _delay_ms(1);
+    }
+}
+	
+void InitI2C()
+{
+	TWBR = TWBR_VALUE;
+	TWSR = 0;
+}	
+
+void SendOLED(uint8_t adr, uint8_t data)
+{
+	// START bit
+	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+	while(!(TWCR & (1<<TWINT)));
+	
+	/*выдаем на шину пакет SLA-W, ACK == 0*/
+	TWDR = (0b01111010)|0;
+	TWCR = (1<<TWINT)|(1<<TWEN);
+	while(!(TWCR & (1<<TWINT)));
+	
+	TWDR = adr;
+	TWCR = (1<<TWINT)|(1<<TWEN);
+	while(!(TWCR & (1<<TWINT)));
+		TWDR = data;
+		TWCR = (1<<TWINT)|(1<<TWEN);
+		while(!(TWCR & (1<<TWINT)));
+	
+	/*Stop bit*/
+	TWCR = (1<<TWINT)|(1<<TWSTO)|(1<<TWEN);
 }
 
 int main(void)
 {
-	int j = 0;
-	DDRB |= ((1<<PORTB0)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
+	DDRB |= ((1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
 	
-	PORTB &= ~((1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
-	PORTB |= (1<<PORTB0);
+	PORTB &= ~((1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
+	
 	
 	SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
 	SPSR=(0<<SPI2X);
 	
-	InitLed();
+	//InitLed();
+	//InitI2C();
+	//ClearDisplay();
+	//PORTB |= (1<<PORTB3);
+	//SendLed(4, 1);
+	//SendLed(4, 2);
+	//SendLed(4, 3);
+	//PORTB &= ~(1<<PORTB3);
+	//SendLed(1, 1);
+	//SendLed(2, 1);
 	
-	
-	
-	i = 0x13c;	
-		a = (i >> 8);
-		b = i;
+	InitI2C();
+	//SendOLED(0xA8, 0x3F);
+	SendOLED(0x00, 0xAF);
+	//SendOLED(0x00, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+
+	while(1)
+	{
 		
-		
-		PORTB &= ~(1<<PORTB4);
-		SPDR = a;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-		
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = b;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-		
-		_delay_ms(1000);
-		
-		i = 0x242;
-		PORTB &= ~(1<<PORTB4);
-		SPDR = a;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-		
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = b;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-		
-	
+	}
+	return 0;	
 }
