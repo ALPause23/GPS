@@ -290,6 +290,21 @@ void WriteNum(char *x, char *y, char *z)
 	
 }
 
+void SetOLED(void)
+{
+	i2cstart();
+	i2cwrite(0x40);
+	i2cwrite(0xFF);
+	i2cwrite(0x40);
+	for(int kk = 0; kk < 8; kk++)
+	{
+		//for(int k = 0; k < 128; k++)
+		i2cwrite(ONE[kk]);	//LSB вверху, MSB снизу
+	}
+	
+	i2cstop();
+}
+
 int main(void)
 {
 	DDRB |= ((1<<PORTB0)|(1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
@@ -300,25 +315,25 @@ int main(void)
 	SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
 	SPSR=(0<<SPI2X);
 	
-	InitLed();
-	//InitI2C();
-	ClearDisplay();
-	//PORTB |= (1<<PORTB3);
-	//SendLed(4, 1);
-	WriteNum(ONE, TWO, THREE);
-	_delay_ms(1000);
-	WriteNum(FOUR, FIVE, SIX);
-	_delay_ms(1000);
-	WriteNum(SEVEN, EITHT, NINE);
-	_delay_ms(1000);
-	WriteNum(Z, Y, X);
+	//InitLed();
+	////InitI2C();
+	//ClearDisplay();
+	////PORTB |= (1<<PORTB3);
+	////SendLed(4, 1);
+	//WriteNum(ONE, TWO, THREE);
+	//_delay_ms(1000);
+	//WriteNum(FOUR, FIVE, SIX);
+	//_delay_ms(1000);
+	//WriteNum(SEVEN, EITHT, NINE);
+	//_delay_ms(1000);
+	//WriteNum(Z, Y, X);
 	
 	InitI2C();
 	PORTB |= (1<<PORTB3);
-	_delay_ms(1000);
+	//_delay_ms(1000);
 	PORTB &= ~(1<<PORTB3);
 	ClearOLED();
-	
+	SetOLED();
 		
 	while(1)
 	{
