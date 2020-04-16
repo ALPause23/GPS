@@ -33,7 +33,11 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
+<<<<<<< HEAD
    <POPUP w="788" x="74" flags="00008023" y="593" h="382" pid="0" iid="6">
+=======
+   <POPUP w="788" x="81" flags="00008023" y="506" h="382" pid="0" iid="6">
+>>>>>>> parent of 78a1c28... собавлены цифры
     <PROPERTIES>
      <ITEM name="AutoEcho">0</ITEM>
      <ITEM name="ComboBox1000">S</ITEM>
@@ -114,11 +118,15 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
+<<<<<<< HEAD
    <POPUP w="600" x="492" flags="0000002b" y="84" h="400" pid="1" iid="1">
+=======
+   <POPUP w="600" x="10" flags="0000002b" y="125" h="400" pid="1" iid="1">
+>>>>>>> parent of 78a1c28... собавлены цифры
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"main",02C4,0012,ADFC,2438,1
+     <ITEM name="Breakpoint 0">"main",00F4,0012,C913,2438,1
 </ITEM>
-     <ITEM name="Breakpoint 1">"main",02CC,001A,C913,2438,1
+     <ITEM name="Breakpoint 1">"main",010C,0026,98C6,2438,-1
 </ITEM>
      <ITEM name="Breakpoint 10">"main",011E,008C,3769,2438,-1
 </ITEM>
@@ -156,7 +164,7 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">2</ITEM>
+     <ITEM name="nBreakpoints">1</ITEM>
     </PROPERTIES>
    </POPUP>
    <POPUP w="421" x="1429" flags="0000000b" y="129" h="569" pid="2" iid="1">

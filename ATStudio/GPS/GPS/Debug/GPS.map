@@ -2,8 +2,6 @@ Archive member included because of file (symbol)
 
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
                               c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm16.o (exit)
-c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
-                              GPS.o (__do_copy_data)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
                               GPS.o (__do_clear_bss)
 
@@ -13,8 +11,6 @@ Common symbol       size              file
 b                   0x1               GPS.o
 i                   0x2               GPS.o
 a                   0x1               GPS.o
-twi_status_register
-                    0x1               GPS.o
 
 Discarded input sections
 
@@ -23,6 +19,7 @@ Discarded input sections
  .text          0x00000000        0x0 GPS.o
  .data          0x00000000        0x0 GPS.o
  .bss           0x00000000        0x0 GPS.o
+<<<<<<< HEAD
  .data.ZERO     0x00000000        0x8 GPS.o
  .data.screen_1
                 0x00000000      0x400 GPS.o
@@ -46,6 +43,17 @@ Discarded input sections
  .data.screen_1
                 0x00000000      0x400 I2C.o
  .data.init     0x00000000       0x12 I2C.o
+=======
+ .text.InitLed  0x00000000       0x82 GPS.o
+ .text.SPI_WriteStartByte
+                0x00000000        0xa GPS.o
+ .text.SPI_WriteEndByte
+                0x00000000        0xa GPS.o
+ .text.SendLed  0x00000000       0x2a GPS.o
+ .text.ClearDisplay
+                0x00000000       0x3e GPS.o
+ COMMON         0x00000000        0x4 GPS.o
+>>>>>>> parent of 78a1c28... собавлены цифры
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
@@ -62,22 +70,6 @@ Discarded input sections
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  .text.libgcc.fixed
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
- .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
- .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
- .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
- .text.libgcc.mul
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
- .text.libgcc.div
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
- .text.libgcc.prologue
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
- .text.libgcc.builtins
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
- .text.libgcc.fmul
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
- .text.libgcc.fixed
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
@@ -211,7 +203,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x448
+.text           0x00000000       0xde
  *(.vectors)
  .vectors       0x00000000       0x54 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm16.o
                 0x00000000                __vector_default
@@ -250,10 +242,8 @@ END GROUP
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x00000060       0x16 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_copy_data.o)
-                0x00000060                __do_copy_data
- .init4         0x00000076       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
-                0x00000076                __do_clear_bss
+ .init4         0x00000060       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_clear_bss.o)
+                0x00000060                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -264,33 +254,34 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000086        0x8 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm16.o
+ .init9         0x00000070        0x8 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm16.o
  *(.init9)
  *(.text)
- .text          0x0000008e        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm16.o
-                0x0000008e                __vector_1
-                0x0000008e                __vector_12
-                0x0000008e                __bad_interrupt
-                0x0000008e                __vector_6
-                0x0000008e                __vector_3
-                0x0000008e                __vector_11
-                0x0000008e                __vector_13
-                0x0000008e                __vector_17
-                0x0000008e                __vector_19
-                0x0000008e                __vector_7
-                0x0000008e                __vector_5
-                0x0000008e                __vector_4
-                0x0000008e                __vector_9
-                0x0000008e                __vector_2
-                0x0000008e                __vector_15
-                0x0000008e                __vector_8
-                0x0000008e                __vector_14
-                0x0000008e                __vector_10
-                0x0000008e                __vector_16
-                0x0000008e                __vector_18
-                0x0000008e                __vector_20
-                0x00000092                . = ALIGN (0x2)
+ .text          0x00000078        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm16.o
+                0x00000078                __vector_1
+                0x00000078                __vector_12
+                0x00000078                __bad_interrupt
+                0x00000078                __vector_6
+                0x00000078                __vector_3
+                0x00000078                __vector_11
+                0x00000078                __vector_13
+                0x00000078                __vector_17
+                0x00000078                __vector_19
+                0x00000078                __vector_7
+                0x00000078                __vector_5
+                0x00000078                __vector_4
+                0x00000078                __vector_9
+                0x00000078                __vector_2
+                0x00000078                __vector_15
+                0x00000078                __vector_8
+                0x00000078                __vector_14
+                0x00000078                __vector_10
+                0x00000078                __vector_16
+                0x00000078                __vector_18
+                0x00000078                __vector_20
+                0x0000007c                . = ALIGN (0x2)
  *(.text.*)
+<<<<<<< HEAD
  .text.InitLed  0x00000092       0x82 GPS.o
                 0x00000092                InitLed
  .text.SPI_WriteStartByte
@@ -329,10 +320,20 @@ END GROUP
  .text.i2cstop  0x00000438        0xc I2C.o
                 0x00000438                i2cstop
                 0x00000444                . = ALIGN (0x2)
+=======
+ .text.InitI2C  0x0000007c        0x8 GPS.o
+                0x0000007c                InitI2C
+ .text.SendOLED
+                0x00000084       0x36 GPS.o
+                0x00000084                SendOLED
+ .text.main     0x000000ba       0x20 GPS.o
+                0x000000ba                main
+                0x000000da                . = ALIGN (0x2)
+>>>>>>> parent of 78a1c28... собавлены цифры
  *(.fini9)
- .fini9         0x00000444        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
-                0x00000444                _exit
-                0x00000444                exit
+ .fini9         0x000000da        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x000000da                _exit
+                0x000000da                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -351,65 +352,36 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000444        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x000000da        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000448                _etext = .
+                0x000000de                _etext = .
 
-.data           0x00800060       0x60 load address 0x00000448
+.data           0x00800060        0x0 load address 0x000000de
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
- .data.X        0x00800060        0x8 GPS.o
-                0x00800060                X
- .data.Y        0x00800068        0x8 GPS.o
-                0x00800068                Y
- .data.Z        0x00800070        0x8 GPS.o
-                0x00800070                Z
- .data.NINE     0x00800078        0x8 GPS.o
-                0x00800078                NINE
- .data.EITHT    0x00800080        0x8 GPS.o
-                0x00800080                EITHT
- .data.SEVEN    0x00800088        0x8 GPS.o
-                0x00800088                SEVEN
- .data.SIX      0x00800090        0x8 GPS.o
-                0x00800090                SIX
- .data.FIVE     0x00800098        0x8 GPS.o
-                0x00800098                FIVE
- .data.FOUR     0x008000a0        0x8 GPS.o
-                0x008000a0                FOUR
- .data.THREE    0x008000a8        0x8 GPS.o
-                0x008000a8                THREE
- .data.TWO      0x008000b0        0x8 GPS.o
-                0x008000b0                TWO
- .data.ONE      0x008000b8        0x8 GPS.o
-                0x008000b8                ONE
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.d*)
-                0x008000c0                . = ALIGN (0x2)
-                0x008000c0                _edata = .
-                0x008000c0                PROVIDE (__data_end, .)
+                0x00800060                . = ALIGN (0x2)
+                0x00800060                _edata = .
+                0x00800060                PROVIDE (__data_end, .)
 
-.bss            0x008000c0        0x5
-                0x008000c0                PROVIDE (__bss_start, .)
+.bss            0x00800060        0x0
+                0x00800060                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  *(COMMON)
- COMMON         0x008000c0        0x5 GPS.o
-                0x008000c0                b
-                0x008000c1                i
-                0x008000c3                a
-                0x008000c4                twi_status_register
-                0x008000c5                PROVIDE (__bss_end, .)
-                0x00000448                __data_load_start = LOADADDR (.data)
-                0x000004a8                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00800060                PROVIDE (__bss_end, .)
+                0x000000de                __data_load_start = LOADADDR (.data)
+                0x000000de                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008000c5        0x0
-                0x008000c5                PROVIDE (__noinit_start, .)
+.noinit         0x00800060        0x0
+                0x00800060                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008000c5                PROVIDE (__noinit_end, .)
-                0x008000c5                _end = .
-                0x008000c5                PROVIDE (__heap_start, .)
+                0x00800060                PROVIDE (__noinit_end, .)
+                0x00800060                _end = .
+                0x00800060                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -469,16 +441,24 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
+<<<<<<< HEAD
 .debug_aranges  0x00000000       0xa0
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x70 GPS.o
  .debug_aranges
                 0x00000070       0x30 I2C.o
+=======
+.debug_aranges  0x00000000       0x58
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x58 GPS.o
+>>>>>>> parent of 78a1c28... собавлены цифры
 
 .debug_pubnames
  *(.debug_pubnames)
 
+<<<<<<< HEAD
 .debug_info     0x00000000      0xcb7
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xa88 GPS.o
@@ -505,11 +485,37 @@ END GROUP
                                 0x27a (size before relaxing)
  .debug_str     0x00000241        0xb I2C.o
                                 0x1a7 (size before relaxing)
+=======
+.debug_info     0x00000000      0x348
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000      0x348 GPS.o
 
-.debug_loc      0x00000000      0x434
+.debug_abbrev   0x00000000      0x1d0
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x1d0 GPS.o
+
+.debug_line     0x00000000      0x24e
+ *(.debug_line .debug_line.* .debug_line_end)
+ .debug_line    0x00000000      0x24e GPS.o
+
+.debug_frame    0x00000000       0xb0
+ *(.debug_frame)
+ .debug_frame   0x00000000       0xb0 GPS.o
+
+.debug_str      0x00000000      0x1ae
+ *(.debug_str)
+ .debug_str     0x00000000      0x1ae GPS.o
+                                0x1e7 (size before relaxing)
+>>>>>>> parent of 78a1c28... собавлены цифры
+
+.debug_loc      0x00000000      0x1c4
  *(.debug_loc)
+<<<<<<< HEAD
  .debug_loc     0x00000000      0x407 GPS.o
  .debug_loc     0x00000407       0x2d I2C.o
+=======
+ .debug_loc     0x00000000      0x1c4 GPS.o
+>>>>>>> parent of 78a1c28... собавлены цифры
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -529,10 +535,16 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
+<<<<<<< HEAD
 .debug_ranges   0x00000000       0x80
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x60 GPS.o
  .debug_ranges  0x00000060       0x20 I2C.o
+=======
+.debug_ranges   0x00000000       0x48
+ *(.debug_ranges)
+ .debug_ranges  0x00000000       0x48 GPS.o
+>>>>>>> parent of 78a1c28... собавлены цифры
 
 .debug_macro
  *(.debug_macro)

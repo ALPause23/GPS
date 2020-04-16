@@ -11,8 +11,8 @@
 	#include <avr/io.h>
 	#include <avr/pgmspace.h>
 	#include <util/delay.h>
-	#include "util/twi.h"
 	
+<<<<<<< HEAD
 #endif /* MAIN_H_ */
 
 
@@ -379,3 +379,6 @@ unsigned char X[8] =
 	0x6C, //  ## ##
 	0xC6 // ##   ##
 };
+=======
+#endif /* MAIN_H_ */
+>>>>>>> parent of 78a1c28... собавлены цифры

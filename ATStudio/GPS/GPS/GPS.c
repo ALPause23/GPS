@@ -11,9 +11,12 @@
 uint16_t i;
 uint8_t a,b;
 
+<<<<<<< HEAD
 
 void ssd1306_command(uint8_t data);
 
+=======
+>>>>>>> parent of 78a1c28... СЃРѕР±Р°РІР»РµРЅС‹ С†РёС„СЂС‹
 void InitLed()
 {
 	while(i < 4){
@@ -95,12 +98,6 @@ void SPI_WriteEndByte(char data)
 	PORTB |= (1<<PORTB4);
 }
 
-void SPI_WriteByte(char data)
-{
-	SPDR = data;
-	while(!(SPSR & (1<<SPIF)));
-}
-
 void SendLed(char adr, char data)
 {
 	SPI_WriteStartByte(adr);
@@ -112,7 +109,7 @@ void SendLed(char adr, char data)
 void ClearDisplay()
 {
 	int i = 0;
-    while(i <= 3)
+    while(i <= 4)
     {
 		for(char j = 1; j <= 8; j++)
 		{
@@ -125,157 +122,67 @@ void ClearDisplay()
 	
 void InitI2C()
 {
-	//int i = 0;
 	TWBR = TWBR_VALUE;
 	TWSR = 0;
-	//while(1)
-	//{
-		//ssd1306_command(init[i]);
-		//i++;
-	//
-	ssd1306_command(SSD1306_DISPLAYOFF);                    // 0xAE
-	ssd1306_command(SSD1306_SETDISPLAYCLOCKDIV);            // 0xD5
-	ssd1306_command(0x80);                                  // the suggested ratio 0x80
-
-	ssd1306_command(SSD1306_SETMULTIPLEX);                  // 0xA8
-	ssd1306_command(SSD1306_LCDHEIGHT - 1);
-
-	ssd1306_command(SSD1306_SETDISPLAYOFFSET);              // 0xD3
-	ssd1306_command(0x0);                                   // no offset
-	ssd1306_command(SSD1306_SETSTARTLINE | 0x0);            // line #0
-	ssd1306_command(SSD1306_CHARGEPUMP);                    // 0x8D
-	if (0x2 == SSD1306_EXTERNALVCC)
-	{ ssd1306_command(0x10); }
-	else
-	{ ssd1306_command(0x14); }
-	ssd1306_command(SSD1306_MEMORYMODE);                    // 0x20
-	ssd1306_command(0x00);                                  // 0x0 act like ks0108
-	ssd1306_command(SSD1306_SEGREMAP | 0x1);
-	ssd1306_command(SSD1306_COMSCANDEC);
-
-	
-		ssd1306_command(SSD1306_SETCOMPINS);                    // 0xDA
-		ssd1306_command(0x02);
-		ssd1306_command(SSD1306_SETCONTRAST);                   // 0x81
-		ssd1306_command(0x8F);
-	
-	
-	ssd1306_command(SSD1306_SETPRECHARGE);                  // 0xd9
-	if (0x2 == SSD1306_EXTERNALVCC)
-	{ ssd1306_command(0x22); }
-	else
-	{ ssd1306_command(0xF1); }
-	ssd1306_command(SSD1306_SETVCOMDETECT);                 // 0xDB
-	ssd1306_command(0x40);
-	ssd1306_command(SSD1306_DISPLAYALLON_RESUME);           // 0xA4
-	ssd1306_command(SSD1306_NORMALDISPLAY);                 // 0xA6
-
-	ssd1306_command(SSD1306_DEACTIVATE_SCROLL);
-
-	ssd1306_command(SSD1306_DISPLAYON);//--turn on oled panel
-	//if(i == 18) return;
-	//}
 }	
 
-void ssd1306_command(uint8_t data)
+void SendOLED(uint8_t adr, uint8_t data)
 {
-	i2cstart();
-	i2cwrite(0x00);      // Co = 0, D/C = 0
-	i2cwrite(data);
-	i2cstop();
+	// START bit
+	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+	while(!(TWCR & (1<<TWINT)));
 	
-	//// START bit
-	//TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
-	//while(!(TWCR & (1<<TWINT)));
-	//
-	//twi_status_register = TW_STATUS & 0xF8;
-	//if ((twi_status_register != TW_START) && (twi_status_register != TW_REP_START))
-	//return;
-	//
-	//
-	//TWDR = 0x00;
-	//TWCR = (1<<TWINT) | (1<<TWEN);
-	//while(!(TWCR & (1<<TWINT)));
-	//
-	//TWDR = data;
-	//TWCR = (1<<TWINT) | (1<<TWEN);
-	//while(!(TWCR & (1<<TWINT)));
-	//twi_status_register = TW_STATUS & 0xF8;
-	//if (twi_status_register != TW_MT_DATA_ACK)
-	//return;
-	//
-///*Stop bit*/
-	//TWCR = (1<<TWINT)|(1<<TWSTO)|(1<<TWEN);
-	//while(TWCR & (1<<TWSTO));
-}
-void ClearOLED()
-{
-	i2cstart();
-	i2cwrite(0b10000000);
-	i2cwrite(0x20);
-	i2cwrite(0b10000000);
-	i2cwrite(0x00);
-	i2cwrite(0b01000000);
+	/*выдаем на шину пакет SLA-W, ACK == 0*/
+	TWDR = (0b01111010)|0;
+	TWCR = (1<<TWINT)|(1<<TWEN);
+	while(!(TWCR & (1<<TWINT)));
 	
-	for(int kk = 0; kk < 8; kk++)
-	{
-		for(int k = 0; k < 128; k++)
-			i2cwrite(0x00);	//LSB вверху, MSB снизу
-	}
-	i2cstop();
-}
-
-void WriteNum(char *x, char *y, char *z)
-{
+	TWDR = adr;
+	TWCR = (1<<TWINT)|(1<<TWEN);
+	while(!(TWCR & (1<<TWINT)));
+		TWDR = data;
+		TWCR = (1<<TWINT)|(1<<TWEN);
+		while(!(TWCR & (1<<TWINT)));
 	
-	for(int i = 0; i < 8; i++)
-	{
-		PORTB &= ~(1 << PORTB4);
-		
-		SPI_WriteByte(i + 1);
-		SPI_WriteByte(z[i]);
-		
-		SPI_WriteByte(i + 1);
-		SPI_WriteByte(y[i]);
-		
-		SPI_WriteByte(i + 1);
-		SPI_WriteByte(x[i]);
-		
-		PORTB |= (1<<PORTB4);
-	}
-	
+	/*Stop bit*/
+	TWCR = (1<<TWINT)|(1<<TWSTO)|(1<<TWEN);
 }
 
 int main(void)
 {
-	DDRB |= ((1<<PORTB0)|(1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
+	DDRB |= ((1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
 	
-	PORTB &= ~((1<<PORTB0)|(1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
+	PORTB &= ~((1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
 	
 	
 	SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
 	SPSR=(0<<SPI2X);
 	
-	InitLed();
+	//InitLed();
 	//InitI2C();
-	ClearDisplay();
+	//ClearDisplay();
 	//PORTB |= (1<<PORTB3);
 	//SendLed(4, 1);
-	WriteNum(ONE, TWO, THREE);
-	_delay_ms(1000);
-	WriteNum(FOUR, FIVE, SIX);
-	_delay_ms(1000);
-	WriteNum(SEVEN, EITHT, NINE);
-	_delay_ms(1000);
-	WriteNum(Z, Y, X);
+	//SendLed(4, 2);
+	//SendLed(4, 3);
+	//PORTB &= ~(1<<PORTB3);
+	//SendLed(1, 1);
+	//SendLed(2, 1);
 	
 	InitI2C();
-	PORTB |= (1<<PORTB3);
-	_delay_ms(1000);
-	PORTB &= ~(1<<PORTB3);
-	ClearOLED();
-	
-		
+	//SendOLED(0xA8, 0x3F);
+	SendOLED(0x00, 0xAF);
+	//SendOLED(0x00, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+	//SendOLED(0xA8, 0x3F);
+
 	while(1)
 	{
 		
