@@ -117,7 +117,7 @@ uint8_t i2cstart(void)
   a8:	80 31       	cpi	r24, 0x10	; 16
   aa:	91 f4       	brne	.+36     	; 0xd0 <i2cstart+0x3e>
 	return 1;
-
+	
 	TWDR = I2CADDR;
   ac:	88 e7       	ldi	r24, 0x78	; 120
   ae:	83 b9       	out	0x03, r24	; 3

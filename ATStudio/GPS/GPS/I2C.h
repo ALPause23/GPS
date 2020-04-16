@@ -29,20 +29,20 @@ For more information, please refer to <http://unlicense.org/>
 #define _I2C_H_
 
 #include <stdint.h>
-#include <util/twi.h>
 
 #define SCL_CLOCK  100000L
+#define F_CPU 8000000UL
+#define F_I2C 50000UL
+#define TWBR_VALUE (((F_CPU)/(F_I2C)-16)/2)
+#define RTC_RESET_POINTER   0xff
 
-class I2C {
-public:
-    I2C();
-    void init(uint8_t address);
-    uint8_t start();
-    uint8_t write(uint8_t data);
-    void stop(void);
-private:
-    uint8_t address;
-    uint8_t twi_status_register;
-};
+#if ((TWBR_VALUE > 255) || (TWBR_VALUE == 0))
+#error "TWBR value is not correct"
+#endif
+uint8_t i2cstart(void);
+uint8_t i2cwrite(uint8_t data);
+void i2cstop(void);
+
+uint8_t twi_status_register;
 
 #endif

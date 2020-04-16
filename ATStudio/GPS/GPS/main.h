@@ -1,14 +1,7 @@
 #ifndef MAIN_H_
 	#define MAIN_H_
 	
-	#define F_CPU 8000000UL
-	#define F_I2C 50000UL
-	#define TWBR_VALUE (((F_CPU)/(F_I2C)-16)/2)
-	#define RTC_RESET_POINTER   0xff
-
-	#if ((TWBR_VALUE > 255) || (TWBR_VALUE == 0))
-		#error "TWBR value is not correct"
-	#endif
+	
 	
 	#include <avr/io.h>
 	#include <avr/interrupt.h>
@@ -247,7 +240,7 @@ unsigned char ONE[8] =
 	0x60, //  ##
 	0x60, //  ##
 	0x60, //  ##
-	0x60, //  ##
+	0x60 //  ##
 };
 unsigned char TWO[8] = 
 {
@@ -258,7 +251,7 @@ unsigned char TWO[8] =
 	0x30, //   ##
 	0x60, //  ##
 	0xC0, // ##
-	0xF8, // #####
+	0xF8 // #####
 };
 unsigned char THREE[8] = 
 {
@@ -269,7 +262,7 @@ unsigned char THREE[8] =
 	0x30, //   ##
 	0x18, //    ##
 	0xD8, // ## ##
-	0x70, //  ###
+	0x70 //  ###
 };
 unsigned char FOUR[8] = 
 {
@@ -280,7 +273,7 @@ unsigned char FOUR[8] =
 	0xD8, // ## ##
 	0xFC, // ######
 	0x18, //    ##
-	0x18, //    ##
+	0x18 //    ##
 };
 unsigned char FIVE[8] =
 {
@@ -291,7 +284,7 @@ unsigned char FIVE[8] =
 	0x18, //    ##
 	0x18, //    ##
 	0xD8, // ## ##
-	0x70, //  ###
+	0x70 //  ###
 }; 
 unsigned char SIX[8] = 
 {
@@ -303,7 +296,7 @@ unsigned char SIX[8] =
 	0xF0, // ####
 	0xD8, // ## ##
 	0xD8, // ## ##
-	0x70, //  ###
+	0x70 //  ###
 };
 unsigned char SEVEN[8] =
 {
@@ -314,7 +307,7 @@ unsigned char SEVEN[8] =
 	0x30, //   ##
 	0x30, //   ##
 	0x60, //  ##
-	0x60, //  ##
+	0x60 //  ##
 };
 unsigned char EITHT[8] = 
 {
@@ -325,7 +318,7 @@ unsigned char EITHT[8] =
 	0x70, //  ###
 	0xD8, // ## ##
 	0xD8, // ## ##
-	0x70, //  ###
+	0x70 //  ###
 };
 unsigned char NINE[8] = 
 {
@@ -336,18 +329,19 @@ unsigned char NINE[8] =
 	0x78, //  ####
 	0x18, //    ##
 	0xD8, // ## ##
-	0x70, //  ###
+	0x70 //  ###
 };
 unsigned char ZERO[8] = 
 {
 	// @0 '0' (6 pixels wide)
-	0x70, //  ###
-	0xD8, // ## ##
-	0xD8, // ## ##
-	0xD8, // ## ##
-	0xD8, // ## ##
-	0xD8, // ## ##
-	0x70, //  ###
+	0x7C,
+	0xC6,
+	0xCE,
+	0xDE,
+	0xF6,
+	0xE6,
+	0xC6,
+	0x7C
 };
 
 unsigned char Z[8] =
@@ -359,7 +353,7 @@ unsigned char Z[8] =
 	0xFC, // ######
 	0xEC, // ### ##
 	0xEC, // ### ##
-	0xCC, // ##  ##
+	0xCC // ##  ##
 };
 unsigned char Y[8] =
 {
@@ -371,7 +365,7 @@ unsigned char Y[8] =
 	0x38, //   ###
 	0x38, //   ###
 	0x30, //   ##
-	0xE0, // ###
+	0xE0 // ###
 };
 unsigned char X[8] =
 {
@@ -383,5 +377,5 @@ unsigned char X[8] =
 	0x38, //   ###
 	0x38, //   ###
 	0x6C, //  ## ##
-	0xC6, // ##   ##
+	0xC6 // ##   ##
 };

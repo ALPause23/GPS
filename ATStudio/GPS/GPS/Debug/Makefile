@@ -37,7 +37,8 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../GPS.c
+../GPS.c \
+../I2C.c
 
 
 PREPROCESSING_SRCS += 
@@ -47,16 +48,20 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-GPS.o
+GPS.o \
+I2C.o
 
 OBJS_AS_ARGS +=  \
-GPS.o
+GPS.o \
+I2C.o
 
 C_DEPS +=  \
-GPS.d
+GPS.d \
+I2C.d
 
 C_DEPS_AS_ARGS +=  \
-GPS.d
+GPS.d \
+I2C.d
 
 OUTPUT_FILE_PATH +=GPS.elf
 
@@ -72,6 +77,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
