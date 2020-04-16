@@ -34,7 +34,11 @@
     </PROPERTIES>
    </POPUP>
 <<<<<<< HEAD
+<<<<<<< HEAD
    <POPUP w="788" x="74" flags="00008023" y="593" h="382" pid="0" iid="6">
+=======
+   <POPUP w="788" x="81" flags="00008023" y="506" h="382" pid="0" iid="6">
+>>>>>>> parent of 78a1c28... собавлены цифры
 =======
    <POPUP w="788" x="81" flags="00008023" y="506" h="382" pid="0" iid="6">
 >>>>>>> parent of 78a1c28... собавлены цифры
@@ -119,7 +123,11 @@
     </PROPERTIES>
    </POPUP>
 <<<<<<< HEAD
+<<<<<<< HEAD
    <POPUP w="600" x="492" flags="0000002b" y="84" h="400" pid="1" iid="1">
+=======
+   <POPUP w="600" x="10" flags="0000002b" y="125" h="400" pid="1" iid="1">
+>>>>>>> parent of 78a1c28... собавлены цифры
 =======
    <POPUP w="600" x="10" flags="0000002b" y="125" h="400" pid="1" iid="1">
 >>>>>>> parent of 78a1c28... собавлены цифры
