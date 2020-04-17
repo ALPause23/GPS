@@ -192,7 +192,7 @@ void InitI2C()
 	{ ssd1306_command(0x10); }
 	else
 	{ ssd1306_command(0x14); }
-	ssd1306_command(SSD1306_MEMORYMODE);                    // 0x20
+	ssd1306_command(0x20);                    // 0x20  SSD1306_MEMORYMODE
 	ssd1306_command(0x00);                                  // 0x0 act like ks0108
 	ssd1306_command(SSD1306_SEGREMAP | 0x1);
 	ssd1306_command(SSD1306_COMSCANDEC);
@@ -292,14 +292,50 @@ void WriteNum(char *x, char *y, char *z)
 
 void SetOLED(void)
 {
+	
 	i2cstart();
-	i2cwrite(0x40);
-	i2cwrite(0xFF);
+	i2cwrite(0x00);
+	i2cwrite(SSD1306_COLUMNADDR);
+	i2cwrite(0x00);
+	i2cwrite(0x07);
+	i2cstop();
+	
+	i2cstart();
+	i2cwrite(0x00);
+	i2cwrite(SSD1306_PAGEADDR);
+	i2cwrite(0x04);
+	i2cwrite(0x07);
+	i2cstop();
+	
+	//ssd1306_command(SSD1306_COLUMNADDR);
+	//ssd1306_command(0x00);	
+	//ssd1306_command(0x6);
+//
+//
+	//ssd1306_command(SSD1306_PAGEADDR);
+	//ssd1306_command(0x04);
+	//ssd1306_command(0x07);
+	
+	i2cstart();
 	i2cwrite(0x40);
 	for(int kk = 0; kk < 8; kk++)
 	{
-		//for(int k = 0; k < 128; k++)
-		i2cwrite(ONE[kk]);	//LSB вверху, MSB снизу
+		i2cwrite(X1[kk]);	//LSB вверху, MSB снизу
+	}
+	i2cstop();
+	i2cstart();
+	i2cwrite(0x00);
+	i2cwrite(SSD1306_COLUMNADDR);
+	i2cwrite(0x00);
+	i2cwrite(0x07);
+	i2cstop();
+	for(int kk = 0; kk < 8; kk++)
+	{
+		i2cwrite(Y1[kk]);	//LSB вверху, MSB снизу
+	}
+	for(int kk = 0; kk < 8; kk++)
+	{
+		i2cwrite(Z1[kk]);	//LSB вверху, MSB снизу
 	}
 	
 	i2cstop();
@@ -330,7 +366,7 @@ int main(void)
 	
 	InitI2C();
 	PORTB |= (1<<PORTB3);
-	//_delay_ms(1000);
+	_delay_ms(100);
 	PORTB &= ~(1<<PORTB3);
 	ClearOLED();
 	SetOLED();

@@ -105,6 +105,7 @@ void SSD1306::sendFramebuffer(uint8_t *buffer) {
     sendCommand(0x00);
     sendCommand(0x7F);
 
+
     sendCommand(SSD1306_PAGEADDR);
     sendCommand(0x00);
     sendCommand(0x07);
