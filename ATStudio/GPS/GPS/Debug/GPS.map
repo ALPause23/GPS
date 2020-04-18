@@ -23,31 +23,8 @@ Discarded input sections
  .text          0x00000000        0x0 GPS.o
  .data          0x00000000        0x0 GPS.o
  .bss           0x00000000        0x0 GPS.o
- .text.InitLed  0x00000000       0x82 GPS.o
- .text.SPI_WriteStartByte
-                0x00000000        0xa GPS.o
- .text.SPI_WriteEndByte
-                0x00000000        0xa GPS.o
- .text.SPI_WriteByte
-                0x00000000        0x8 GPS.o
- .text.SendLed  0x00000000       0x2a GPS.o
- .text.ClearDisplay
-                0x00000000       0x3e GPS.o
- .text.WriteNum
-                0x00000000       0x62 GPS.o
- .data.X        0x00000000        0x8 GPS.o
- .data.Y        0x00000000        0x8 GPS.o
- .data.Z        0x00000000        0x8 GPS.o
+ .rodata.X1     0x00000000       0x80 GPS.o
  .data.ZERO     0x00000000        0x8 GPS.o
- .data.NINE     0x00000000        0x8 GPS.o
- .data.EITHT    0x00000000        0x8 GPS.o
- .data.SEVEN    0x00000000        0x8 GPS.o
- .data.SIX      0x00000000        0x8 GPS.o
- .data.FIVE     0x00000000        0x8 GPS.o
- .data.FOUR     0x00000000        0x8 GPS.o
- .data.THREE    0x00000000        0x8 GPS.o
- .data.TWO      0x00000000        0x8 GPS.o
- .data.ONE      0x00000000        0x8 GPS.o
  .data.screen_1
                 0x00000000      0x400 GPS.o
  .data.init     0x00000000       0x12 GPS.o
@@ -215,7 +192,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x302
+.text           0x00000000      0x5fc
  *(.vectors)
  .vectors       0x00000000       0x54 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm16.o
                 0x00000000                __vector_default
@@ -303,23 +280,42 @@ END GROUP
                 0x000000d8                i2cwrite
  .text.i2cstop  0x000000f6        0xc GPS.o
                 0x000000f6                i2cstop
+ .text.InitLed  0x00000102       0x82 GPS.o
+                0x00000102                InitLed
+ .text.SPI_WriteStartByte
+                0x00000184        0xa GPS.o
+                0x00000184                SPI_WriteStartByte
+ .text.SPI_WriteEndByte
+                0x0000018e        0xa GPS.o
+                0x0000018e                SPI_WriteEndByte
+ .text.SPI_WriteByte
+                0x00000198        0x8 GPS.o
+                0x00000198                SPI_WriteByte
+ .text.SendLed  0x000001a0       0x2a GPS.o
+                0x000001a0                SendLed
+ .text.ClearDisplay
+                0x000001ca       0x3e GPS.o
+                0x000001ca                ClearDisplay
  .text.ssd1306_command
-                0x00000102       0x1c GPS.o
-                0x00000102                ssd1306_command
- .text.InitI2C  0x0000011e       0xa4 GPS.o
-                0x0000011e                InitI2C
+                0x00000208       0x1c GPS.o
+                0x00000208                ssd1306_command
+ .text.InitI2C  0x00000224       0xa4 GPS.o
+                0x00000224                InitI2C
  .text.ClearOLED
-                0x000001c2       0x6a GPS.o
-                0x000001c2                ClearOLED
- .text.SetOLED  0x0000022c       0x9c GPS.o
-                0x0000022c                SetOLED
- .text.main     0x000002c8       0x36 GPS.o
-                0x000002c8                main
-                0x000002fe                . = ALIGN (0x2)
+                0x000002c8       0x92 GPS.o
+                0x000002c8                ClearOLED
+ .text.WriteNum
+                0x0000035a       0x62 GPS.o
+                0x0000035a                WriteNum
+ .text.SetOLED  0x000003bc      0x188 GPS.o
+                0x000003bc                SetOLED
+ .text.main     0x00000544       0xb4 GPS.o
+                0x00000544                main
+                0x000005f8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000002fe        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
-                0x000002fe                _exit
-                0x000002fe                exit
+ .fini9         0x000005f8        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x000005f8                _exit
+                0x000005f8                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -338,47 +334,74 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000002fe        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x000005f8        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000302                _etext = .
+                0x000005fc                _etext = .
 
-.data           0x00800060       0x18 load address 0x00000302
+.data           0x00800060      0x320 load address 0x000005fc
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
- .data.Z1       0x00800060        0x8 GPS.o
-                0x00800060                Z1
- .data.Y1       0x00800068        0x8 GPS.o
-                0x00800068                Y1
- .data.X1       0x00800070        0x8 GPS.o
-                0x00800070                X1
+ .data.serp     0x00800060       0x80 GPS.o
+                0x00800060                serp
+ .data.X        0x008000e0        0x8 GPS.o
+                0x008000e0                X
+ .data.Y        0x008000e8        0x8 GPS.o
+                0x008000e8                Y
+ .data.Z        0x008000f0        0x8 GPS.o
+                0x008000f0                Z
+ .data.NINE     0x008000f8        0x8 GPS.o
+                0x008000f8                NINE
+ .data.EITHT    0x00800100        0x8 GPS.o
+                0x00800100                EITHT
+ .data.SEVEN    0x00800108        0x8 GPS.o
+                0x00800108                SEVEN
+ .data.SIX      0x00800110        0x8 GPS.o
+                0x00800110                SIX
+ .data.FIVE     0x00800118        0x8 GPS.o
+                0x00800118                FIVE
+ .data.FOUR     0x00800120        0x8 GPS.o
+                0x00800120                FOUR
+ .data.THREE    0x00800128        0x8 GPS.o
+                0x00800128                THREE
+ .data.TWO      0x00800130        0x8 GPS.o
+                0x00800130                TWO
+ .data.ONE      0x00800138        0x8 GPS.o
+                0x00800138                ONE
  *(.rodata)
  *(.rodata*)
+ .rodata.AVRlogo
+                0x00800140      0x13f GPS.o
+                0x00800140                AVRlogo
+ .rodata.BGUIRlogo
+                0x0080027f      0x100 GPS.o
+                0x0080027f                BGUIRlogo
  *(.gnu.linkonce.d*)
-                0x00800078                . = ALIGN (0x2)
-                0x00800078                _edata = .
-                0x00800078                PROVIDE (__data_end, .)
+                0x00800380                . = ALIGN (0x2)
+ *fill*         0x0080037f        0x1 
+                0x00800380                _edata = .
+                0x00800380                PROVIDE (__data_end, .)
 
-.bss            0x00800078        0x5
-                0x00800078                PROVIDE (__bss_start, .)
+.bss            0x00800380        0x5
+                0x00800380                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  *(COMMON)
- COMMON         0x00800078        0x5 GPS.o
-                0x00800078                b
-                0x00800079                i
-                0x0080007b                a
-                0x0080007c                twi_status_register
-                0x0080007d                PROVIDE (__bss_end, .)
-                0x00000302                __data_load_start = LOADADDR (.data)
-                0x0000031a                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800380        0x5 GPS.o
+                0x00800380                b
+                0x00800381                i
+                0x00800383                a
+                0x00800384                twi_status_register
+                0x00800385                PROVIDE (__bss_end, .)
+                0x000005fc                __data_load_start = LOADADDR (.data)
+                0x0000091c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080007d        0x0
-                0x0080007d                PROVIDE (__noinit_start, .)
+.noinit         0x00800385        0x0
+                0x00800385                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0080007d                PROVIDE (__noinit_end, .)
-                0x0080007d                _end = .
-                0x0080007d                PROVIDE (__heap_start, .)
+                0x00800385                PROVIDE (__noinit_end, .)
+                0x00800385                _end = .
+                0x00800385                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -445,30 +468,30 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xadd
+.debug_info     0x00000000     0x1011
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0xadd GPS.o
+ .debug_info    0x00000000     0x1011 GPS.o
 
-.debug_abbrev   0x00000000      0x2d6
+.debug_abbrev   0x00000000      0x2dd
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x2d6 GPS.o
+ .debug_abbrev  0x00000000      0x2dd GPS.o
 
-.debug_line     0x00000000      0x394
+.debug_line     0x00000000      0x40e
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x394 GPS.o
+ .debug_line    0x00000000      0x40e GPS.o
 
 .debug_frame    0x00000000      0x180
  *(.debug_frame)
  .debug_frame   0x00000000      0x180 GPS.o
 
-.debug_str      0x00000000      0x249
+.debug_str      0x00000000      0x260
  *(.debug_str)
- .debug_str     0x00000000      0x249 GPS.o
-                                0x282 (size before relaxing)
+ .debug_str     0x00000000      0x260 GPS.o
+                                0x299 (size before relaxing)
 
-.debug_loc      0x00000000      0x54f
+.debug_loc      0x00000000      0x52d
  *(.debug_loc)
- .debug_loc     0x00000000      0x54f GPS.o
+ .debug_loc     0x00000000      0x52d GPS.o
 
 .debug_macinfo
  *(.debug_macinfo)
