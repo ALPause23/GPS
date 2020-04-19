@@ -432,28 +432,43 @@ int main(void)
 	PORTB &= ~((1<<PORTB0)|(1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
 	
 	
-	SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
-	SPSR=(0<<SPI2X);
-	
-	InitLed();
-	//InitI2C();
-	ClearDisplay();
-
-	WriteNum(THREE, TWO,ONE );
-	_delay_ms(100);
-	WriteNum(SIX, FIVE, FOUR);
-	_delay_ms(100);
-	WriteNum(NINE, EITHT, SEVEN);
-	_delay_ms(100);
-	WriteNum(Z, Y, X);
-	
+	//SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
+	//SPSR=(0<<SPI2X);
+	//
+	//InitLed();
+	////InitI2C();
+	//ClearDisplay();
+//
+	//WriteNum(THREE, TWO,ONE );
+	//_delay_ms(100);
+	//WriteNum(SIX, FIVE, FOUR);
+	//_delay_ms(100);
+	//WriteNum(NINE, EITHT, SEVEN);
+	//_delay_ms(100);
+	//WriteNum(Z, Y, X);
+	//
+	//
+	PORTB &= ~(1<<PORTB3);	
 	InitI2C();
-	PORTB |= (1<<PORTB3);
-	_delay_ms(100);
-	PORTB &= ~(1<<PORTB3);
+	PORTB |= ((1<<PORTB4)|(1<<PORTB5));
+	_delay_ms(10);
+	InitI2C();
+	_delay_ms(10);
+	PORTB &= ~((1<<PORTB4)|(1<<PORTB5));
+	_delay_ms(10);
 	ClearOLED();
+	PORTB |= ((1<<PORTB4)|(1<<PORTB5));
+	_delay_ms(10);
+	ClearOLED();
+	PORTB &= ~((1<<PORTB4)|(1<<PORTB5));
+	_delay_ms(10);
 	SetOLED();
-		
+	PORTB |= ((1<<PORTB4)|(1<<PORTB5));
+	_delay_ms(10);
+	SetOLED();
+	
+	_delay_ms(1000);
+	PORTB |= (1<<PORTB3);
 	while(1)
 	{
 		
