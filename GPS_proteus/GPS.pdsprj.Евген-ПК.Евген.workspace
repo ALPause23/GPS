@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c00000000000000010000000083ffff0083ffffffffffffffffffff560100001a0000008007000010040000</PLACEMENT>
+  <PLACEMENT>2c0000000000000001000000ffffffffffffffffffffffffffffffff560100001a0000008007000010040000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
   <WINDOW type="default" module="DXP"/>
  </FRAME>
@@ -33,7 +33,7 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="788" x="81" flags="00000023" y="506" h="382" pid="0" iid="6">
+   <POPUP w="442" x="1423" flags="00000023" y="378" h="269" pid="0" iid="6">
     <PROPERTIES>
      <ITEM name="AutoEcho">0</ITEM>
      <ITEM name="ComboBox1000">S</ITEM>
@@ -114,11 +114,11 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="492" flags="0000802b" y="84" h="400" pid="1" iid="1">
+   <POPUP w="600" x="153" flags="0000002b" y="432" h="400" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"main",02C4,0012,ADFC,2438,1
+     <ITEM name="Breakpoint 0">"main",03B0,000A,3D04,2438,1
 </ITEM>
-     <ITEM name="Breakpoint 1">"main",02CC,001A,C913,2438,1
+     <ITEM name="Breakpoint 1">"main",03CA,0024,95A5,2438,1
 </ITEM>
      <ITEM name="Breakpoint 10">"main",011E,008C,3769,2438,-1
 </ITEM>
@@ -134,17 +134,17 @@
 </ITEM>
      <ITEM name="Breakpoint 16">"main",0174,00E2,132D,2438,1
 </ITEM>
-     <ITEM name="Breakpoint 2">"main",011C,0036,E62D,2438,-1
+     <ITEM name="Breakpoint 2">"main",03E4,003E,E1A4,2438,1
 </ITEM>
-     <ITEM name="Breakpoint 3">"main",012C,0046,EA1F,2438,1
+     <ITEM name="Breakpoint 3">"main",03DC,0036,FFDF,2438,-1
 </ITEM>
-     <ITEM name="Breakpoint 4">"main",012C,0046,9F50,2438,1
+     <ITEM name="Breakpoint 4">"main",03E0,003A,842A,2438,-1
 </ITEM>
-     <ITEM name="Breakpoint 5">"main",012E,0048,F528,2438,1
+     <ITEM name="Breakpoint 5">"main",03DE,0038,C913,2438,-1
 </ITEM>
-     <ITEM name="Breakpoint 6">"main",0132,004C,BE92,2438,1
+     <ITEM name="Breakpoint 6">"main",03E2,003C,FFDF,2438,-1
 </ITEM>
-     <ITEM name="Breakpoint 7">"main",0100,006E,9F50,2438,1
+     <ITEM name="Breakpoint 7">"main",03E6,0040,842A,2438,-1
 </ITEM>
      <ITEM name="Breakpoint 8">"main",0114,0082,F3C6,2438,-1
 </ITEM>
@@ -156,10 +156,10 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">2</ITEM>
+     <ITEM name="nBreakpoints">3</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="421" x="1429" flags="0000000b" y="129" h="569" pid="2" iid="1">
+   <POPUP w="421" x="1488" flags="0000000b" y="448" h="569" pid="2" iid="1">
     <PROPERTIES>
      <ITEM name="Address Column Width">78</ITEM>
      <ITEM name="AutoResize">No</ITEM>
@@ -205,6 +205,28 @@
     <PROPERTIES>
      <ITEM name="HSplitter1Pos">100</ITEM>
      <ITEM name="VSplitter1Pos">238</ITEM>
+    </PROPERTIES>
+   </POPUP>
+   <POPUP w="450" x="1423" flags="00008023" y="106" h="250" pid="0" iid="9">
+    <PROPERTIES>
+     <ITEM name="ComboBox1000">S</ITEM>
+     <ITEM name="ComboBox1001">Sr</ITEM>
+     <ITEM name="ComboBox1002">P</ITEM>
+     <ITEM name="ComboBox1003">A</ITEM>
+     <ITEM name="ComboBox1004">N</ITEM>
+     <ITEM name="ComboBox1005">S</ITEM>
+     <ITEM name="ComboBox1006">Sr</ITEM>
+     <ITEM name="ComboBox1007">P</ITEM>
+     <ITEM name="ComboBox1008">A</ITEM>
+     <ITEM name="ComboBox1009">N</ITEM>
+     <ITEM name="HSplitter1Pos">103</ITEM>
+     <ITEM name="VSplitter1Pos">238</ITEM>
+    </PROPERTIES>
+   </POPUP>
+   <POPUP w="450" x="128" flags="00000023" y="208" h="250" pid="0" iid="10">
+    <PROPERTIES>
+     <ITEM name="AutoEcho">0</ITEM>
+     <ITEM name="HexMode">0</ITEM>
     </PROPERTIES>
    </POPUP>
   </PWI>

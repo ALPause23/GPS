@@ -328,7 +328,7 @@ void SetOLED(void)
 	//ssd1306_command(SSD1306_PAGEADDR);
 	//ssd1306_command(0x04);
 	//ssd1306_command(0x07);
-	_delay_ms(100);
+	//_delay_ms(100);
 	i2cstart();
 	i2cwrite(0x40);
 	for(int kk = 0; kk < 128; kk++)
@@ -386,25 +386,25 @@ void SetOLED(void)
 	i2cstop();
 	ssd1306_command(SSD1306_DISPLAYON);
 	
-	_delay_ms(1000);
+	//_delay_ms(1000);
 	
-	ClearOLED();
-	_delay_ms(100);
-	
-	ssd1306_command(SSD1306_DISPLAYOFF);
-	i2cstart();
-	i2cwrite(0x00);
-	i2cwrite(SSD1306_COLUMNADDR);
-	i2cwrite(0x00);
-	i2cwrite(0x55);
-	i2cstop();
-	
-	i2cstart();
-	i2cwrite(0x00);
-	i2cwrite(SSD1306_PAGEADDR);
-	i2cwrite(0x04);
-	i2cwrite(0x07);
-	i2cstop();
+	//ClearOLED();
+	////_delay_ms(100);
+	//
+	//ssd1306_command(SSD1306_DISPLAYOFF);
+	//i2cstart();
+	//i2cwrite(0x00);
+	//i2cwrite(SSD1306_COLUMNADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(0x55);
+	//i2cstop();
+	//
+	//i2cstart();
+	//i2cwrite(0x00);
+	//i2cwrite(SSD1306_PAGEADDR);
+	//i2cwrite(0x04);
+	//i2cwrite(0x07);
+	//i2cstop();
 	
 	//ssd1306_command(SSD1306_COLUMNADDR);
 	//ssd1306_command(0x00);
@@ -414,27 +414,27 @@ void SetOLED(void)
 	//ssd1306_command(SSD1306_PAGEADDR);
 	//ssd1306_command(0x04);
 	//ssd1306_command(0x07);
-	_delay_ms(100);
-	i2cstart();
-	i2cwrite(0x40);
-	for(long int kk = 0; kk < 319; kk++)
-	{
-		i2cwrite(AVRlogo[kk]);	//LSB вверху, MSB снизу
-	}
-	i2cstop();
-	ssd1306_command(SSD1306_DISPLAYON);
+	//_delay_ms(100);
+	//i2cstart();
+	//i2cwrite(0x40);
+	//for(uint16_t kk = 0; kk < 319; kk++)
+	//{
+		//i2cwrite(AVRlogo[kk]);	//LSB вверху, MSB снизу
+	//}
+	//i2cstop();
+	//ssd1306_command(SSD1306_DISPLAYON);
 }
 
 int main(void)
 {
 	DDRB |= ((1<<PORTB0)|(1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
 	
-	PORTB &= ~((1<<PORTB0)|(1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
+	PORTB |= ((1<<PORTB0)|(1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
 	
 	
 	//SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
 	//SPSR=(0<<SPI2X);
-	//
+	
 	//InitLed();
 	////InitI2C();
 	//ClearDisplay();
@@ -442,33 +442,34 @@ int main(void)
 	//WriteNum(THREE, TWO,ONE );
 	//_delay_ms(100);
 	//WriteNum(SIX, FIVE, FOUR);
-	//_delay_ms(100);
+	//
 	//WriteNum(NINE, EITHT, SEVEN);
 	//_delay_ms(100);
 	//WriteNum(Z, Y, X);
-	//
-	//
-	PORTB &= ~(1<<PORTB3);	
+	
+	PORTB |= (1<<PORTB4);
+	PORTB &= ~(1<<PORTB3);
+	
+	//_delay_ms(10);	
 	InitI2C();
-	PORTB |= ((1<<PORTB4)|(1<<PORTB5));
-	_delay_ms(10);
+	PORTB |= (1<<PORTB3);
+	PORTB &= ~(1<<PORTB4);
 	InitI2C();
-	_delay_ms(10);
-	PORTB &= ~((1<<PORTB4)|(1<<PORTB5));
-	_delay_ms(10);
+	PORTB |= (1<<PORTB4);
+	PORTB &= ~(1<<PORTB3);
 	ClearOLED();
-	PORTB |= ((1<<PORTB4)|(1<<PORTB5));
-	_delay_ms(10);
+	PORTB |= (1<<PORTB3);
+	PORTB &= ~(1<<PORTB4);
 	ClearOLED();
-	PORTB &= ~((1<<PORTB4)|(1<<PORTB5));
-	_delay_ms(10);
+	PORTB |= (1<<PORTB4);
+	PORTB &= ~(1<<PORTB3);
 	SetOLED();
-	PORTB |= ((1<<PORTB4)|(1<<PORTB5));
-	_delay_ms(10);
+	PORTB |= (1<<PORTB3);
+	PORTB &= ~(1<<PORTB4);
 	SetOLED();
 	
-	_delay_ms(1000);
-	PORTB |= (1<<PORTB3);
+	
+
 	while(1)
 	{
 		
