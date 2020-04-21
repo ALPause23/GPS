@@ -32,12 +32,18 @@ LIB_DEP:=
 LINKER_SCRIPT_DEP:=
 
 # Every subdirectory with source files must be described here
-SUBDIRS := 
+SUBDIRS :=  \
+../library
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../GPS.c
+../library/OLED.c \
+../library/I2C.c \
+../library/init_perif.c \
+../library/ports.c \
+../library/spi.c \
+../main.c
 
 
 PREPROCESSING_SRCS += 
@@ -47,16 +53,36 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-GPS.o
+library/OLED.o \
+library/I2C.o \
+library/init_perif.o \
+library/ports.o \
+library/spi.o \
+main.o
 
 OBJS_AS_ARGS +=  \
-GPS.o
+library/OLED.o \
+library/I2C.o \
+library/init_perif.o \
+library/ports.o \
+library/spi.o \
+main.o
 
 C_DEPS +=  \
-GPS.d
+library/OLED.d \
+library/I2C.d \
+library/init_perif.d \
+library/ports.d \
+library/spi.d \
+main.d
 
 C_DEPS_AS_ARGS +=  \
-GPS.d
+library/OLED.d \
+library/I2C.d \
+library/init_perif.d \
+library/ports.d \
+library/spi.d \
+main.d
 
 OUTPUT_FILE_PATH +=GPS.elf
 
@@ -74,6 +100,23 @@ LINKER_SCRIPT_DEP+=
 # AVR32/GNU C Compiler
 
 
+
+
+
+
+
+
+
+
+
+
+
+library/%.o: ../library/%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 4.8.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega16 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
 
 ./%.o: .././%.c
 	@echo Building file: $<
