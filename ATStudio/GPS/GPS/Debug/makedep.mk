@@ -10,7 +10,5 @@ library\init_perif.c
 
 library\ports.c
 
-library\spi.c
-
 main.c
 

@@ -4,7 +4,7 @@ void InitOLED()
 {
 	TWBR = TWBR_VALUE;
 	TWSR = 0;
-	i2cstart(I2CADDR);
+	i2cstart(SSD1306_ADDR);
 	i2cwrite(0x00);
 	
 	i2cwrite(SSD1306_DISPLAYOFF);                    // 0xAE
@@ -55,37 +55,178 @@ void InitOLED()
 	i2cwrite(SSD1306_DISPLAYON);//--turn on oled panel
 	i2cstop();
 }
-
+void SetPointOLED(uint8_t Start_Collumn, uint8_t End_Collumn, uint8_t Start_Page, uint8_t End_Page)
+{
+	i2cstart(SSD1306_ADDR);
+	i2cwrite(0x00);
+	i2cwrite(SSD1306_COLUMNADDR);
+	i2cwrite(Start_Collumn);
+	i2cwrite(End_Collumn);
+	
+	i2cwrite(0x00);
+	i2cwrite(SSD1306_PAGEADDR);
+	i2cwrite(Start_Page);
+	i2cwrite(End_Page);
+	i2cstop();
+}
 void OLED_Command(uint8_t data)
 {
-	i2cstart(I2CADDR);
+	i2cstart(SSD1306_ADDR);
 	i2cwrite(0x00);      // Co = 0, D/C = 0
 	i2cwrite(data);
 	i2cstop();
 }
 void ClearOLED()
 {
-	i2cstart(I2CADDR);
-	i2cwrite(0x00);
-	i2cwrite(SSD1306_COLUMNADDR);
-	i2cwrite(0x00);
-	i2cwrite(0x7F);
-	i2cstop();
+	//i2cstart(SSD1306_ADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(SSD1306_COLUMNADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(0x7F);
+	////i2cstop();
+	////
+	////i2cstart(SSD1306_ADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(SSD1306_PAGEADDR);
+	//i2cwrite(0x04);
+	//i2cwrite(0x07);
+	//i2cstop();
+	SetPointOLED(0, 127, 4, 7);
 	
-	i2cstart(I2CADDR);
-	i2cwrite(0x00);
-	i2cwrite(SSD1306_PAGEADDR);
-	i2cwrite(0x04);
-	i2cwrite(0x07);
-	i2cstop();
-	i2cstart(I2CADDR);
-
+	i2cstart(SSD1306_ADDR);
 	i2cwrite(0x40);
 	
 	for(int kk = 0; kk < 4; kk++)
 	{
 		for(int k = 0; k < 128; k++)
-		i2cwrite(0x00);	//LSB вверху, MSB снизу
+		{
+			i2cwrite(0x00);	//LSB вверху, MSB снизу
+		}
 	}
 	i2cstop();
 }
+
+void SetOLED(void)
+{
+	OLED_Command(SSD1306_DISPLAYOFF);
+	i2cstart(SSD1306_ADDR);
+	i2cwrite(0x00);
+	i2cwrite(SSD1306_COLUMNADDR);
+	i2cwrite(0x00);
+	i2cwrite(0x1F);
+	i2cstop();
+	
+	i2cstart(SSD1306_ADDR);
+	i2cwrite(0x00);
+	i2cwrite(SSD1306_PAGEADDR);
+	i2cwrite(0x04);
+	i2cwrite(0x07);
+	i2cstop();
+	
+	OLED_Command(SSD1306_COLUMNADDR);
+	OLED_Command(0x00);
+	OLED_Command(0x6);
+	
+	
+	OLED_Command(SSD1306_PAGEADDR);
+	OLED_Command(0x04);
+	OLED_Command(0x07);
+	_delay_ms(100);
+	i2cstart(SSD1306_ADDR);
+	i2cwrite(0x40);
+	for(int kk = 0; kk < 128; kk++)
+	{
+		i2cwrite(serp[kk]);	//LSB вверху, MSB снизу
+	}
+	i2cstop();
+	//OLED_Command(SSD1306_DISPLAYON);
+	//i2cstart(SSD1306_ADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(SSD1306_COLUMNADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(0x07);
+	//i2cstop();
+	//for(int kk = 0; kk < 8; kk++)
+	//{
+	//i2cwrite(Y1[kk]);	//LSB вверху, MSB снизу
+	//}
+	//for(int kk = 0; kk < 8; kk++)
+	//{
+	//i2cwrite(Z1[kk]);	//LSB вверху, MSB снизу
+	//}
+	
+	//i2cstop();
+	//OLED_Command(SSD1306_DISPLAYOFF);
+	//i2cstart(SSD1306_ADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(SSD1306_COLUMNADDR);
+	//i2cwrite(0x2A);
+	//i2cwrite(0x66);
+	//i2cstop();
+	//
+	//i2cstart(SSD1306_ADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(SSD1306_PAGEADDR);
+	//i2cwrite(0x04);
+	//i2cwrite(0x07);
+	//i2cstop();
+	//
+	//OLED_Command(SSD1306_COLUMNADDR);
+	//OLED_Command(0x00);
+	//OLED_Command(0x6);
+	//
+	//
+	//OLED_Command(SSD1306_PAGEADDR);
+	//OLED_Command(0x04);
+	//OLED_Command(0x07);
+	//
+	//i2cstart(SSD1306_ADDR);
+	//i2cwrite(0x40);
+	//for(int kk = 0; kk < 255; kk++)
+	//{
+	//i2cwrite(BGUIRlogo[kk]);	//LSB вверху, MSB снизу
+	//}
+	//i2cstop();
+	//OLED_Command(SSD1306_DISPLAYON);
+	//
+	////_delay_ms(1000);
+	//
+	//ClearOLED();
+	////_delay_ms(100);
+	//
+	//OLED_Command(SSD1306_DISPLAYOFF);
+	//i2cstart(SSD1306_ADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(SSD1306_COLUMNADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(0x55);
+	//i2cstop();
+	//
+	//i2cstart(SSD1306_ADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(SSD1306_PAGEADDR);
+	//i2cwrite(0x04);
+	//i2cwrite(0x07);
+	//i2cstop();
+	//
+	//OLED_Command(SSD1306_COLUMNADDR);
+	//OLED_Command(0x00);
+	//OLED_Command(0x7F);
+	//
+	//
+	//OLED_Command(SSD1306_PAGEADDR);
+	//OLED_Command(0x04);
+	//OLED_Command(0x07);
+	//
+	//OLED_Command(SSD1306_DISPLAYON);
+	//i2cstart(SSD1306_ADDR);
+	//i2cwrite(0x40);
+	//for(uint16_t kk = 0; kk < 512; kk++)
+	//{
+	//
+	//i2cwrite(AVRlogo[kk]);	//LSB вверху, MSB снизу
+	//}
+	//i2cstop();
+	
+}
+

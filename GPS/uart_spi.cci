@@ -1,6 +1,6 @@
 VERSION:3 SOURCE_TIMESTAMP:508D6DCA
 NODE:I LEVEL:0 LINE:1 "E:\GitHub\GPS\GPS\uart_spi.h"
 NODE:V LEVEL:0 LINE:4 "rx_buffer -> RAM:????"
-NODE:V LEVEL:0 LINE:8 "rx_counter -> R5"
+NODE:V LEVEL:0 LINE:8 "rx_counter -> R4"
 NODE:V LEVEL:0 LINE:10 "rx_buffer_overflow -> R2.0"
 NODE:F LEVEL:0 LINE:13 "usart_rx_isr(void)"

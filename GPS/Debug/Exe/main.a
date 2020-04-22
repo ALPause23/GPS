@@ -26,380 +26,548 @@
 ;#include "init_perif.h"
 ;#include "uart_spi.h"
 ;#include "delay.h"
+;#include "stdint.h"
+;#include "twi.h"
 ;
-;
-;
-;void InitLed()
-; 0000 0009 {
+; uint8_t twi_status_register;
+;	uint8_t i2cstart(uint8_t address);
+;	uint8_t i2cwrite(uint8_t data);
+;	void i2cstop(void);
+;uint8_t i2cstart(uint8_t address)
+; 0000 000D {
 
 	.CSEG
 ;PCODE: $0000000D VOL: 0
 ;PCODE: $0000000E VOL: 0
-; 0000 000A     int i = 0;
-; 0000 000B     while(i < 4)
+; 0000 000E     TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
 ;PCODE: $0000000F VOL: 0
+;	address -> Y+0
 ;PCODE: $00000010 VOL: 0
-;	i -> R16,R17
 ;PCODE: $00000011 VOL: 0
+; 0000 000F     while(!(TWCR & (1<<TWINT)))
 ;PCODE: $00000012 VOL: 0
 ;PCODE: $00000013 VOL: 0
 ;PCODE: $00000014 VOL: 0
 ;PCODE: $00000015 VOL: 0
+; 0000 0010         ;
 ;PCODE: $00000016 VOL: 0
-; 0000 000C     {
-; 0000 000D         // инициализация дисплея
-; 0000 000E         PORTB &= ~(1<<PORTB4);
 ;PCODE: $00000017 VOL: 0
+; 0000 0011 
+; 0000 0012     twi_status_register = TW_STATUS & 0xF8;
 ;PCODE: $00000018 VOL: 0
-; 0000 000F         SPDR = 0x0F;
 ;PCODE: $00000019 VOL: 0
 ;PCODE: $0000001A VOL: 0
-; 0000 0010         while(!(SPSR & (1<<SPIF)));
+; 0000 0013     if ((twi_status_register != TW_START) && (twi_status_register != TW_REP_START))
 ;PCODE: $0000001B VOL: 0
 ;PCODE: $0000001C VOL: 0
 ;PCODE: $0000001D VOL: 0
 ;PCODE: $0000001E VOL: 0
 ;PCODE: $0000001F VOL: 0
 ;PCODE: $00000020 VOL: 0
-; 0000 0011         //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 0012         //_delay_ms(50);
-; 0000 0013 
-; 0000 0014         //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 0015         SPDR = 0x00;
 ;PCODE: $00000021 VOL: 0
 ;PCODE: $00000022 VOL: 0
-; 0000 0016         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $00000023 VOL: 0
 ;PCODE: $00000024 VOL: 0
 ;PCODE: $00000025 VOL: 0
 ;PCODE: $00000026 VOL: 0
 ;PCODE: $00000027 VOL: 0
 ;PCODE: $00000028 VOL: 0
-; 0000 0017         PORTB |= (1<<PORTB4);
+; 0000 0014     {
+; 0000 0015         return 1;
 ;PCODE: $00000029 VOL: 0
 ;PCODE: $0000002A VOL: 0
-; 0000 0018 
-; 0000 0019 
-; 0000 001A         PORTB &= ~(1<<PORTB4);
 ;PCODE: $0000002B VOL: 0
+; 0000 0016     }
+; 0000 0017 
+; 0000 0018     TWDR = address;
 ;PCODE: $0000002C VOL: 0
-; 0000 001B         SPDR = 0x0C;
 ;PCODE: $0000002D VOL: 0
 ;PCODE: $0000002E VOL: 0
-; 0000 001C         while(!(SPSR & (1<<SPIF)));
+; 0000 0019     TWCR = (1<<TWINT) | (1<<TWEN);
 ;PCODE: $0000002F VOL: 0
 ;PCODE: $00000030 VOL: 0
+; 0000 001A 
+; 0000 001B     while(!(TWCR & (1<<TWINT)))
 ;PCODE: $00000031 VOL: 0
 ;PCODE: $00000032 VOL: 0
 ;PCODE: $00000033 VOL: 0
 ;PCODE: $00000034 VOL: 0
-; 0000 001D         //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 001E         //_delay_ms(50);
-; 0000 001F 
-; 0000 0020         //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 0021         SPDR = 0x01;
+; 0000 001C         ;
 ;PCODE: $00000035 VOL: 0
 ;PCODE: $00000036 VOL: 0
-; 0000 0022         while(!(SPSR & (1<<SPIF)));
+; 0000 001D 
+; 0000 001E     twi_status_register = TW_STATUS & 0xF8;
 ;PCODE: $00000037 VOL: 0
 ;PCODE: $00000038 VOL: 0
 ;PCODE: $00000039 VOL: 0
+; 0000 001F     if ((twi_status_register != TW_MT_SLA_ACK) && (twi_status_register != TW_MR_SLA_ACK))
 ;PCODE: $0000003A VOL: 0
 ;PCODE: $0000003B VOL: 0
 ;PCODE: $0000003C VOL: 0
-; 0000 0023         PORTB |= (1<<PORTB4);
 ;PCODE: $0000003D VOL: 0
 ;PCODE: $0000003E VOL: 0
-; 0000 0024 
-; 0000 0025 
-; 0000 0026         PORTB &= ~(1<<PORTB4);
 ;PCODE: $0000003F VOL: 0
 ;PCODE: $00000040 VOL: 0
-; 0000 0027         SPDR = 0x0A;
 ;PCODE: $00000041 VOL: 0
 ;PCODE: $00000042 VOL: 0
-; 0000 0028         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $00000043 VOL: 0
 ;PCODE: $00000044 VOL: 0
 ;PCODE: $00000045 VOL: 0
 ;PCODE: $00000046 VOL: 0
 ;PCODE: $00000047 VOL: 0
+; 0000 0020     {
+; 0000 0021         return 1;
 ;PCODE: $00000048 VOL: 0
-; 0000 0029         //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 002A         //_delay_ms(50);
-; 0000 002B 
-; 0000 002C         //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 002D         SPDR = 0x0F;
 ;PCODE: $00000049 VOL: 0
 ;PCODE: $0000004A VOL: 0
-; 0000 002E         while(!(SPSR & (1<<SPIF)));
+; 0000 0022     }
+; 0000 0023     return 0;
 ;PCODE: $0000004B VOL: 0
 ;PCODE: $0000004C VOL: 0
 ;PCODE: $0000004D VOL: 0
 ;PCODE: $0000004E VOL: 0
+; 0000 0024 }
 ;PCODE: $0000004F VOL: 0
+;
+;uint8_t i2cwrite(uint8_t data)
+; 0000 0027 {
 ;PCODE: $00000050 VOL: 0
-; 0000 002F         PORTB |= (1<<PORTB4);
 ;PCODE: $00000051 VOL: 0
+; 0000 0028     TWDR = data;
 ;PCODE: $00000052 VOL: 0
-; 0000 0030 
-; 0000 0031 
-; 0000 0032         PORTB &= ~(1<<PORTB4);
+;	data -> Y+0
 ;PCODE: $00000053 VOL: 0
 ;PCODE: $00000054 VOL: 0
-; 0000 0033         SPDR = 0x0B;
+; 0000 0029     TWCR = (1<<TWINT) | (1<<TWEN);
 ;PCODE: $00000055 VOL: 0
 ;PCODE: $00000056 VOL: 0
-; 0000 0034         while(!(SPSR & (1<<SPIF)));
+; 0000 002A 
+; 0000 002B     while(!(TWCR & (1<<TWINT)));
 ;PCODE: $00000057 VOL: 0
 ;PCODE: $00000058 VOL: 0
 ;PCODE: $00000059 VOL: 0
 ;PCODE: $0000005A VOL: 0
 ;PCODE: $0000005B VOL: 0
 ;PCODE: $0000005C VOL: 0
-; 0000 0035         //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 0036         //_delay_ms(50);
-; 0000 0037 
-; 0000 0038         //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 0039         SPDR = 0x07;
+; 0000 002C 
+; 0000 002D     twi_status_register = TW_STATUS & 0xF8;
 ;PCODE: $0000005D VOL: 0
 ;PCODE: $0000005E VOL: 0
-; 0000 003A         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $0000005F VOL: 0
+; 0000 002E     if (twi_status_register != TW_MT_DATA_ACK)
 ;PCODE: $00000060 VOL: 0
 ;PCODE: $00000061 VOL: 0
 ;PCODE: $00000062 VOL: 0
 ;PCODE: $00000063 VOL: 0
 ;PCODE: $00000064 VOL: 0
-; 0000 003B         PORTB |= (1<<PORTB4);
+; 0000 002F     {
+; 0000 0030         return 1;
 ;PCODE: $00000065 VOL: 0
 ;PCODE: $00000066 VOL: 0
-; 0000 003C 
-; 0000 003D 
-; 0000 003E         PORTB &= ~(1<<PORTB4);
 ;PCODE: $00000067 VOL: 0
+; 0000 0031     }
+; 0000 0032     else
 ;PCODE: $00000068 VOL: 0
-; 0000 003F         SPDR = 0x09;
+; 0000 0033     {
+; 0000 0034         return 0;
 ;PCODE: $00000069 VOL: 0
 ;PCODE: $0000006A VOL: 0
-; 0000 0040         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $0000006B VOL: 0
+; 0000 0035     }
 ;PCODE: $0000006C VOL: 0
+; 0000 0036 }
 ;PCODE: $0000006D VOL: 0
 ;PCODE: $0000006E VOL: 0
 ;PCODE: $0000006F VOL: 0
+;
+;void i2cstop(void)
+; 0000 0039 {
 ;PCODE: $00000070 VOL: 0
-; 0000 0041         //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 0042         //_delay_ms(50);
-; 0000 0043 
-; 0000 0044         //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 0045 		SPDR = 0x00;
 ;PCODE: $00000071 VOL: 0
+; 0000 003A 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
 ;PCODE: $00000072 VOL: 0
-; 0000 0046 		while(!(SPSR & (1<<SPIF)));
 ;PCODE: $00000073 VOL: 0
+; 0000 003B 	while(TWCR & (1<<TWSTO));
 ;PCODE: $00000074 VOL: 0
 ;PCODE: $00000075 VOL: 0
 ;PCODE: $00000076 VOL: 0
 ;PCODE: $00000077 VOL: 0
 ;PCODE: $00000078 VOL: 0
-; 0000 0047 		PORTB |= (1<<PORTB4);
 ;PCODE: $00000079 VOL: 0
 ;PCODE: $0000007A VOL: 0
-; 0000 0048 
-; 0000 0049         i++;
+; 0000 003C }
 ;PCODE: $0000007B VOL: 0
 ;PCODE: $0000007C VOL: 0
-; 0000 004A 	}
+;
+;void InitLed()
+; 0000 003F {
 ;PCODE: $0000007D VOL: 0
 ;PCODE: $0000007E VOL: 0
-; 0000 004B }
+; 0000 0040     int i = 0;
+; 0000 0041     while(i < 4)
 ;PCODE: $0000007F VOL: 0
 ;PCODE: $00000080 VOL: 0
+;	i -> R16,R17
 ;PCODE: $00000081 VOL: 0
-;
-;// Declare your global variables here
-;void SPI_WriteStartByte(char data)
-; 0000 004F {
 ;PCODE: $00000082 VOL: 0
 ;PCODE: $00000083 VOL: 0
-; 0000 0050    PORTB &= ~(1<<PORTB4);
 ;PCODE: $00000084 VOL: 0
-;	data -> Y+0
 ;PCODE: $00000085 VOL: 0
 ;PCODE: $00000086 VOL: 0
-; 0000 0051    SPDR = data;
+; 0000 0042     {
+; 0000 0043         // инициализация дисплея
+; 0000 0044         PORTB &= ~(1<<PORTB4);
 ;PCODE: $00000087 VOL: 0
 ;PCODE: $00000088 VOL: 0
-; 0000 0052    while(!(SPSR & (1<<SPIF)));
+; 0000 0045         SPDR = 0x0F;
 ;PCODE: $00000089 VOL: 0
 ;PCODE: $0000008A VOL: 0
+; 0000 0046         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $0000008B VOL: 0
 ;PCODE: $0000008C VOL: 0
 ;PCODE: $0000008D VOL: 0
 ;PCODE: $0000008E VOL: 0
-; 0000 0053 }
 ;PCODE: $0000008F VOL: 0
 ;PCODE: $00000090 VOL: 0
+; 0000 0047         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0048         //_delay_ms(50);
+; 0000 0049 
+; 0000 004A         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 004B         SPDR = 0x00;
 ;PCODE: $00000091 VOL: 0
-;
-;void SPI_WriteEndByte(char data)
-; 0000 0056 {
 ;PCODE: $00000092 VOL: 0
+; 0000 004C         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $00000093 VOL: 0
-; 0000 0057    SPDR = data;
 ;PCODE: $00000094 VOL: 0
-;	data -> Y+0
 ;PCODE: $00000095 VOL: 0
 ;PCODE: $00000096 VOL: 0
-; 0000 0058    while(!(SPSR & (1<<SPIF)));
 ;PCODE: $00000097 VOL: 0
 ;PCODE: $00000098 VOL: 0
+; 0000 004D         PORTB |= (1<<PORTB4);
 ;PCODE: $00000099 VOL: 0
 ;PCODE: $0000009A VOL: 0
+; 0000 004E 
+; 0000 004F 
+; 0000 0050         PORTB &= ~(1<<PORTB4);
 ;PCODE: $0000009B VOL: 0
 ;PCODE: $0000009C VOL: 0
-; 0000 0059    PORTB |= (1<<PORTB4);
+; 0000 0051         SPDR = 0x0C;
 ;PCODE: $0000009D VOL: 0
 ;PCODE: $0000009E VOL: 0
-; 0000 005A }
+; 0000 0052         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $0000009F VOL: 0
 ;PCODE: $000000A0 VOL: 0
 ;PCODE: $000000A1 VOL: 0
-;
-;void SendLed(char adr, char data)
-; 0000 005D {
 ;PCODE: $000000A2 VOL: 0
 ;PCODE: $000000A3 VOL: 0
-; 0000 005E     char a, b;
-; 0000 005F     a = adr;
 ;PCODE: $000000A4 VOL: 0
+; 0000 0053         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0054         //_delay_ms(50);
+; 0000 0055 
+; 0000 0056         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 0057         SPDR = 0x01;
 ;PCODE: $000000A5 VOL: 0
 ;PCODE: $000000A6 VOL: 0
-;	adr -> Y+3
-;	data -> Y+2
-;	a -> R17
-;	b -> R16
+; 0000 0058         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $000000A7 VOL: 0
 ;PCODE: $000000A8 VOL: 0
-; 0000 0060     b = data;
 ;PCODE: $000000A9 VOL: 0
 ;PCODE: $000000AA VOL: 0
-; 0000 0061 
-; 0000 0062     SPI_WriteStartByte(adr);
 ;PCODE: $000000AB VOL: 0
 ;PCODE: $000000AC VOL: 0
-; 0000 0063     //delay_ms(10);
-; 0000 0064     SPI_WriteEndByte(data);
+; 0000 0059         PORTB |= (1<<PORTB4);
 ;PCODE: $000000AD VOL: 0
 ;PCODE: $000000AE VOL: 0
-; 0000 0065     //delay_ms(10);
-; 0000 0066 }
+; 0000 005A 
+; 0000 005B 
+; 0000 005C         PORTB &= ~(1<<PORTB4);
 ;PCODE: $000000AF VOL: 0
 ;PCODE: $000000B0 VOL: 0
+; 0000 005D         SPDR = 0x0A;
 ;PCODE: $000000B1 VOL: 0
 ;PCODE: $000000B2 VOL: 0
+; 0000 005E         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $000000B3 VOL: 0
 ;PCODE: $000000B4 VOL: 0
 ;PCODE: $000000B5 VOL: 0
-;
-;void main(void)
-; 0000 0069 {
 ;PCODE: $000000B6 VOL: 0
-; 0000 006A     int i = 0;// Declare your local variables here
-; 0000 006B     char j = 0;
-; 0000 006C     init_ports();
-;	i -> R16,R17
-;	j -> R19
 ;PCODE: $000000B7 VOL: 0
 ;PCODE: $000000B8 VOL: 0
+; 0000 005F         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0060         //_delay_ms(50);
+; 0000 0061 
+; 0000 0062         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 0063         SPDR = 0x0F;
 ;PCODE: $000000B9 VOL: 0
 ;PCODE: $000000BA VOL: 0
+; 0000 0064         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $000000BB VOL: 0
-; 0000 006D     init_periferal();
 ;PCODE: $000000BC VOL: 0
-; 0000 006E     //
-; 0000 006F     // Global enable interrupts
-; 0000 0070     #asm("sei")
 ;PCODE: $000000BD VOL: 0
-	sei
 ;PCODE: $000000BE VOL: 0
-; 0000 0071     InitLed();
 ;PCODE: $000000BF VOL: 0
-; 0000 0072 
-; 0000 0073 
-; 0000 0074     while(i <= 4)
 ;PCODE: $000000C0 VOL: 0
+; 0000 0065         PORTB |= (1<<PORTB4);
 ;PCODE: $000000C1 VOL: 0
 ;PCODE: $000000C2 VOL: 0
+; 0000 0066 
+; 0000 0067 
+; 0000 0068         PORTB &= ~(1<<PORTB4);
 ;PCODE: $000000C3 VOL: 0
-; 0000 0075     {
-; 0000 0076         for(j = 0; j <= 8; j++)
 ;PCODE: $000000C4 VOL: 0
+; 0000 0069         SPDR = 0x0B;
 ;PCODE: $000000C5 VOL: 0
 ;PCODE: $000000C6 VOL: 0
+; 0000 006A         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $000000C7 VOL: 0
 ;PCODE: $000000C8 VOL: 0
 ;PCODE: $000000C9 VOL: 0
 ;PCODE: $000000CA VOL: 0
 ;PCODE: $000000CB VOL: 0
 ;PCODE: $000000CC VOL: 0
-; 0000 0077         {
-; 0000 0078             SendLed(j,0);
+; 0000 006B         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 006C         //_delay_ms(50);
+; 0000 006D 
+; 0000 006E         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 006F         SPDR = 0x07;
 ;PCODE: $000000CD VOL: 0
 ;PCODE: $000000CE VOL: 0
+; 0000 0070         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $000000CF VOL: 0
-; 0000 0079         }
 ;PCODE: $000000D0 VOL: 0
 ;PCODE: $000000D1 VOL: 0
 ;PCODE: $000000D2 VOL: 0
 ;PCODE: $000000D3 VOL: 0
 ;PCODE: $000000D4 VOL: 0
-; 0000 007A //        SendLed(1,0);
-; 0000 007B //        SendLed(2,0);
-; 0000 007C //        SendLed(3,0);
-; 0000 007D //        SendLed(4,0);
-; 0000 007E //        SendLed(5,0);
-; 0000 007F //        SendLed(6,0);
-; 0000 0080 //        SendLed(7,0);
-; 0000 0081 //        SendLed(8,0);
-; 0000 0082         i++;
+; 0000 0071         PORTB |= (1<<PORTB4);
 ;PCODE: $000000D5 VOL: 0
 ;PCODE: $000000D6 VOL: 0
-; 0000 0083         //delay_ms(10);
-; 0000 0084     }
+; 0000 0072 
+; 0000 0073 
+; 0000 0074         PORTB &= ~(1<<PORTB4);
 ;PCODE: $000000D7 VOL: 0
 ;PCODE: $000000D8 VOL: 0
-; 0000 0085 
-; 0000 0086     SendLed(0, 1);
+; 0000 0075         SPDR = 0x09;
 ;PCODE: $000000D9 VOL: 0
 ;PCODE: $000000DA VOL: 0
+; 0000 0076         while(!(SPSR & (1<<SPIF)));
 ;PCODE: $000000DB VOL: 0
 ;PCODE: $000000DC VOL: 0
-; 0000 0087     SendLed(5, 7);
 ;PCODE: $000000DD VOL: 0
 ;PCODE: $000000DE VOL: 0
 ;PCODE: $000000DF VOL: 0
 ;PCODE: $000000E0 VOL: 0
-; 0000 0088 //    delay_ms(1);
-; 0000 0089 //    SendLed(1,2);
-; 0000 008A //    delay_ms(1);
-; 0000 008B //    SendLed(1,3);
-; 0000 008C //    delay_ms(1);
-; 0000 008D //    SendLed(1,4);
-; 0000 008E //    delay_ms(1);
-; 0000 008F //    SendLed(1,5);
-; 0000 0090 //    delay_ms(1);
-; 0000 0091 //    SendLed(2,255);
-; 0000 0092 
-; 0000 0093     while (1)
+; 0000 0077         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0078         //_delay_ms(50);
+; 0000 0079 
+; 0000 007A         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 007B 		SPDR = 0x00;
 ;PCODE: $000000E1 VOL: 0
-; 0000 0094     {
-; 0000 0095 
-; 0000 0096     }
 ;PCODE: $000000E2 VOL: 0
+; 0000 007C 		while(!(SPSR & (1<<SPIF)));
 ;PCODE: $000000E3 VOL: 0
-; 0000 0097 }
 ;PCODE: $000000E4 VOL: 0
 ;PCODE: $000000E5 VOL: 0
 ;PCODE: $000000E6 VOL: 0
+;PCODE: $000000E7 VOL: 0
+;PCODE: $000000E8 VOL: 0
+; 0000 007D 		PORTB |= (1<<PORTB4);
+;PCODE: $000000E9 VOL: 0
+;PCODE: $000000EA VOL: 0
+; 0000 007E 
+; 0000 007F         i++;
+;PCODE: $000000EB VOL: 0
+;PCODE: $000000EC VOL: 0
+; 0000 0080 	}
+;PCODE: $000000ED VOL: 0
+;PCODE: $000000EE VOL: 0
+; 0000 0081 }
+;PCODE: $000000EF VOL: 0
+;PCODE: $000000F0 VOL: 0
+;PCODE: $000000F1 VOL: 0
+;
+;// Declare your global variables here
+;void SPI_WriteStartByte(char data)
+; 0000 0085 {
+;PCODE: $000000F2 VOL: 0
+;PCODE: $000000F3 VOL: 0
+; 0000 0086    PORTB &= ~(1<<PORTB4);
+;PCODE: $000000F4 VOL: 0
+;	data -> Y+0
+;PCODE: $000000F5 VOL: 0
+;PCODE: $000000F6 VOL: 0
+; 0000 0087    SPDR = data;
+;PCODE: $000000F7 VOL: 0
+;PCODE: $000000F8 VOL: 0
+; 0000 0088    while(!(SPSR & (1<<SPIF)));
+;PCODE: $000000F9 VOL: 0
+;PCODE: $000000FA VOL: 0
+;PCODE: $000000FB VOL: 0
+;PCODE: $000000FC VOL: 0
+;PCODE: $000000FD VOL: 0
+;PCODE: $000000FE VOL: 0
+; 0000 0089 }
+;PCODE: $000000FF VOL: 0
+;PCODE: $00000100 VOL: 0
+;PCODE: $00000101 VOL: 0
+;
+;void SPI_WriteEndByte(char data)
+; 0000 008C {
+;PCODE: $00000102 VOL: 0
+;PCODE: $00000103 VOL: 0
+; 0000 008D    SPDR = data;
+;PCODE: $00000104 VOL: 0
+;	data -> Y+0
+;PCODE: $00000105 VOL: 0
+;PCODE: $00000106 VOL: 0
+; 0000 008E    while(!(SPSR & (1<<SPIF)));
+;PCODE: $00000107 VOL: 0
+;PCODE: $00000108 VOL: 0
+;PCODE: $00000109 VOL: 0
+;PCODE: $0000010A VOL: 0
+;PCODE: $0000010B VOL: 0
+;PCODE: $0000010C VOL: 0
+; 0000 008F    PORTB |= (1<<PORTB4);
+;PCODE: $0000010D VOL: 0
+;PCODE: $0000010E VOL: 0
+; 0000 0090 }
+;PCODE: $0000010F VOL: 0
+;PCODE: $00000110 VOL: 0
+;PCODE: $00000111 VOL: 0
+;
+;void SendLed(char adr, char data)
+; 0000 0093 {
+;PCODE: $00000112 VOL: 0
+;PCODE: $00000113 VOL: 0
+; 0000 0094     char a, b;
+; 0000 0095     a = adr;
+;PCODE: $00000114 VOL: 0
+;PCODE: $00000115 VOL: 0
+;PCODE: $00000116 VOL: 0
+;	adr -> Y+3
+;	data -> Y+2
+;	a -> R17
+;	b -> R16
+;PCODE: $00000117 VOL: 0
+;PCODE: $00000118 VOL: 0
+; 0000 0096     b = data;
+;PCODE: $00000119 VOL: 0
+;PCODE: $0000011A VOL: 0
+; 0000 0097 
+; 0000 0098     SPI_WriteStartByte(adr);
+;PCODE: $0000011B VOL: 0
+;PCODE: $0000011C VOL: 0
+; 0000 0099     //delay_ms(10);
+; 0000 009A     SPI_WriteEndByte(data);
+;PCODE: $0000011D VOL: 0
+;PCODE: $0000011E VOL: 0
+; 0000 009B     //delay_ms(10);
+; 0000 009C }
+;PCODE: $0000011F VOL: 0
+;PCODE: $00000120 VOL: 0
+;PCODE: $00000121 VOL: 0
+;PCODE: $00000122 VOL: 0
+;PCODE: $00000123 VOL: 0
+;PCODE: $00000124 VOL: 0
+;PCODE: $00000125 VOL: 0
+;
+;void main(void)
+; 0000 009F {
+;PCODE: $00000126 VOL: 0
+; 0000 00A0     int i = 0;// Declare your local variables here
+; 0000 00A1     char j = 0;
+; 0000 00A2     init_ports();
+;	i -> R16,R17
+;	j -> R19
+;PCODE: $00000127 VOL: 0
+;PCODE: $00000128 VOL: 0
+;PCODE: $00000129 VOL: 0
+;PCODE: $0000012A VOL: 0
+;PCODE: $0000012B VOL: 0
+; 0000 00A3     init_periferal();
+;PCODE: $0000012C VOL: 0
+; 0000 00A4     //
+; 0000 00A5     // Global enable interrupts
+; 0000 00A6     #asm("sei")
+;PCODE: $0000012D VOL: 0
+	sei
+;PCODE: $0000012E VOL: 0
+; 0000 00A7     InitLed();
+;PCODE: $0000012F VOL: 0
+; 0000 00A8 
+; 0000 00A9 
+; 0000 00AA     while(i <= 4)
+;PCODE: $00000130 VOL: 0
+;PCODE: $00000131 VOL: 0
+;PCODE: $00000132 VOL: 0
+;PCODE: $00000133 VOL: 0
+; 0000 00AB     {
+; 0000 00AC         for(j = 0; j <= 8; j++)
+;PCODE: $00000134 VOL: 0
+;PCODE: $00000135 VOL: 0
+;PCODE: $00000136 VOL: 0
+;PCODE: $00000137 VOL: 0
+;PCODE: $00000138 VOL: 0
+;PCODE: $00000139 VOL: 0
+;PCODE: $0000013A VOL: 0
+;PCODE: $0000013B VOL: 0
+;PCODE: $0000013C VOL: 0
+; 0000 00AD         {
+; 0000 00AE             SendLed(j,0);
+;PCODE: $0000013D VOL: 0
+;PCODE: $0000013E VOL: 0
+;PCODE: $0000013F VOL: 0
+; 0000 00AF         }
+;PCODE: $00000140 VOL: 0
+;PCODE: $00000141 VOL: 0
+;PCODE: $00000142 VOL: 0
+;PCODE: $00000143 VOL: 0
+;PCODE: $00000144 VOL: 0
+; 0000 00B0 //        SendLed(1,0);
+; 0000 00B1 //        SendLed(2,0);
+; 0000 00B2 //        SendLed(3,0);
+; 0000 00B3 //        SendLed(4,0);
+; 0000 00B4 //        SendLed(5,0);
+; 0000 00B5 //        SendLed(6,0);
+; 0000 00B6 //        SendLed(7,0);
+; 0000 00B7 //        SendLed(8,0);
+; 0000 00B8         i++;
+;PCODE: $00000145 VOL: 0
+;PCODE: $00000146 VOL: 0
+; 0000 00B9         //delay_ms(10);
+; 0000 00BA     }
+;PCODE: $00000147 VOL: 0
+;PCODE: $00000148 VOL: 0
+; 0000 00BB 
+; 0000 00BC     SendLed(0, 1);
+;PCODE: $00000149 VOL: 0
+;PCODE: $0000014A VOL: 0
+;PCODE: $0000014B VOL: 0
+;PCODE: $0000014C VOL: 0
+; 0000 00BD     SendLed(5, 7);
+;PCODE: $0000014D VOL: 0
+;PCODE: $0000014E VOL: 0
+;PCODE: $0000014F VOL: 0
+;PCODE: $00000150 VOL: 0
+; 0000 00BE //    delay_ms(1);
+; 0000 00BF //    SendLed(1,2);
+; 0000 00C0 //    delay_ms(1);
+; 0000 00C1 //    SendLed(1,3);
+; 0000 00C2 //    delay_ms(1);
+; 0000 00C3 //    SendLed(1,4);
+; 0000 00C4 //    delay_ms(1);
+; 0000 00C5 //    SendLed(1,5);
+; 0000 00C6 //    delay_ms(1);
+; 0000 00C7 //    SendLed(2,255);
+; 0000 00C8 
+; 0000 00C9     while (1)
+;PCODE: $00000151 VOL: 0
+; 0000 00CA     {
+; 0000 00CB 
+; 0000 00CC     }
+;PCODE: $00000152 VOL: 0
+;PCODE: $00000153 VOL: 0
+; 0000 00CD }
+;PCODE: $00000154 VOL: 0
+;PCODE: $00000155 VOL: 0
+;PCODE: $00000156 VOL: 0
