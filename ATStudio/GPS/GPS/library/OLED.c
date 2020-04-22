@@ -58,12 +58,12 @@ void InitOLED()
 void SetPointOLED(uint8_t Start_Collumn, uint8_t End_Collumn, uint8_t Start_Page, uint8_t End_Page)
 {
 	i2cstart(SSD1306_ADDR);
-	i2cwrite(0x00);
+	i2cwrite(CODE_COMMAND);
 	i2cwrite(SSD1306_COLUMNADDR);
 	i2cwrite(Start_Collumn);
 	i2cwrite(End_Collumn);
 	
-	i2cwrite(0x00);
+	i2cwrite(CODE_COMMAND);
 	i2cwrite(SSD1306_PAGEADDR);
 	i2cwrite(Start_Page);
 	i2cwrite(End_Page);
@@ -72,7 +72,7 @@ void SetPointOLED(uint8_t Start_Collumn, uint8_t End_Collumn, uint8_t Start_Page
 void OLED_Command(uint8_t data)
 {
 	i2cstart(SSD1306_ADDR);
-	i2cwrite(0x00);      // Co = 0, D/C = 0
+	i2cwrite(CODE_COMMAND);      // Co = 0, D/C = 0
 	i2cwrite(data);
 	i2cstop();
 }
@@ -97,31 +97,9 @@ void SetOLED(void)
 {
 	OLED_Command(SSD1306_DISPLAYOFF);
 	SetPointOLED(0x00, 0x1F, 0x04, 0x07);
+
 	i2cstart(SSD1306_ADDR);
-	i2cwrite(0x00);
-	i2cwrite(SSD1306_COLUMNADDR);
-	i2cwrite(0x00);
-	i2cwrite(0x1F);
-	i2cstop();
-	
-	i2cstart(SSD1306_ADDR);
-	i2cwrite(0x00);
-	i2cwrite(SSD1306_PAGEADDR);
-	i2cwrite(0x04);
-	i2cwrite(0x07);
-	i2cstop();
-	
-	OLED_Command(SSD1306_COLUMNADDR);
-	OLED_Command(0x00);
-	OLED_Command(0x6);
-	
-	
-	OLED_Command(SSD1306_PAGEADDR);
-	OLED_Command(0x04);
-	OLED_Command(0x07);
-	_delay_ms(100);
-	i2cstart(SSD1306_ADDR);
-	i2cwrite(0x40);
+	i2cwrite(CODE_DATA);
 	for(int kk = 0; kk < 128; kk++)
 	{
 		i2cwrite(serp[kk]);	//LSB вверху, MSB снизу

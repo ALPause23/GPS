@@ -2,3 +2,6 @@
 *.o
 *.lss
 *.srec
+*.o
+*.o
+*.srec

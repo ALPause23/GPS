@@ -62,7 +62,10 @@
 	#define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL 0x2A
 	#define SSD1306_LCDHEIGHT 64
 
-	#define SSD1306_ADDR   0x78
+	#define SSD1306_ADDR	0x78
+	
+	#define CODE_COMMAND	0x00
+	#define CODE_DATA		0x40			
 	
 	unsigned char ONE[8] =
 	{
