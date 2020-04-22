@@ -78,20 +78,7 @@ void OLED_Command(uint8_t data)
 }
 void ClearOLED()
 {
-	//i2cstart(SSD1306_ADDR);
-	//i2cwrite(0x00);
-	//i2cwrite(SSD1306_COLUMNADDR);
-	//i2cwrite(0x00);
-	//i2cwrite(0x7F);
-	////i2cstop();
-	////
-	////i2cstart(SSD1306_ADDR);
-	//i2cwrite(0x00);
-	//i2cwrite(SSD1306_PAGEADDR);
-	//i2cwrite(0x04);
-	//i2cwrite(0x07);
-	//i2cstop();
-	SetPointOLED(0, 127, 4, 7);
+	SetPointOLED(0x00, 0x7F, 0x04, 0x07);
 	
 	i2cstart(SSD1306_ADDR);
 	i2cwrite(0x40);
@@ -109,6 +96,7 @@ void ClearOLED()
 void SetOLED(void)
 {
 	OLED_Command(SSD1306_DISPLAYOFF);
+	SetPointOLED(0x00, 0x1F, 0x04, 0x07);
 	i2cstart(SSD1306_ADDR);
 	i2cwrite(0x00);
 	i2cwrite(SSD1306_COLUMNADDR);
