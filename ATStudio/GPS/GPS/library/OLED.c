@@ -1,5 +1,7 @@
 ﻿#include "OLED.h"
 
+uint8_t oled_pointer = 0x00;
+
 void InitOLED()
 {
 	TWBR = TWBR_VALUE;
@@ -81,7 +83,7 @@ void ClearOLED()
 	SetPointOLED(0x00, 0x7F, 0x04, 0x07);
 	
 	i2cstart(SSD1306_ADDR);
-	i2cwrite(0x40);
+	i2cwrite(CODE_DATA);
 	
 	for(int kk = 0; kk < 4; kk++)
 	{
@@ -95,33 +97,30 @@ void ClearOLED()
 
 void SetOLED(void)
 {
+	oled_pointer = 0x00;
 	OLED_Command(SSD1306_DISPLAYOFF);
-	SetPointOLED(0x00, 0x1F, 0x04, 0x07);
+	SetPointOLED(0x00, oled_pointer += serp_logo.long_image, 0x04, (0x04 + serp_logo.height_image));
 
 	i2cstart(SSD1306_ADDR);
 	i2cwrite(CODE_DATA);
-	for(int kk = 0; kk < 128; kk++)
+	for(int kk = 0; kk < serp_logo.long_array; kk++)
 	{
-		i2cwrite(serp[kk]);	//LSB вверху, MSB снизу
+		i2cwrite(serp_logo.serp[kk]);	//LSB вверху, MSB снизу
 	}
 	i2cstop();
-	//OLED_Command(SSD1306_DISPLAYON);
-	//i2cstart(SSD1306_ADDR);
-	//i2cwrite(0x00);
-	//i2cwrite(SSD1306_COLUMNADDR);
-	//i2cwrite(0x00);
-	//i2cwrite(0x07);
-	//i2cstop();
-	//for(int kk = 0; kk < 8; kk++)
-	//{
-	//i2cwrite(Y1[kk]);	//LSB вверху, MSB снизу
-	//}
-	//for(int kk = 0; kk < 8; kk++)
-	//{
-	//i2cwrite(Z1[kk]);	//LSB вверху, MSB снизу
-	//}
+	OLED_Command(SSD1306_DISPLAYON);
 	
-	//i2cstop();
+	//_delay_ms(1000);
+	//OLED_Command(SSD1306_DISPLAYOFF);
+	SetPointOLED(0x2a, 0x2a+bsuir_logo.long_image, 0x04, 0x04 + bsuir_logo.height_image);
+	i2cstart(SSD1306_ADDR);
+	i2cwrite(CODE_DATA);
+	for(int kk = 0; kk < bsuir_logo.long_array; kk++)
+	{
+		i2cwrite(bsuir_logo.bsuir[kk]);
+	}
+	i2cstop();
+	
 	//OLED_Command(SSD1306_DISPLAYOFF);
 	//i2cstart(SSD1306_ADDR);
 	//i2cwrite(0x00);
