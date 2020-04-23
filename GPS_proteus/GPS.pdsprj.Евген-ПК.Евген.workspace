@@ -116,11 +116,11 @@
    </POPUP>
    <POPUP w="600" x="492" flags="0000802b" y="84" h="400" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"main",02C4,0012,ADFC,2438,1
+     <ITEM name="Breakpoint 0">"SetOLED",0228,0010,F865,A855,-1
 </ITEM>
-     <ITEM name="Breakpoint 1">"main",02CC,001A,C913,2438,1
+     <ITEM name="Breakpoint 1">"SetOLED",023E,0026,98F8,A855,1
 </ITEM>
-     <ITEM name="Breakpoint 10">"main",011E,008C,3769,2438,-1
+     <ITEM name="Breakpoint 10">"SetOLED",02BA,00A2,F6D8,A855,1
 </ITEM>
      <ITEM name="Breakpoint 11">"main",017A,00E8,4645,2438,1
 </ITEM>
@@ -134,21 +134,21 @@
 </ITEM>
      <ITEM name="Breakpoint 16">"main",0174,00E2,132D,2438,1
 </ITEM>
-     <ITEM name="Breakpoint 2">"main",011C,0036,E62D,2438,-1
+     <ITEM name="Breakpoint 2">"SetOLED",0260,0048,06AD,A855,1
 </ITEM>
-     <ITEM name="Breakpoint 3">"main",012C,0046,EA1F,2438,1
+     <ITEM name="Breakpoint 3">"SetOLED",026A,0052,05F1,A855,1
 </ITEM>
-     <ITEM name="Breakpoint 4">"main",012C,0046,9F50,2438,1
+     <ITEM name="Breakpoint 4">"SetOLED",0270,0058,FC04,A855,1
 </ITEM>
-     <ITEM name="Breakpoint 5">"main",012E,0048,F528,2438,1
+     <ITEM name="Breakpoint 5">"SetOLED",0272,005A,B067,A855,-1
 </ITEM>
-     <ITEM name="Breakpoint 6">"main",0132,004C,BE92,2438,1
+     <ITEM name="Breakpoint 6">"SetOLED",0276,005E,84BC,A855,1
 </ITEM>
-     <ITEM name="Breakpoint 7">"main",0100,006E,9F50,2438,1
+     <ITEM name="Breakpoint 7">"SetOLED",028A,0072,BBA1,A855,-1
 </ITEM>
-     <ITEM name="Breakpoint 8">"main",0114,0082,F3C6,2438,-1
+     <ITEM name="Breakpoint 8">"SetOLED",028E,0076,EDAB,A855,-1
 </ITEM>
-     <ITEM name="Breakpoint 9">"main",0114,0082,5F9D,2438,1
+     <ITEM name="Breakpoint 9">"SetOLED",02A6,008E,C327,A855,1
 </ITEM>
      <ITEM name="CaseSensitive">No</ITEM>
      <ITEM name="DISPADDRS">Yes</ITEM>
@@ -156,7 +156,7 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">2</ITEM>
+     <ITEM name="nBreakpoints">11</ITEM>
     </PROPERTIES>
    </POPUP>
    <POPUP w="421" x="1429" flags="0000000b" y="129" h="569" pid="2" iid="1">
@@ -205,6 +205,12 @@
     <PROPERTIES>
      <ITEM name="HSplitter1Pos">100</ITEM>
      <ITEM name="VSplitter1Pos">238</ITEM>
+    </PROPERTIES>
+   </POPUP>
+   <POPUP w="450" x="650" flags="00000023" y="611" h="250" pid="0" iid="10">
+    <PROPERTIES>
+     <ITEM name="AutoEcho">0</ITEM>
+     <ITEM name="HexMode">0</ITEM>
     </PROPERTIES>
    </POPUP>
   </PWI>

@@ -10,184 +10,55 @@ void ssd1306_command(uint8_t data);
 
 
 
-//void InitLed()
-//{
-	//while(i < 3){
-		//// инициализация дисплея
-		//PORTB &= ~(1<<PORTB4);
-		//SPDR = 0x0F;
-		//while(!(SPSR & (1<<SPIF)));
-		////PORTB |= (1<<PORTB4); //высокий уровень
-		////_delay_ms(50);
-//
-		////PORTB &= ~(1<<PORTB4); //низкий уровень
-		//SPDR = 0x00;
-		//while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4);
-//
-//
-		//PORTB &= ~(1<<PORTB4);
-		//SPDR = 0x0C;
-		//while(!(SPSR & (1<<SPIF)));
-		////PORTB |= (1<<PORTB4); //высокий уровень
-		////_delay_ms(50);
-//
-		////PORTB &= ~(1<<PORTB4); //низкий уровень
-		//SPDR = 0x01;
-		//while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4);
-//
-//
-		//PORTB &= ~(1<<PORTB4);
-		//SPDR = 0x0A;
-		//while(!(SPSR & (1<<SPIF)));
-		////PORTB |= (1<<PORTB4); //высокий уровень
-		////_delay_ms(50);
-//
-		////PORTB &= ~(1<<PORTB4); //низкий уровень
-		//SPDR = 0x0F;
-		//while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4);
-//
-//
-		//PORTB &= ~(1<<PORTB4);
-		//SPDR = 0x0B;
-		//while(!(SPSR & (1<<SPIF)));
-		////PORTB |= (1<<PORTB4); //высокий уровень
-		////_delay_ms(50);
-//
-		////PORTB &= ~(1<<PORTB4); //низкий уровень
-		//SPDR = 0x07;
-		//while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4);
-//
-//
-		//PORTB &= ~(1<<PORTB4);
-		//SPDR = 0x09;
-		//while(!(SPSR & (1<<SPIF)));
-		////PORTB |= (1<<PORTB4); //высокий уровень
-		////_delay_ms(50);
-//
-		////PORTB &= ~(1<<PORTB4); //низкий уровень
-		//SPDR = 0x00;
-		//while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4);
-		//
-		//i++;
-	//}
-//}
-//
-//void SPI_WriteStartByte(char data)
-//{
-	//PORTB &= ~(1<<PORTB4);
-	//SPDR = data;
-	//while(!(SPSR & (1<<SPIF)));
-//}
-//
-//void SPI_WriteEndByte(char data)
-//{
-	//SPDR = data;
-	//while(!(SPSR & (1<<SPIF)));
-	//PORTB |= (1<<PORTB4);
-//}
-//
-//void SPI_WriteByte(char data)
-//{
-	//SPDR = data;
-	//while(!(SPSR & (1<<SPIF)));
-//}
-//
-//void SendLed(char adr, char data)
-//{
-	//SPI_WriteStartByte(adr);
-	//_delay_ms(10);
-	//SPI_WriteEndByte(data);
-	//_delay_ms(10);
-//}
-//
-//void ClearDisplay()
-//{
-	//int i = 0;
-	//while(i <= 3)
-	//{
-		//for(char j = 1; j <= 8; j++)
-		//{
-			//SendLed(j,0);
-		//}
-		//i++;
-		//_delay_ms(1);
-	//}
-//}
-//
-//
-//
-//void WriteNum(char *x, char *y, char *z)
-//{
-	//
-	//for(int i = 0; i < 8; i++)
-	//{
-		//PORTB &= ~(1 << PORTB4);
-		//
-		//SPI_WriteByte(i + 1);
-		//SPI_WriteByte(z[i]);
-		//
-		//SPI_WriteByte(i + 1);
-		//SPI_WriteByte(y[i]);
-		//
-		//SPI_WriteByte(i + 1);
-		//SPI_WriteByte(x[i]);
-		//
-		//PORTB |= (1<<PORTB4);
-	//}
-	//
-//}
+
 
 
 
 int main(void)
 {
-	DDRB |= ((1<<PORTB0)|(1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
-	//PORTA |= PortA0;
-	PORTB |= ((1<<PORTB0)|(1<<PORTB3)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
+	DDRB |= ((1<<PORTB0)|(1<<PORTB1)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
+
+	PORTB &= ~((1<<PORTB0)|(1<<PORTB1)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
 	
+	_delay_ms(100);
+	SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
+	SPSR=(0<<SPI2X);
 	
-	//SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
-	//SPSR=(0<<SPI2X);
+	InitLed();
+	//InitI2C();
+	ClearDisplay();
 	
-	//InitLed();
-	////InitI2C();
-	//ClearDisplay();
-	//
-	//WriteNum(THREE, TWO,ONE );
-	//_delay_ms(100);
-	//WriteNum(SIX, FIVE, FOUR);
-	//
-	//WriteNum(NINE, EITHT, SEVEN);
-	//_delay_ms(100);
-	//WriteNum(Z, Y, X);
+	WriteNum(THREE, TWO,ONE );
+	_delay_ms(1000);
+	WriteNum(SIX, FIVE, FOUR);
+	_delay_ms(1000);
+	WriteNum(NINE, EITHT, SEVEN);
+	_delay_ms(1000);
+	WriteNum(Z, Y, X);
 	
-	PORTB |= (1<<PORTB4);
-	PORTB &= ~(1<<PORTB3);
+	PORTB |= (1<<PORTB0);
+	PORTB &= ~(1<<PORTB1);
 	
-	//_delay_ms(10);
+	_delay_ms(10);
 	InitOLED();
-	PORTB |= (1<<PORTB3);
-	PORTB &= ~(1<<PORTB4);
+	PORTB |= (1<<PORTB1);
+	PORTB &= ~(1<<PORTB0);
 	InitOLED();
-	PORTB |= (1<<PORTB4);
-	PORTB &= ~(1<<PORTB3);
+	PORTB |= (1<<PORTB0);
+	PORTB &= ~(1<<PORTB1);
 	ClearOLED();
-	PORTB |= (1<<PORTB3);
-	PORTB &= ~(1<<PORTB4);
+	PORTB |= (1<<PORTB1);
+	PORTB &= ~(1<<PORTB0);
 	ClearOLED();
-	PORTB |= (1<<PORTB4);
-	PORTB &= ~(1<<PORTB3);
+	PORTB |= (1<<PORTB0);
+	PORTB &= ~(1<<PORTB1);
+	SetOLED();
+	PORTB |= (1<<PORTB1);
+	PORTB &= ~(1<<PORTB0);
 	SetOLED();
 	PORTB |= (1<<PORTB3);
-	PORTB &= ~(1<<PORTB4);
-	SetOLED();
-	
-	
+	_delay_ms(100);
+	PORTB &= ~(1<<PORTB3);
 
 	while(1)
 	{

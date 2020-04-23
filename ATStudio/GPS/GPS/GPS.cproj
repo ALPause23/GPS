@@ -96,6 +96,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="library\LED_MAX7219.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="library\LED_MAX7219.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="library\OLED.c">
       <SubType>compile</SubType>
     </Compile>

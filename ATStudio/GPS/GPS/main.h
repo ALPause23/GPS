@@ -11,7 +11,8 @@
 	#include <avr/pgmspace.h>
 	
 	#include "util/twi.h"
-	
+	#include "library/OLED.h"
+
 
 #include "library/ports.h"
 
