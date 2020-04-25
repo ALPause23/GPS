@@ -8,25 +8,25 @@ void ssd1306_command(uint8_t data);
 
 int main(void)
 {
-	//DDRB |= ((1<<PORTB0)|(1<<PORTB1)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
 
-	//PORTB &= ~((1<<PORTB0)|(1<<PORTB1)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
 	init_ports();
 	_delay_ms(100);
-	//SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
-	//SPSR=(0<<SPI2X);
+
 	
 	InitLed();
 	//InitI2C();
 	ClearDisplay();
-	
-	WriteNum(THREE, TWO,ONE );
-	_delay_ms(1000);
+	//
+	WriteNum(ONE, TWO, THREE);
+	_delay_ms(5000);
 	WriteNum(SIX, FIVE, FOUR);
-	_delay_ms(1000);
+	_delay_ms(5000);
 	WriteNum(NINE, EITHT, SEVEN);
-	_delay_ms(1000);
-	WriteNum(Z, Y, X);
+	_delay_ms(5000);
+	WriteNum(EMPTY, ZERO, ZERO);
+	_delay_ms(5000);
+	WriteNum(G, P, S);
+	
 	
 	PORTB |= (1<<PORTB0);
 	PORTB &= ~(1<<PORTB1);
@@ -51,7 +51,7 @@ int main(void)
 	PORTB |= (1<<PORTB3);
 	_delay_ms(100);
 	PORTB &= ~(1<<PORTB3);
-
+	SetIntensity(0);
 	while(1)
 	{
 		

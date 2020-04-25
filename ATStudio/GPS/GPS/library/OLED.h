@@ -1,6 +1,7 @@
 ﻿#ifndef __OLED_H__
 	#define __OLED_H__
 	#include "I2C.h"
+	#include "ports.h"
 	
 	#if defined SSD1306_128_64
 		#define SSD1306_LCDWIDTH                  128

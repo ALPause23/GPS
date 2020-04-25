@@ -93,6 +93,23 @@ void ClearOLED()
 		}
 	}
 	i2cstop();
+	oled_pointer = 0x00;
+}
+
+void SelectDisplay(int i)
+{
+	switch(i)
+	{
+		case 0:
+		{
+			PORTB |= (PortB0 | PortB1);
+			break; 
+		}
+		case 1:
+		{
+			
+		}
+	}
 }
 
 void SetOLED(void)

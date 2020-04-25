@@ -1,98 +1,27 @@
-﻿/*
- * CFile1.c
- *
- * Created: 23.04.2020 17:36:19
- *  Author: Евген
- */ 
-	#include "LED_MAX7219.h"
+﻿#include "LED_MAX7219.h"
+
+void SPI_WriteStartByte(char data);
+void SPI_WriteEndByte(char data);
+void SPI_WriteByte(char data);
+void SPI_WriteByte(char data);
+void SendLed(char adr, char data);
 
 void InitLed()
 {
+	SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
+	SPSR=(0<<SPI2X);
 	
-	int i = 0;
-	while(i < 3){
-		// инициализация дисплея
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x0F;
-		//SPDR = (DISPLAY_TEST >> 8);
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x00;
-		//SPDR = (DISPLAY_TEST | 0x00);
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-
-
-		PORTB &= ~(1<<PORTB4);
-		//SPDR = 0x0C;
-		
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x01;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-
-
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x0A;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x0F;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-
-
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x0B;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x07;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-
-
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x09;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x00;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-		
-		
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x0A;
-		while(!(SPSR & (1<<SPIF)));
-		//PORTB |= (1<<PORTB4); //высокий уровень
-		//_delay_ms(50);
-
-		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x00;
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-		
-		i++;
-	}
+	// инициализация дисплея
+	SendLed((DISPLAY_TEST >> 8), (DISPLAY_TEST | 0x00));
+	SendLed((INTENSITY >> 8), (INTENSITY | 0x0f));
+	SendLed((SCAN_LIMIT >> 8), (SCAN_LIMIT | 0x07));
+	SendLed((NO_DECODE_MODE >> 8), (NO_DECODE_MODE | 0x00));
+	SendLed((SHUTDOWN >> 8), (SHUTDOWN | 0x00));
 }
 
 void SPI_WriteStartByte(char data)
 {
-	PORTB &= ~(1<<PORTB4);
+	PORTB &= ~(CS);
 	SPDR = data;
 	while(!(SPSR & (1<<SPIF)));
 }
@@ -101,7 +30,7 @@ void SPI_WriteEndByte(char data)
 {
 	SPDR = data;
 	while(!(SPSR & (1<<SPIF)));
-	PORTB |= (1<<PORTB4);
+	PORTB |= (CS);
 }
 
 void SPI_WriteByte(char data)
@@ -112,34 +41,29 @@ void SPI_WriteByte(char data)
 
 void SendLed(char adr, char data)
 {
-	SPI_WriteStartByte(adr);
-	_delay_ms(10);
-	SPI_WriteEndByte(data);
-	_delay_ms(10);
+	int i = 0;
+	while(i < 3)
+	{
+		SPI_WriteStartByte(adr);
+		SPI_WriteEndByte(data);
+		i++;
+	}
 }
 
 void ClearDisplay()
 {
-	int i = 0;
-	while(i <= 3)
+	for(char j = 1; j <= 8; j++)
 	{
-		for(char j = 1; j <= 8; j++)
-		{
-			SendLed(j,0);
-		}
-		i++;
-		_delay_ms(1);
+		SendLed(j,0);
 	}
+	SendLed((SHUTDOWN >> 8), (SHUTDOWN | 0x01));
 }
 
-
-
-void WriteNum(char *x, char *y, char *z)
+void WriteNum(char *z, char *y, char *x)
 {
-	
 	for(int i = 0; i < 8; i++)
 	{
-		PORTB &= ~(1 << PORTB4);
+		PORTB &= ~(CS);
 		
 		SPI_WriteByte(i + 1);
 		SPI_WriteByte(z[i]);
@@ -152,5 +76,9 @@ void WriteNum(char *x, char *y, char *z)
 		
 		PORTB |= (1<<PORTB4);
 	}
-	
+}
+
+void SetIntensity(uint8_t a)  // 0 down to 15
+{
+	SendLed((INTENSITY >> 8), (SHUTDOWN | a));
 }
