@@ -14,3 +14,15 @@
 ATStudio/GPS/GPS/Debug/GPS.srec
 ATStudio/GPS/GPS/Debug/library/LED_MAX7219.d
 *.d
+*.o
+*.o
+ATStudio/GPS/GPS/Debug/library/ports.o
+*.o
+ATStudio/GPS/GPS/Debug/main.o
+*.o
+ATStudio/GPS/GPS/Debug/main.d
+*.d
+ATStudio/GPS/GPS/Debug/library/LED_MAX7219.d
+*.d
+ATStudio/GPS/GPS/Debug/GPS.srec
+*.srec
