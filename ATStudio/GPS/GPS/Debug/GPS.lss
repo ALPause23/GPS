@@ -3,29 +3,29 @@ GPS.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000578  00000000  00000000  00000094  2**1
+  0 .text         00000568  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         000001e6  00800060  00000578  0000060c  2**0
+  1 .data         000001e6  00800060  00000568  000005fc  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000006  00800246  00800246  000007f2  2**0
+  2 .bss          00000002  00800246  00800246  000007e2  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000007f2  2**0
+  3 .comment      00000030  00000000  00000000  000007e2  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 000000c8  00000000  00000000  00000822  2**0
+  4 .debug_aranges 00000100  00000000  00000000  00000812  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00001123  00000000  00000000  000008ea  2**0
+  5 .debug_info   000013af  00000000  00000000  00000912  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000047c  00000000  00000000  00001a0d  2**0
+  6 .debug_abbrev 000005db  00000000  00000000  00001cc1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000560  00000000  00000000  00001e89  2**0
+  7 .debug_line   00000753  00000000  00000000  0000229c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000001cc  00000000  00000000  000023ec  2**2
+  8 .debug_frame  00000204  00000000  00000000  000029f0  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000300  00000000  00000000  000025b8  2**0
+  9 .debug_str    00000332  00000000  00000000  00002bf4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000658  00000000  00000000  000028b8  2**0
+ 10 .debug_loc    00000699  00000000  00000000  00002f26  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000098  00000000  00000000  00002f10  2**0
+ 11 .debug_ranges 000000b0  00000000  00000000  000035bf  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,7 +65,7 @@ Disassembly of section .text:
   60:	12 e0       	ldi	r17, 0x02	; 2
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e8 e7       	ldi	r30, 0x78	; 120
+  66:	e8 e6       	ldi	r30, 0x68	; 104
   68:	f5 e0       	ldi	r31, 0x05	; 5
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -84,1083 +84,1109 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	ac 34       	cpi	r26, 0x4C	; 76
+  80:	a8 34       	cpi	r26, 0x48	; 72
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 45 02 	call	0x48a	; 0x48a <main>
-  8a:	0c 94 ba 02 	jmp	0x574	; 0x574 <_exit>
+  86:	0e 94 44 02 	call	0x488	; 0x488 <main>
+  8a:	0c 94 b2 02 	jmp	0x564	; 0x564 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000092 <InitOLED>:
-
-uint8_t oled_pointer = 0x00;
-
-void InitOLED()
-{
-	TWBR = TWBR_VALUE;
-  92:	88 e4       	ldi	r24, 0x48	; 72
-  94:	80 b9       	out	0x00, r24	; 0
-	TWSR = 0;
-  96:	11 b8       	out	0x01, r1	; 1
-	i2cstart(SSD1306_ADDR);
-  98:	88 e7       	ldi	r24, 0x78	; 120
-  9a:	0e 94 51 01 	call	0x2a2	; 0x2a2 <i2cstart>
-	i2cwrite(0x00);
-  9e:	80 e0       	ldi	r24, 0x00	; 0
-  a0:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	
-	i2cwrite(SSD1306_DISPLAYOFF);                    // 0xAE
-  a4:	8e ea       	ldi	r24, 0xAE	; 174
-  a6:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_SETDISPLAYCLOCKDIV);            // 0xD5
-  aa:	85 ed       	ldi	r24, 0xD5	; 213
-  ac:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(0x80);                                  // the suggested ratio 0x80
-  b0:	80 e8       	ldi	r24, 0x80	; 128
-  b2:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-
-	i2cwrite(SSD1306_SETMULTIPLEX);                  // 0xA8
-  b6:	88 ea       	ldi	r24, 0xA8	; 168
-  b8:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_LCDHEIGHT - 1);
-  bc:	8f e3       	ldi	r24, 0x3F	; 63
-  be:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-
-	i2cwrite(SSD1306_SETDISPLAYOFFSET);              // 0xD3
-  c2:	83 ed       	ldi	r24, 0xD3	; 211
-  c4:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(0x0);                                   // no offset
-  c8:	80 e0       	ldi	r24, 0x00	; 0
-  ca:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_SETSTARTLINE | 0x0);            // line #0
-  ce:	80 e4       	ldi	r24, 0x40	; 64
-  d0:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_CHARGEPUMP);                    // 0x8D
-  d4:	8d e8       	ldi	r24, 0x8D	; 141
-  d6:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	{
-		i2cwrite(0x10);
-	}
-	else
-	{
-		i2cwrite(0x14);
-  da:	84 e1       	ldi	r24, 0x14	; 20
-  dc:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	}
-	i2cwrite(0x20);             					   // 0x20  SSD1306_MEMORYMODE
-  e0:	80 e2       	ldi	r24, 0x20	; 32
-  e2:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(0x00);                       	       // 0x0 act like ks0108
-  e6:	80 e0       	ldi	r24, 0x00	; 0
-  e8:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_SEGREMAP | 0x1);
-  ec:	81 ea       	ldi	r24, 0xA1	; 161
-  ee:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_COMSCANDEC);
-  f2:	88 ec       	ldi	r24, 0xC8	; 200
-  f4:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	
-	i2cwrite(SSD1306_SETCOMPINS);                    // 0xDA
-  f8:	8a ed       	ldi	r24, 0xDA	; 218
-  fa:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(0x02);
-  fe:	82 e0       	ldi	r24, 0x02	; 2
- 100:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_SETCONTRAST);                   // 0x81
- 104:	81 e8       	ldi	r24, 0x81	; 129
- 106:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(0x8F);
- 10a:	8f e8       	ldi	r24, 0x8F	; 143
- 10c:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	
-	i2cwrite(SSD1306_SETPRECHARGE);                  // 0xd9
- 110:	89 ed       	ldi	r24, 0xD9	; 217
- 112:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	{
-		i2cwrite(0x22);
-	}
-	else
-	{
-		i2cwrite(0xF1);
- 116:	81 ef       	ldi	r24, 0xF1	; 241
- 118:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	}
-	i2cwrite(SSD1306_SETVCOMDETECT);                 // 0xDB
- 11c:	8b ed       	ldi	r24, 0xDB	; 219
- 11e:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(0x40);
- 122:	80 e4       	ldi	r24, 0x40	; 64
- 124:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_DISPLAYALLON_RESUME);           // 0xA4
- 128:	84 ea       	ldi	r24, 0xA4	; 164
- 12a:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_NORMALDISPLAY);                 // 0xA6
- 12e:	86 ea       	ldi	r24, 0xA6	; 166
- 130:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-
-	i2cwrite(SSD1306_DEACTIVATE_SCROLL);
- 134:	8e e2       	ldi	r24, 0x2E	; 46
- 136:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-
-	i2cwrite(SSD1306_DISPLAYON);//--turn on oled panel
- 13a:	8f ea       	ldi	r24, 0xAF	; 175
- 13c:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cstop();
- 140:	0e 94 82 01 	call	0x304	; 0x304 <i2cstop>
- 144:	08 95       	ret
-
-00000146 <SetPointOLED>:
-}
-void SetPointOLED(uint8_t Start_Collumn, uint8_t End_Collumn, uint8_t Start_Page, uint8_t End_Page)
-{
- 146:	0f 93       	push	r16
- 148:	1f 93       	push	r17
- 14a:	cf 93       	push	r28
- 14c:	df 93       	push	r29
- 14e:	08 2f       	mov	r16, r24
- 150:	16 2f       	mov	r17, r22
- 152:	d4 2f       	mov	r29, r20
- 154:	c2 2f       	mov	r28, r18
-	i2cstart(SSD1306_ADDR);
- 156:	88 e7       	ldi	r24, 0x78	; 120
- 158:	0e 94 51 01 	call	0x2a2	; 0x2a2 <i2cstart>
-	i2cwrite(CODE_COMMAND);
- 15c:	80 e0       	ldi	r24, 0x00	; 0
- 15e:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_COLUMNADDR);
- 162:	81 e2       	ldi	r24, 0x21	; 33
- 164:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(Start_Collumn);
- 168:	80 2f       	mov	r24, r16
- 16a:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(End_Collumn);
- 16e:	81 2f       	mov	r24, r17
- 170:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	
-	i2cwrite(CODE_COMMAND);
- 174:	80 e0       	ldi	r24, 0x00	; 0
- 176:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(SSD1306_PAGEADDR);
- 17a:	82 e2       	ldi	r24, 0x22	; 34
- 17c:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(Start_Page);
- 180:	8d 2f       	mov	r24, r29
- 182:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(End_Page);
- 186:	8c 2f       	mov	r24, r28
- 188:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cstop();
- 18c:	0e 94 82 01 	call	0x304	; 0x304 <i2cstop>
-}
- 190:	df 91       	pop	r29
- 192:	cf 91       	pop	r28
- 194:	1f 91       	pop	r17
- 196:	0f 91       	pop	r16
- 198:	08 95       	ret
-
-0000019a <OLED_Command>:
-void OLED_Command(uint8_t data)
-{
- 19a:	cf 93       	push	r28
- 19c:	c8 2f       	mov	r28, r24
-	i2cstart(SSD1306_ADDR);
- 19e:	88 e7       	ldi	r24, 0x78	; 120
- 1a0:	0e 94 51 01 	call	0x2a2	; 0x2a2 <i2cstart>
-	i2cwrite(CODE_COMMAND);      // Co = 0, D/C = 0
- 1a4:	80 e0       	ldi	r24, 0x00	; 0
- 1a6:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cwrite(data);
- 1aa:	8c 2f       	mov	r24, r28
- 1ac:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	i2cstop();
- 1b0:	0e 94 82 01 	call	0x304	; 0x304 <i2cstop>
-}
- 1b4:	cf 91       	pop	r28
- 1b6:	08 95       	ret
-
-000001b8 <ClearOLED>:
-void ClearOLED()
-{
- 1b8:	ef 92       	push	r14
- 1ba:	ff 92       	push	r15
- 1bc:	0f 93       	push	r16
- 1be:	1f 93       	push	r17
- 1c0:	cf 93       	push	r28
- 1c2:	df 93       	push	r29
-	SetPointOLED(0x00, 0x7F, 0x04, 0x07);
- 1c4:	27 e0       	ldi	r18, 0x07	; 7
- 1c6:	44 e0       	ldi	r20, 0x04	; 4
- 1c8:	6f e7       	ldi	r22, 0x7F	; 127
- 1ca:	80 e0       	ldi	r24, 0x00	; 0
- 1cc:	0e 94 a3 00 	call	0x146	; 0x146 <SetPointOLED>
-	
-	i2cstart(SSD1306_ADDR);
- 1d0:	88 e7       	ldi	r24, 0x78	; 120
- 1d2:	0e 94 51 01 	call	0x2a2	; 0x2a2 <i2cstart>
-	i2cwrite(CODE_DATA);
- 1d6:	80 e4       	ldi	r24, 0x40	; 64
- 1d8:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
- 1dc:	04 e0       	ldi	r16, 0x04	; 4
- 1de:	10 e0       	ldi	r17, 0x00	; 0
-	i2cwrite(CODE_COMMAND);      // Co = 0, D/C = 0
-	i2cwrite(data);
-	i2cstop();
-}
-void ClearOLED()
-{
- 1e0:	68 94       	set
- 1e2:	ee 24       	eor	r14, r14
- 1e4:	e7 f8       	bld	r14, 7
- 1e6:	f1 2c       	mov	r15, r1
- 1e8:	0b c0       	rjmp	.+22     	; 0x200 <ClearOLED+0x48>
-	
-	for(int kk = 0; kk < 4; kk++)
-	{
-		for(int k = 0; k < 128; k++)
-		{
-			i2cwrite(0x00);	//LSB вверху, MSB снизу
- 1ea:	80 e0       	ldi	r24, 0x00	; 0
- 1ec:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
- 1f0:	21 97       	sbiw	r28, 0x01	; 1
-	i2cstart(SSD1306_ADDR);
-	i2cwrite(CODE_DATA);
-	
-	for(int kk = 0; kk < 4; kk++)
-	{
-		for(int k = 0; k < 128; k++)
- 1f2:	20 97       	sbiw	r28, 0x00	; 0
- 1f4:	d1 f7       	brne	.-12     	; 0x1ea <ClearOLED+0x32>
- 1f6:	01 50       	subi	r16, 0x01	; 1
- 1f8:	11 09       	sbc	r17, r1
-	SetPointOLED(0x00, 0x7F, 0x04, 0x07);
-	
-	i2cstart(SSD1306_ADDR);
-	i2cwrite(CODE_DATA);
-	
-	for(int kk = 0; kk < 4; kk++)
- 1fa:	01 15       	cp	r16, r1
- 1fc:	11 05       	cpc	r17, r1
- 1fe:	19 f0       	breq	.+6      	; 0x206 <ClearOLED+0x4e>
-	i2cwrite(CODE_COMMAND);      // Co = 0, D/C = 0
-	i2cwrite(data);
-	i2cstop();
-}
-void ClearOLED()
-{
- 200:	ce 2d       	mov	r28, r14
- 202:	df 2d       	mov	r29, r15
- 204:	f2 cf       	rjmp	.-28     	; 0x1ea <ClearOLED+0x32>
-		for(int k = 0; k < 128; k++)
-		{
-			i2cwrite(0x00);	//LSB вверху, MSB снизу
-		}
-	}
-	i2cstop();
- 206:	0e 94 82 01 	call	0x304	; 0x304 <i2cstop>
-}
- 20a:	df 91       	pop	r29
- 20c:	cf 91       	pop	r28
- 20e:	1f 91       	pop	r17
- 210:	0f 91       	pop	r16
- 212:	ff 90       	pop	r15
- 214:	ef 90       	pop	r14
- 216:	08 95       	ret
-
-00000218 <SetOLED>:
-
-void SetOLED(void)
-{
- 218:	0f 93       	push	r16
- 21a:	1f 93       	push	r17
- 21c:	cf 93       	push	r28
- 21e:	df 93       	push	r29
-	oled_pointer = 0x00;
- 220:	10 92 46 02 	sts	0x0246, r1
-	OLED_Command(SSD1306_DISPLAYOFF);
- 224:	8e ea       	ldi	r24, 0xAE	; 174
- 226:	0e 94 cd 00 	call	0x19a	; 0x19a <OLED_Command>
-	SetPointOLED(0x00, oled_pointer += serp_logo.long_image, 0x04, (0x04 + serp_logo.height_image));
- 22a:	60 91 46 02 	lds	r22, 0x0246
- 22e:	61 5e       	subi	r22, 0xE1	; 225
- 230:	60 93 46 02 	sts	0x0246, r22
- 234:	27 e0       	ldi	r18, 0x07	; 7
- 236:	44 e0       	ldi	r20, 0x04	; 4
- 238:	80 e0       	ldi	r24, 0x00	; 0
- 23a:	0e 94 a3 00 	call	0x146	; 0x146 <SetPointOLED>
-
-	i2cstart(SSD1306_ADDR);
- 23e:	88 e7       	ldi	r24, 0x78	; 120
- 240:	0e 94 51 01 	call	0x2a2	; 0x2a2 <i2cstart>
-	i2cwrite(CODE_DATA);
- 244:	80 e4       	ldi	r24, 0x40	; 64
- 246:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
- 24a:	c2 e6       	ldi	r28, 0x62	; 98
- 24c:	d1 e0       	ldi	r29, 0x01	; 1
- 24e:	02 ee       	ldi	r16, 0xE2	; 226
- 250:	11 e0       	ldi	r17, 0x01	; 1
-	for(int kk = 0; kk < serp_logo.long_array; kk++)
-	{
-		i2cwrite(serp_logo.serp[kk]);	//LSB вверху, MSB снизу
- 252:	89 91       	ld	r24, Y+
- 254:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	OLED_Command(SSD1306_DISPLAYOFF);
-	SetPointOLED(0x00, oled_pointer += serp_logo.long_image, 0x04, (0x04 + serp_logo.height_image));
-
-	i2cstart(SSD1306_ADDR);
-	i2cwrite(CODE_DATA);
-	for(int kk = 0; kk < serp_logo.long_array; kk++)
- 258:	c0 17       	cp	r28, r16
- 25a:	d1 07       	cpc	r29, r17
- 25c:	d1 f7       	brne	.-12     	; 0x252 <SetOLED+0x3a>
-	{
-		i2cwrite(serp_logo.serp[kk]);	//LSB вверху, MSB снизу
-	}
-	i2cstop();
- 25e:	0e 94 82 01 	call	0x304	; 0x304 <i2cstop>
-	OLED_Command(SSD1306_DISPLAYON);
- 262:	8f ea       	ldi	r24, 0xAF	; 175
- 264:	0e 94 cd 00 	call	0x19a	; 0x19a <OLED_Command>
-	
-	//_delay_ms(1000);
-	//OLED_Command(SSD1306_DISPLAYOFF);
-	SetPointOLED(0x2a, 0x2a+bsuir_logo.long_image, 0x04, 0x04 + bsuir_logo.height_image);
- 268:	27 e0       	ldi	r18, 0x07	; 7
- 26a:	44 e0       	ldi	r20, 0x04	; 4
- 26c:	66 e6       	ldi	r22, 0x66	; 102
- 26e:	8a e2       	ldi	r24, 0x2A	; 42
- 270:	0e 94 a3 00 	call	0x146	; 0x146 <SetPointOLED>
-	i2cstart(SSD1306_ADDR);
- 274:	88 e7       	ldi	r24, 0x78	; 120
- 276:	0e 94 51 01 	call	0x2a2	; 0x2a2 <i2cstart>
-	i2cwrite(CODE_DATA);
- 27a:	80 e4       	ldi	r24, 0x40	; 64
- 27c:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
- 280:	c0 e6       	ldi	r28, 0x60	; 96
- 282:	d0 e0       	ldi	r29, 0x00	; 0
- 284:	00 e5       	ldi	r16, 0x50	; 80
- 286:	11 e0       	ldi	r17, 0x01	; 1
-	for(int kk = 0; kk < bsuir_logo.long_array; kk++)
-	{
-		i2cwrite(bsuir_logo.bsuir[kk]);
- 288:	89 91       	ld	r24, Y+
- 28a:	0e 94 73 01 	call	0x2e6	; 0x2e6 <i2cwrite>
-	//_delay_ms(1000);
-	//OLED_Command(SSD1306_DISPLAYOFF);
-	SetPointOLED(0x2a, 0x2a+bsuir_logo.long_image, 0x04, 0x04 + bsuir_logo.height_image);
-	i2cstart(SSD1306_ADDR);
-	i2cwrite(CODE_DATA);
-	for(int kk = 0; kk < bsuir_logo.long_array; kk++)
- 28e:	c0 17       	cp	r28, r16
- 290:	d1 07       	cpc	r29, r17
- 292:	d1 f7       	brne	.-12     	; 0x288 <SetOLED+0x70>
-	{
-		i2cwrite(bsuir_logo.bsuir[kk]);
-	}
-	i2cstop();
- 294:	0e 94 82 01 	call	0x304	; 0x304 <i2cstop>
-	//
-	//i2cwrite(AVRlogo[kk]);	//LSB вверху, MSB снизу
-	//}
-	//i2cstop();
-	
-}
- 298:	df 91       	pop	r29
- 29a:	cf 91       	pop	r28
- 29c:	1f 91       	pop	r17
- 29e:	0f 91       	pop	r16
- 2a0:	08 95       	ret
-
-000002a2 <i2cstart>:
-
-uint8_t twi_status_register;
-
-uint8_t i2cstart(uint8_t address)
-{
-	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
- 2a2:	94 ea       	ldi	r25, 0xA4	; 164
- 2a4:	96 bf       	out	0x36, r25	; 54
-	while(!(TWCR & (1<<TWINT)))
- 2a6:	06 b6       	in	r0, 0x36	; 54
- 2a8:	07 fe       	sbrs	r0, 7
- 2aa:	fd cf       	rjmp	.-6      	; 0x2a6 <i2cstart+0x4>
-		;
-
-	twi_status_register = TW_STATUS & 0xF8;
- 2ac:	91 b1       	in	r25, 0x01	; 1
- 2ae:	98 7f       	andi	r25, 0xF8	; 248
- 2b0:	90 93 47 02 	sts	0x0247, r25
-	if ((twi_status_register != TW_START) && (twi_status_register != TW_REP_START))
- 2b4:	98 30       	cpi	r25, 0x08	; 8
- 2b6:	11 f0       	breq	.+4      	; 0x2bc <i2cstart+0x1a>
- 2b8:	90 31       	cpi	r25, 0x10	; 16
- 2ba:	89 f4       	brne	.+34     	; 0x2de <i2cstart+0x3c>
-	{
-		return 1;
-	}
-
-	TWDR = address;
- 2bc:	83 b9       	out	0x03, r24	; 3
-	TWCR = (1<<TWINT) | (1<<TWEN);
- 2be:	84 e8       	ldi	r24, 0x84	; 132
- 2c0:	86 bf       	out	0x36, r24	; 54
-
-	while(!(TWCR & (1<<TWINT)))
- 2c2:	06 b6       	in	r0, 0x36	; 54
- 2c4:	07 fe       	sbrs	r0, 7
- 2c6:	fd cf       	rjmp	.-6      	; 0x2c2 <i2cstart+0x20>
-		;
-
-	twi_status_register = TW_STATUS & 0xF8;
- 2c8:	91 b1       	in	r25, 0x01	; 1
- 2ca:	98 7f       	andi	r25, 0xF8	; 248
- 2cc:	90 93 47 02 	sts	0x0247, r25
-	if ((twi_status_register != TW_MT_SLA_ACK) && (twi_status_register != TW_MR_SLA_ACK))
- 2d0:	98 31       	cpi	r25, 0x18	; 24
- 2d2:	39 f0       	breq	.+14     	; 0x2e2 <i2cstart+0x40>
- 2d4:	81 e0       	ldi	r24, 0x01	; 1
- 2d6:	90 34       	cpi	r25, 0x40	; 64
- 2d8:	29 f4       	brne	.+10     	; 0x2e4 <i2cstart+0x42>
- 2da:	80 e0       	ldi	r24, 0x00	; 0
- 2dc:	08 95       	ret
-		;
-
-	twi_status_register = TW_STATUS & 0xF8;
-	if ((twi_status_register != TW_START) && (twi_status_register != TW_REP_START))
-	{
-		return 1;
- 2de:	81 e0       	ldi	r24, 0x01	; 1
- 2e0:	08 95       	ret
-	twi_status_register = TW_STATUS & 0xF8;
-	if ((twi_status_register != TW_MT_SLA_ACK) && (twi_status_register != TW_MR_SLA_ACK))
-	{
-		return 1;
-	}
-	return 0;
- 2e2:	80 e0       	ldi	r24, 0x00	; 0
-}
- 2e4:	08 95       	ret
-
-000002e6 <i2cwrite>:
-
-uint8_t i2cwrite(uint8_t data)
-{
-	TWDR = data;
- 2e6:	83 b9       	out	0x03, r24	; 3
-	TWCR = (1<<TWINT) | (1<<TWEN);
- 2e8:	84 e8       	ldi	r24, 0x84	; 132
- 2ea:	86 bf       	out	0x36, r24	; 54
-	
-	while(!(TWCR & (1<<TWINT)));
- 2ec:	06 b6       	in	r0, 0x36	; 54
- 2ee:	07 fe       	sbrs	r0, 7
- 2f0:	fd cf       	rjmp	.-6      	; 0x2ec <i2cwrite+0x6>
-
-	twi_status_register = TW_STATUS & 0xF8;
- 2f2:	91 b1       	in	r25, 0x01	; 1
- 2f4:	98 7f       	andi	r25, 0xF8	; 248
- 2f6:	90 93 47 02 	sts	0x0247, r25
-	if (twi_status_register != TW_MT_DATA_ACK)
- 2fa:	81 e0       	ldi	r24, 0x01	; 1
- 2fc:	98 32       	cpi	r25, 0x28	; 40
- 2fe:	09 f4       	brne	.+2      	; 0x302 <i2cwrite+0x1c>
- 300:	80 e0       	ldi	r24, 0x00	; 0
-	}
-	else
-	{
-		return 0;
-	}	
-}
- 302:	08 95       	ret
-
-00000304 <i2cstop>:
-
-void i2cstop(void)
-{
-	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
- 304:	84 e9       	ldi	r24, 0x94	; 148
- 306:	86 bf       	out	0x36, r24	; 54
-	while(TWCR & (1<<TWSTO));
- 308:	06 b6       	in	r0, 0x36	; 54
- 30a:	04 fc       	sbrc	r0, 4
- 30c:	fd cf       	rjmp	.-6      	; 0x308 <i2cstop+0x4>
- 30e:	08 95       	ret
-
-00000310 <InitLed>:
-
-
+00000092 <InitLed>:
+ *  Author: Евген
+ */ 
+	#include "LED_MAX7219.h"
 
 void InitLed()
 {
+  92:	83 e0       	ldi	r24, 0x03	; 3
+  94:	90 e0       	ldi	r25, 0x00	; 0
+	
+	int i = 0;
 	while(i < 3){
- 310:	80 91 49 02 	lds	r24, 0x0249
- 314:	90 91 4a 02 	lds	r25, 0x024A
- 318:	03 97       	sbiw	r24, 0x03	; 3
- 31a:	08 f0       	brcs	.+2      	; 0x31e <InitLed+0xe>
- 31c:	42 c0       	rjmp	.+132    	; 0x3a2 <InitLed+0x92>
 		// инициализация дисплея
 		PORTB &= ~(1<<PORTB4);
 		SPDR = 0x0F;
- 31e:	4f e0       	ldi	r20, 0x0F	; 15
-		while(!(SPSR & (1<<SPIF)));
-		PORTB |= (1<<PORTB4);
-
-
-		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x0C;
- 320:	ec e0       	ldi	r30, 0x0C	; 12
+  96:	3f e0       	ldi	r19, 0x0F	; 15
 		while(!(SPSR & (1<<SPIF)));
 		//PORTB |= (1<<PORTB4); //высокий уровень
 		//_delay_ms(50);
 
 		//PORTB &= ~(1<<PORTB4); //низкий уровень
 		SPDR = 0x01;
- 322:	71 e0       	ldi	r23, 0x01	; 1
+  98:	71 e0       	ldi	r23, 0x01	; 1
 		while(!(SPSR & (1<<SPIF)));
 		PORTB |= (1<<PORTB4);
 
 
 		PORTB &= ~(1<<PORTB4);
 		SPDR = 0x0A;
- 324:	3a e0       	ldi	r19, 0x0A	; 10
+  9a:	2a e0       	ldi	r18, 0x0A	; 10
 		while(!(SPSR & (1<<SPIF)));
 		PORTB |= (1<<PORTB4);
 
 
 		PORTB &= ~(1<<PORTB4);
 		SPDR = 0x0B;
- 326:	6b e0       	ldi	r22, 0x0B	; 11
+  9c:	6b e0       	ldi	r22, 0x0B	; 11
 		while(!(SPSR & (1<<SPIF)));
 		//PORTB |= (1<<PORTB4); //высокий уровень
 		//_delay_ms(50);
 
 		//PORTB &= ~(1<<PORTB4); //низкий уровень
 		SPDR = 0x07;
- 328:	27 e0       	ldi	r18, 0x07	; 7
+  9e:	57 e0       	ldi	r21, 0x07	; 7
 		while(!(SPSR & (1<<SPIF)));
 		PORTB |= (1<<PORTB4);
 
 
 		PORTB &= ~(1<<PORTB4);
 		SPDR = 0x09;
- 32a:	59 e0       	ldi	r21, 0x09	; 9
-
-void InitLed()
+  a0:	49 e0       	ldi	r20, 0x09	; 9
 {
+	
+	int i = 0;
 	while(i < 3){
 		// инициализация дисплея
 		PORTB &= ~(1<<PORTB4);
- 32c:	c4 98       	cbi	0x18, 4	; 24
+  a2:	c4 98       	cbi	0x18, 4	; 24
 		SPDR = 0x0F;
- 32e:	4f b9       	out	0x0f, r20	; 15
+  a4:	3f b9       	out	0x0f, r19	; 15
+		//SPDR = (DISPLAY_TEST >> 8);
 		while(!(SPSR & (1<<SPIF)));
- 330:	77 9b       	sbis	0x0e, 7	; 14
- 332:	fe cf       	rjmp	.-4      	; 0x330 <InitLed+0x20>
+  a6:	77 9b       	sbis	0x0e, 7	; 14
+  a8:	fe cf       	rjmp	.-4      	; 0xa6 <InitLed+0x14>
 		//PORTB |= (1<<PORTB4); //высокий уровень
 		//_delay_ms(50);
 
 		//PORTB &= ~(1<<PORTB4); //низкий уровень
 		SPDR = 0x00;
- 334:	1f b8       	out	0x0f, r1	; 15
+  aa:	1f b8       	out	0x0f, r1	; 15
+		//SPDR = (DISPLAY_TEST | 0x00);
 		while(!(SPSR & (1<<SPIF)));
- 336:	77 9b       	sbis	0x0e, 7	; 14
- 338:	fe cf       	rjmp	.-4      	; 0x336 <InitLed+0x26>
+  ac:	77 9b       	sbis	0x0e, 7	; 14
+  ae:	fe cf       	rjmp	.-4      	; 0xac <InitLed+0x1a>
 		PORTB |= (1<<PORTB4);
- 33a:	c4 9a       	sbi	0x18, 4	; 24
+  b0:	c4 9a       	sbi	0x18, 4	; 24
 
 
 		PORTB &= ~(1<<PORTB4);
- 33c:	c4 98       	cbi	0x18, 4	; 24
-		SPDR = 0x0C;
- 33e:	ef b9       	out	0x0f, r30	; 15
+  b2:	c4 98       	cbi	0x18, 4	; 24
+		//SPDR = 0x0C;
+		
 		while(!(SPSR & (1<<SPIF)));
- 340:	77 9b       	sbis	0x0e, 7	; 14
- 342:	fe cf       	rjmp	.-4      	; 0x340 <InitLed+0x30>
+  b4:	77 9b       	sbis	0x0e, 7	; 14
+  b6:	fe cf       	rjmp	.-4      	; 0xb4 <InitLed+0x22>
 		//PORTB |= (1<<PORTB4); //высокий уровень
 		//_delay_ms(50);
 
 		//PORTB &= ~(1<<PORTB4); //низкий уровень
 		SPDR = 0x01;
- 344:	7f b9       	out	0x0f, r23	; 15
+  b8:	7f b9       	out	0x0f, r23	; 15
 		while(!(SPSR & (1<<SPIF)));
- 346:	77 9b       	sbis	0x0e, 7	; 14
- 348:	fe cf       	rjmp	.-4      	; 0x346 <InitLed+0x36>
+  ba:	77 9b       	sbis	0x0e, 7	; 14
+  bc:	fe cf       	rjmp	.-4      	; 0xba <InitLed+0x28>
 		PORTB |= (1<<PORTB4);
- 34a:	c4 9a       	sbi	0x18, 4	; 24
+  be:	c4 9a       	sbi	0x18, 4	; 24
 
 
 		PORTB &= ~(1<<PORTB4);
- 34c:	c4 98       	cbi	0x18, 4	; 24
+  c0:	c4 98       	cbi	0x18, 4	; 24
 		SPDR = 0x0A;
- 34e:	3f b9       	out	0x0f, r19	; 15
+  c2:	2f b9       	out	0x0f, r18	; 15
 		while(!(SPSR & (1<<SPIF)));
- 350:	77 9b       	sbis	0x0e, 7	; 14
- 352:	fe cf       	rjmp	.-4      	; 0x350 <InitLed+0x40>
+  c4:	77 9b       	sbis	0x0e, 7	; 14
+  c6:	fe cf       	rjmp	.-4      	; 0xc4 <InitLed+0x32>
 		//PORTB |= (1<<PORTB4); //высокий уровень
 		//_delay_ms(50);
 
 		//PORTB &= ~(1<<PORTB4); //низкий уровень
 		SPDR = 0x0F;
- 354:	4f b9       	out	0x0f, r20	; 15
+  c8:	3f b9       	out	0x0f, r19	; 15
 		while(!(SPSR & (1<<SPIF)));
- 356:	77 9b       	sbis	0x0e, 7	; 14
- 358:	fe cf       	rjmp	.-4      	; 0x356 <InitLed+0x46>
+  ca:	77 9b       	sbis	0x0e, 7	; 14
+  cc:	fe cf       	rjmp	.-4      	; 0xca <InitLed+0x38>
 		PORTB |= (1<<PORTB4);
- 35a:	c4 9a       	sbi	0x18, 4	; 24
+  ce:	c4 9a       	sbi	0x18, 4	; 24
 
 
 		PORTB &= ~(1<<PORTB4);
- 35c:	c4 98       	cbi	0x18, 4	; 24
+  d0:	c4 98       	cbi	0x18, 4	; 24
 		SPDR = 0x0B;
- 35e:	6f b9       	out	0x0f, r22	; 15
+  d2:	6f b9       	out	0x0f, r22	; 15
 		while(!(SPSR & (1<<SPIF)));
- 360:	77 9b       	sbis	0x0e, 7	; 14
- 362:	fe cf       	rjmp	.-4      	; 0x360 <InitLed+0x50>
+  d4:	77 9b       	sbis	0x0e, 7	; 14
+  d6:	fe cf       	rjmp	.-4      	; 0xd4 <InitLed+0x42>
 		//PORTB |= (1<<PORTB4); //высокий уровень
 		//_delay_ms(50);
 
 		//PORTB &= ~(1<<PORTB4); //низкий уровень
 		SPDR = 0x07;
- 364:	2f b9       	out	0x0f, r18	; 15
+  d8:	5f b9       	out	0x0f, r21	; 15
 		while(!(SPSR & (1<<SPIF)));
- 366:	77 9b       	sbis	0x0e, 7	; 14
- 368:	fe cf       	rjmp	.-4      	; 0x366 <InitLed+0x56>
+  da:	77 9b       	sbis	0x0e, 7	; 14
+  dc:	fe cf       	rjmp	.-4      	; 0xda <InitLed+0x48>
 		PORTB |= (1<<PORTB4);
- 36a:	c4 9a       	sbi	0x18, 4	; 24
+  de:	c4 9a       	sbi	0x18, 4	; 24
 
 
 		PORTB &= ~(1<<PORTB4);
- 36c:	c4 98       	cbi	0x18, 4	; 24
+  e0:	c4 98       	cbi	0x18, 4	; 24
 		SPDR = 0x09;
- 36e:	5f b9       	out	0x0f, r21	; 15
+  e2:	4f b9       	out	0x0f, r20	; 15
 		while(!(SPSR & (1<<SPIF)));
- 370:	77 9b       	sbis	0x0e, 7	; 14
- 372:	fe cf       	rjmp	.-4      	; 0x370 <InitLed+0x60>
+  e4:	77 9b       	sbis	0x0e, 7	; 14
+  e6:	fe cf       	rjmp	.-4      	; 0xe4 <InitLed+0x52>
 		//PORTB |= (1<<PORTB4); //высокий уровень
 		//_delay_ms(50);
 
 		//PORTB &= ~(1<<PORTB4); //низкий уровень
 		SPDR = 0x00;
- 374:	1f b8       	out	0x0f, r1	; 15
+  e8:	1f b8       	out	0x0f, r1	; 15
 		while(!(SPSR & (1<<SPIF)));
- 376:	77 9b       	sbis	0x0e, 7	; 14
- 378:	fe cf       	rjmp	.-4      	; 0x376 <InitLed+0x66>
+  ea:	77 9b       	sbis	0x0e, 7	; 14
+  ec:	fe cf       	rjmp	.-4      	; 0xea <InitLed+0x58>
 		PORTB |= (1<<PORTB4);
- 37a:	c4 9a       	sbi	0x18, 4	; 24
+  ee:	c4 9a       	sbi	0x18, 4	; 24
 		
 		
 		PORTB &= ~(1<<PORTB4);
- 37c:	c4 98       	cbi	0x18, 4	; 24
+  f0:	c4 98       	cbi	0x18, 4	; 24
 		SPDR = 0x0A;
- 37e:	3f b9       	out	0x0f, r19	; 15
+  f2:	2f b9       	out	0x0f, r18	; 15
 		while(!(SPSR & (1<<SPIF)));
- 380:	77 9b       	sbis	0x0e, 7	; 14
- 382:	fe cf       	rjmp	.-4      	; 0x380 <InitLed+0x70>
+  f4:	77 9b       	sbis	0x0e, 7	; 14
+  f6:	fe cf       	rjmp	.-4      	; 0xf4 <InitLed+0x62>
 		//PORTB |= (1<<PORTB4); //высокий уровень
 		//_delay_ms(50);
 
 		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x07;
- 384:	2f b9       	out	0x0f, r18	; 15
+		SPDR = 0x00;
+  f8:	1f b8       	out	0x0f, r1	; 15
 		while(!(SPSR & (1<<SPIF)));
- 386:	77 9b       	sbis	0x0e, 7	; 14
- 388:	fe cf       	rjmp	.-4      	; 0x386 <InitLed+0x76>
+  fa:	77 9b       	sbis	0x0e, 7	; 14
+  fc:	fe cf       	rjmp	.-4      	; 0xfa <InitLed+0x68>
 		PORTB |= (1<<PORTB4);
- 38a:	c4 9a       	sbi	0x18, 4	; 24
+  fe:	c4 9a       	sbi	0x18, 4	; 24
+ 100:	01 97       	sbiw	r24, 0x01	; 1
+
+void InitLed()
+{
+	
+	int i = 0;
+	while(i < 3){
+ 102:	00 97       	sbiw	r24, 0x00	; 0
+ 104:	71 f6       	brne	.-100    	; 0xa2 <InitLed+0x10>
+		while(!(SPSR & (1<<SPIF)));
+		PORTB |= (1<<PORTB4);
 		
 		i++;
- 38c:	80 91 49 02 	lds	r24, 0x0249
- 390:	90 91 4a 02 	lds	r25, 0x024A
- 394:	01 96       	adiw	r24, 0x01	; 1
- 396:	90 93 4a 02 	sts	0x024A, r25
- 39a:	80 93 49 02 	sts	0x0249, r24
-
-
-
-void InitLed()
-{
-	while(i < 3){
- 39e:	03 97       	sbiw	r24, 0x03	; 3
- 3a0:	28 f2       	brcs	.-118    	; 0x32c <InitLed+0x1c>
- 3a2:	08 95       	ret
-
-000003a4 <SPI_WriteStartByte>:
 	}
 }
+ 106:	08 95       	ret
+
+00000108 <SPI_WriteStartByte>:
 
 void SPI_WriteStartByte(char data)
 {
 	PORTB &= ~(1<<PORTB4);
- 3a4:	c4 98       	cbi	0x18, 4	; 24
+ 108:	c4 98       	cbi	0x18, 4	; 24
 	SPDR = data;
- 3a6:	8f b9       	out	0x0f, r24	; 15
+ 10a:	8f b9       	out	0x0f, r24	; 15
 	while(!(SPSR & (1<<SPIF)));
- 3a8:	77 9b       	sbis	0x0e, 7	; 14
- 3aa:	fe cf       	rjmp	.-4      	; 0x3a8 <SPI_WriteStartByte+0x4>
+ 10c:	77 9b       	sbis	0x0e, 7	; 14
+ 10e:	fe cf       	rjmp	.-4      	; 0x10c <SPI_WriteStartByte+0x4>
 }
- 3ac:	08 95       	ret
+ 110:	08 95       	ret
 
-000003ae <SPI_WriteEndByte>:
+00000112 <SPI_WriteEndByte>:
 
 void SPI_WriteEndByte(char data)
 {
 	SPDR = data;
- 3ae:	8f b9       	out	0x0f, r24	; 15
+ 112:	8f b9       	out	0x0f, r24	; 15
 	while(!(SPSR & (1<<SPIF)));
- 3b0:	77 9b       	sbis	0x0e, 7	; 14
- 3b2:	fe cf       	rjmp	.-4      	; 0x3b0 <SPI_WriteEndByte+0x2>
+ 114:	77 9b       	sbis	0x0e, 7	; 14
+ 116:	fe cf       	rjmp	.-4      	; 0x114 <SPI_WriteEndByte+0x2>
 	PORTB |= (1<<PORTB4);
- 3b4:	c4 9a       	sbi	0x18, 4	; 24
- 3b6:	08 95       	ret
+ 118:	c4 9a       	sbi	0x18, 4	; 24
+ 11a:	08 95       	ret
 
-000003b8 <SPI_WriteByte>:
+0000011c <SPI_WriteByte>:
 }
 
 void SPI_WriteByte(char data)
 {
 	SPDR = data;
- 3b8:	8f b9       	out	0x0f, r24	; 15
+ 11c:	8f b9       	out	0x0f, r24	; 15
 	while(!(SPSR & (1<<SPIF)));
- 3ba:	77 9b       	sbis	0x0e, 7	; 14
- 3bc:	fe cf       	rjmp	.-4      	; 0x3ba <SPI_WriteByte+0x2>
+ 11e:	77 9b       	sbis	0x0e, 7	; 14
+ 120:	fe cf       	rjmp	.-4      	; 0x11e <SPI_WriteByte+0x2>
 }
- 3be:	08 95       	ret
+ 122:	08 95       	ret
 
-000003c0 <SendLed>:
+00000124 <SendLed>:
 
 void SendLed(char adr, char data)
 {
- 3c0:	cf 93       	push	r28
- 3c2:	c6 2f       	mov	r28, r22
+ 124:	cf 93       	push	r28
+ 126:	c6 2f       	mov	r28, r22
 	SPI_WriteStartByte(adr);
- 3c4:	0e 94 d2 01 	call	0x3a4	; 0x3a4 <SPI_WriteStartByte>
+ 128:	0e 94 84 00 	call	0x108	; 0x108 <SPI_WriteStartByte>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 3c8:	83 ec       	ldi	r24, 0xC3	; 195
- 3ca:	99 e0       	ldi	r25, 0x09	; 9
- 3cc:	01 97       	sbiw	r24, 0x01	; 1
- 3ce:	f1 f7       	brne	.-4      	; 0x3cc <SendLed+0xc>
- 3d0:	00 c0       	rjmp	.+0      	; 0x3d2 <SendLed+0x12>
- 3d2:	00 00       	nop
+ 12c:	83 ec       	ldi	r24, 0xC3	; 195
+ 12e:	99 e0       	ldi	r25, 0x09	; 9
+ 130:	01 97       	sbiw	r24, 0x01	; 1
+ 132:	f1 f7       	brne	.-4      	; 0x130 <SendLed+0xc>
+ 134:	00 c0       	rjmp	.+0      	; 0x136 <SendLed+0x12>
+ 136:	00 00       	nop
 	_delay_ms(10);
 	SPI_WriteEndByte(data);
- 3d4:	8c 2f       	mov	r24, r28
- 3d6:	0e 94 d7 01 	call	0x3ae	; 0x3ae <SPI_WriteEndByte>
- 3da:	83 ec       	ldi	r24, 0xC3	; 195
- 3dc:	99 e0       	ldi	r25, 0x09	; 9
- 3de:	01 97       	sbiw	r24, 0x01	; 1
- 3e0:	f1 f7       	brne	.-4      	; 0x3de <SendLed+0x1e>
- 3e2:	00 c0       	rjmp	.+0      	; 0x3e4 <SendLed+0x24>
- 3e4:	00 00       	nop
+ 138:	8c 2f       	mov	r24, r28
+ 13a:	0e 94 89 00 	call	0x112	; 0x112 <SPI_WriteEndByte>
+ 13e:	83 ec       	ldi	r24, 0xC3	; 195
+ 140:	99 e0       	ldi	r25, 0x09	; 9
+ 142:	01 97       	sbiw	r24, 0x01	; 1
+ 144:	f1 f7       	brne	.-4      	; 0x142 <SendLed+0x1e>
+ 146:	00 c0       	rjmp	.+0      	; 0x148 <SendLed+0x24>
+ 148:	00 00       	nop
 	_delay_ms(10);
 }
- 3e6:	cf 91       	pop	r28
- 3e8:	08 95       	ret
+ 14a:	cf 91       	pop	r28
+ 14c:	08 95       	ret
 
-000003ea <ClearDisplay>:
+0000014e <ClearDisplay>:
 
 void ClearDisplay()
 {
- 3ea:	0f 93       	push	r16
- 3ec:	1f 93       	push	r17
- 3ee:	cf 93       	push	r28
- 3f0:	df 93       	push	r29
- 3f2:	c4 e0       	ldi	r28, 0x04	; 4
- 3f4:	d0 e0       	ldi	r29, 0x00	; 0
- 3f6:	01 e0       	ldi	r16, 0x01	; 1
- 3f8:	10 c0       	rjmp	.+32     	; 0x41a <ClearDisplay+0x30>
+ 14e:	0f 93       	push	r16
+ 150:	1f 93       	push	r17
+ 152:	cf 93       	push	r28
+ 154:	df 93       	push	r29
+ 156:	c4 e0       	ldi	r28, 0x04	; 4
+ 158:	d0 e0       	ldi	r29, 0x00	; 0
+ 15a:	01 e0       	ldi	r16, 0x01	; 1
+ 15c:	10 c0       	rjmp	.+32     	; 0x17e <ClearDisplay+0x30>
 	int i = 0;
 	while(i <= 3)
 	{
 		for(char j = 1; j <= 8; j++)
 		{
 			SendLed(j,0);
- 3fa:	60 e0       	ldi	r22, 0x00	; 0
- 3fc:	81 2f       	mov	r24, r17
- 3fe:	0e 94 e0 01 	call	0x3c0	; 0x3c0 <SendLed>
+ 15e:	60 e0       	ldi	r22, 0x00	; 0
+ 160:	81 2f       	mov	r24, r17
+ 162:	0e 94 92 00 	call	0x124	; 0x124 <SendLed>
 void ClearDisplay()
 {
 	int i = 0;
 	while(i <= 3)
 	{
 		for(char j = 1; j <= 8; j++)
- 402:	1f 5f       	subi	r17, 0xFF	; 255
- 404:	19 30       	cpi	r17, 0x09	; 9
- 406:	c9 f7       	brne	.-14     	; 0x3fa <ClearDisplay+0x10>
- 408:	89 ef       	ldi	r24, 0xF9	; 249
- 40a:	90 e0       	ldi	r25, 0x00	; 0
- 40c:	01 97       	sbiw	r24, 0x01	; 1
- 40e:	f1 f7       	brne	.-4      	; 0x40c <ClearDisplay+0x22>
- 410:	00 c0       	rjmp	.+0      	; 0x412 <ClearDisplay+0x28>
- 412:	00 00       	nop
- 414:	21 97       	sbiw	r28, 0x01	; 1
+ 166:	1f 5f       	subi	r17, 0xFF	; 255
+ 168:	19 30       	cpi	r17, 0x09	; 9
+ 16a:	c9 f7       	brne	.-14     	; 0x15e <ClearDisplay+0x10>
+ 16c:	89 ef       	ldi	r24, 0xF9	; 249
+ 16e:	90 e0       	ldi	r25, 0x00	; 0
+ 170:	01 97       	sbiw	r24, 0x01	; 1
+ 172:	f1 f7       	brne	.-4      	; 0x170 <ClearDisplay+0x22>
+ 174:	00 c0       	rjmp	.+0      	; 0x176 <ClearDisplay+0x28>
+ 176:	00 00       	nop
+ 178:	21 97       	sbiw	r28, 0x01	; 1
 }
 
 void ClearDisplay()
 {
 	int i = 0;
 	while(i <= 3)
- 416:	20 97       	sbiw	r28, 0x00	; 0
- 418:	11 f0       	breq	.+4      	; 0x41e <ClearDisplay+0x34>
+ 17a:	20 97       	sbiw	r28, 0x00	; 0
+ 17c:	11 f0       	breq	.+4      	; 0x182 <ClearDisplay+0x34>
 	SPI_WriteEndByte(data);
 	_delay_ms(10);
 }
 
 void ClearDisplay()
 {
- 41a:	10 2f       	mov	r17, r16
- 41c:	ee cf       	rjmp	.-36     	; 0x3fa <ClearDisplay+0x10>
+ 17e:	10 2f       	mov	r17, r16
+ 180:	ee cf       	rjmp	.-36     	; 0x15e <ClearDisplay+0x10>
 			SendLed(j,0);
 		}
 		i++;
 		_delay_ms(1);
 	}
 }
- 41e:	df 91       	pop	r29
- 420:	cf 91       	pop	r28
- 422:	1f 91       	pop	r17
- 424:	0f 91       	pop	r16
- 426:	08 95       	ret
+ 182:	df 91       	pop	r29
+ 184:	cf 91       	pop	r28
+ 186:	1f 91       	pop	r17
+ 188:	0f 91       	pop	r16
+ 18a:	08 95       	ret
 
-00000428 <WriteNum>:
+0000018c <WriteNum>:
 
 
 
 void WriteNum(char *x, char *y, char *z)
 {
- 428:	df 92       	push	r13
- 42a:	ef 92       	push	r14
- 42c:	ff 92       	push	r15
- 42e:	0f 93       	push	r16
- 430:	1f 93       	push	r17
- 432:	cf 93       	push	r28
- 434:	df 93       	push	r29
- 436:	7a 01       	movw	r14, r20
- 438:	c6 2f       	mov	r28, r22
- 43a:	d7 2f       	mov	r29, r23
- 43c:	8c 01       	movw	r16, r24
- 43e:	dd 24       	eor	r13, r13
- 440:	d3 94       	inc	r13
+ 18c:	df 92       	push	r13
+ 18e:	ef 92       	push	r14
+ 190:	ff 92       	push	r15
+ 192:	0f 93       	push	r16
+ 194:	1f 93       	push	r17
+ 196:	cf 93       	push	r28
+ 198:	df 93       	push	r29
+ 19a:	7a 01       	movw	r14, r20
+ 19c:	c6 2f       	mov	r28, r22
+ 19e:	d7 2f       	mov	r29, r23
+ 1a0:	8c 01       	movw	r16, r24
+ 1a2:	dd 24       	eor	r13, r13
+ 1a4:	d3 94       	inc	r13
 	
 	for(int i = 0; i < 8; i++)
 	{
 		PORTB &= ~(1 << PORTB4);
- 442:	c4 98       	cbi	0x18, 4	; 24
+ 1a6:	c4 98       	cbi	0x18, 4	; 24
 		
 		SPI_WriteByte(i + 1);
- 444:	8d 2d       	mov	r24, r13
- 446:	0e 94 dc 01 	call	0x3b8	; 0x3b8 <SPI_WriteByte>
+ 1a8:	8d 2d       	mov	r24, r13
+ 1aa:	0e 94 8e 00 	call	0x11c	; 0x11c <SPI_WriteByte>
 		SPI_WriteByte(z[i]);
- 44a:	f7 01       	movw	r30, r14
- 44c:	81 91       	ld	r24, Z+
- 44e:	7f 01       	movw	r14, r30
- 450:	0e 94 dc 01 	call	0x3b8	; 0x3b8 <SPI_WriteByte>
+ 1ae:	f7 01       	movw	r30, r14
+ 1b0:	81 91       	ld	r24, Z+
+ 1b2:	7f 01       	movw	r14, r30
+ 1b4:	0e 94 8e 00 	call	0x11c	; 0x11c <SPI_WriteByte>
 		
 		SPI_WriteByte(i + 1);
- 454:	8d 2d       	mov	r24, r13
- 456:	0e 94 dc 01 	call	0x3b8	; 0x3b8 <SPI_WriteByte>
+ 1b8:	8d 2d       	mov	r24, r13
+ 1ba:	0e 94 8e 00 	call	0x11c	; 0x11c <SPI_WriteByte>
 		SPI_WriteByte(y[i]);
- 45a:	89 91       	ld	r24, Y+
- 45c:	0e 94 dc 01 	call	0x3b8	; 0x3b8 <SPI_WriteByte>
+ 1be:	89 91       	ld	r24, Y+
+ 1c0:	0e 94 8e 00 	call	0x11c	; 0x11c <SPI_WriteByte>
 		
 		SPI_WriteByte(i + 1);
- 460:	8d 2d       	mov	r24, r13
- 462:	0e 94 dc 01 	call	0x3b8	; 0x3b8 <SPI_WriteByte>
+ 1c4:	8d 2d       	mov	r24, r13
+ 1c6:	0e 94 8e 00 	call	0x11c	; 0x11c <SPI_WriteByte>
 		SPI_WriteByte(x[i]);
- 466:	f8 01       	movw	r30, r16
- 468:	81 91       	ld	r24, Z+
- 46a:	8f 01       	movw	r16, r30
- 46c:	0e 94 dc 01 	call	0x3b8	; 0x3b8 <SPI_WriteByte>
+ 1ca:	f8 01       	movw	r30, r16
+ 1cc:	81 91       	ld	r24, Z+
+ 1ce:	8f 01       	movw	r16, r30
+ 1d0:	0e 94 8e 00 	call	0x11c	; 0x11c <SPI_WriteByte>
 		
 		PORTB |= (1<<PORTB4);
- 470:	c4 9a       	sbi	0x18, 4	; 24
- 472:	d3 94       	inc	r13
+ 1d4:	c4 9a       	sbi	0x18, 4	; 24
+ 1d6:	d3 94       	inc	r13
 
 
 void WriteNum(char *x, char *y, char *z)
 {
 	
 	for(int i = 0; i < 8; i++)
- 474:	f9 e0       	ldi	r31, 0x09	; 9
- 476:	df 12       	cpse	r13, r31
- 478:	e4 cf       	rjmp	.-56     	; 0x442 <WriteNum+0x1a>
+ 1d8:	f9 e0       	ldi	r31, 0x09	; 9
+ 1da:	df 12       	cpse	r13, r31
+ 1dc:	e4 cf       	rjmp	.-56     	; 0x1a6 <WriteNum+0x1a>
 		SPI_WriteByte(x[i]);
 		
 		PORTB |= (1<<PORTB4);
 	}
 	
+ 1de:	df 91       	pop	r29
+ 1e0:	cf 91       	pop	r28
+ 1e2:	1f 91       	pop	r17
+ 1e4:	0f 91       	pop	r16
+ 1e6:	ff 90       	pop	r15
+ 1e8:	ef 90       	pop	r14
+ 1ea:	df 90       	pop	r13
+ 1ec:	08 95       	ret
+
+000001ee <InitOLED>:
+
+uint8_t oled_pointer = 0x00;
+
+void InitOLED()
+{
+	TWBR = TWBR_VALUE;
+ 1ee:	88 e4       	ldi	r24, 0x48	; 72
+ 1f0:	80 b9       	out	0x00, r24	; 0
+	TWSR = 0;
+ 1f2:	11 b8       	out	0x01, r1	; 1
+	i2cstart(SSD1306_ADDR);
+ 1f4:	88 e7       	ldi	r24, 0x78	; 120
+ 1f6:	0e 94 ff 01 	call	0x3fe	; 0x3fe <i2cstart>
+	i2cwrite(0x00);
+ 1fa:	80 e0       	ldi	r24, 0x00	; 0
+ 1fc:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	
+	i2cwrite(SSD1306_DISPLAYOFF);                    // 0xAE
+ 200:	8e ea       	ldi	r24, 0xAE	; 174
+ 202:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_SETDISPLAYCLOCKDIV);            // 0xD5
+ 206:	85 ed       	ldi	r24, 0xD5	; 213
+ 208:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(0x80);                                  // the suggested ratio 0x80
+ 20c:	80 e8       	ldi	r24, 0x80	; 128
+ 20e:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+
+	i2cwrite(SSD1306_SETMULTIPLEX);                  // 0xA8
+ 212:	88 ea       	ldi	r24, 0xA8	; 168
+ 214:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_LCDHEIGHT - 1);
+ 218:	8f e3       	ldi	r24, 0x3F	; 63
+ 21a:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+
+	i2cwrite(SSD1306_SETDISPLAYOFFSET);              // 0xD3
+ 21e:	83 ed       	ldi	r24, 0xD3	; 211
+ 220:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(0x0);                                   // no offset
+ 224:	80 e0       	ldi	r24, 0x00	; 0
+ 226:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_SETSTARTLINE | 0x0);            // line #0
+ 22a:	80 e4       	ldi	r24, 0x40	; 64
+ 22c:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_CHARGEPUMP);                    // 0x8D
+ 230:	8d e8       	ldi	r24, 0x8D	; 141
+ 232:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	{
+		i2cwrite(0x10);
+	}
+	else
+	{
+		i2cwrite(0x14);
+ 236:	84 e1       	ldi	r24, 0x14	; 20
+ 238:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	}
+	i2cwrite(0x20);             					   // 0x20  SSD1306_MEMORYMODE
+ 23c:	80 e2       	ldi	r24, 0x20	; 32
+ 23e:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(0x00);                       	       // 0x0 act like ks0108
+ 242:	80 e0       	ldi	r24, 0x00	; 0
+ 244:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_SEGREMAP | 0x1);
+ 248:	81 ea       	ldi	r24, 0xA1	; 161
+ 24a:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_COMSCANDEC);
+ 24e:	88 ec       	ldi	r24, 0xC8	; 200
+ 250:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	
+	i2cwrite(SSD1306_SETCOMPINS);                    // 0xDA
+ 254:	8a ed       	ldi	r24, 0xDA	; 218
+ 256:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(0x02);
+ 25a:	82 e0       	ldi	r24, 0x02	; 2
+ 25c:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_SETCONTRAST);                   // 0x81
+ 260:	81 e8       	ldi	r24, 0x81	; 129
+ 262:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(0x8F);
+ 266:	8f e8       	ldi	r24, 0x8F	; 143
+ 268:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	
+	i2cwrite(SSD1306_SETPRECHARGE);                  // 0xd9
+ 26c:	89 ed       	ldi	r24, 0xD9	; 217
+ 26e:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	{
+		i2cwrite(0x22);
+	}
+	else
+	{
+		i2cwrite(0xF1);
+ 272:	81 ef       	ldi	r24, 0xF1	; 241
+ 274:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	}
+	i2cwrite(SSD1306_SETVCOMDETECT);                 // 0xDB
+ 278:	8b ed       	ldi	r24, 0xDB	; 219
+ 27a:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(0x40);
+ 27e:	80 e4       	ldi	r24, 0x40	; 64
+ 280:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_DISPLAYALLON_RESUME);           // 0xA4
+ 284:	84 ea       	ldi	r24, 0xA4	; 164
+ 286:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_NORMALDISPLAY);                 // 0xA6
+ 28a:	86 ea       	ldi	r24, 0xA6	; 166
+ 28c:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+
+	i2cwrite(SSD1306_DEACTIVATE_SCROLL);
+ 290:	8e e2       	ldi	r24, 0x2E	; 46
+ 292:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+
+	i2cwrite(SSD1306_DISPLAYON);//--turn on oled panel
+ 296:	8f ea       	ldi	r24, 0xAF	; 175
+ 298:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cstop();
+ 29c:	0e 94 30 02 	call	0x460	; 0x460 <i2cstop>
+ 2a0:	08 95       	ret
+
+000002a2 <SetPointOLED>:
 }
- 47a:	df 91       	pop	r29
- 47c:	cf 91       	pop	r28
- 47e:	1f 91       	pop	r17
- 480:	0f 91       	pop	r16
- 482:	ff 90       	pop	r15
- 484:	ef 90       	pop	r14
- 486:	df 90       	pop	r13
- 488:	08 95       	ret
+void SetPointOLED(uint8_t Start_Collumn, uint8_t End_Collumn, uint8_t Start_Page, uint8_t End_Page)
+{
+ 2a2:	0f 93       	push	r16
+ 2a4:	1f 93       	push	r17
+ 2a6:	cf 93       	push	r28
+ 2a8:	df 93       	push	r29
+ 2aa:	08 2f       	mov	r16, r24
+ 2ac:	16 2f       	mov	r17, r22
+ 2ae:	d4 2f       	mov	r29, r20
+ 2b0:	c2 2f       	mov	r28, r18
+	i2cstart(SSD1306_ADDR);
+ 2b2:	88 e7       	ldi	r24, 0x78	; 120
+ 2b4:	0e 94 ff 01 	call	0x3fe	; 0x3fe <i2cstart>
+	i2cwrite(CODE_COMMAND);
+ 2b8:	80 e0       	ldi	r24, 0x00	; 0
+ 2ba:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_COLUMNADDR);
+ 2be:	81 e2       	ldi	r24, 0x21	; 33
+ 2c0:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(Start_Collumn);
+ 2c4:	80 2f       	mov	r24, r16
+ 2c6:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(End_Collumn);
+ 2ca:	81 2f       	mov	r24, r17
+ 2cc:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	
+	i2cwrite(CODE_COMMAND);
+ 2d0:	80 e0       	ldi	r24, 0x00	; 0
+ 2d2:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(SSD1306_PAGEADDR);
+ 2d6:	82 e2       	ldi	r24, 0x22	; 34
+ 2d8:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(Start_Page);
+ 2dc:	8d 2f       	mov	r24, r29
+ 2de:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(End_Page);
+ 2e2:	8c 2f       	mov	r24, r28
+ 2e4:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cstop();
+ 2e8:	0e 94 30 02 	call	0x460	; 0x460 <i2cstop>
+}
+ 2ec:	df 91       	pop	r29
+ 2ee:	cf 91       	pop	r28
+ 2f0:	1f 91       	pop	r17
+ 2f2:	0f 91       	pop	r16
+ 2f4:	08 95       	ret
 
-0000048a <main>:
+000002f6 <OLED_Command>:
+void OLED_Command(uint8_t data)
+{
+ 2f6:	cf 93       	push	r28
+ 2f8:	c8 2f       	mov	r28, r24
+	i2cstart(SSD1306_ADDR);
+ 2fa:	88 e7       	ldi	r24, 0x78	; 120
+ 2fc:	0e 94 ff 01 	call	0x3fe	; 0x3fe <i2cstart>
+	i2cwrite(CODE_COMMAND);      // Co = 0, D/C = 0
+ 300:	80 e0       	ldi	r24, 0x00	; 0
+ 302:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cwrite(data);
+ 306:	8c 2f       	mov	r24, r28
+ 308:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	i2cstop();
+ 30c:	0e 94 30 02 	call	0x460	; 0x460 <i2cstop>
+}
+ 310:	cf 91       	pop	r28
+ 312:	08 95       	ret
 
+00000314 <ClearOLED>:
+void ClearOLED()
+{
+ 314:	ef 92       	push	r14
+ 316:	ff 92       	push	r15
+ 318:	0f 93       	push	r16
+ 31a:	1f 93       	push	r17
+ 31c:	cf 93       	push	r28
+ 31e:	df 93       	push	r29
+	SetPointOLED(0x00, 0x7F, 0x04, 0x07);
+ 320:	27 e0       	ldi	r18, 0x07	; 7
+ 322:	44 e0       	ldi	r20, 0x04	; 4
+ 324:	6f e7       	ldi	r22, 0x7F	; 127
+ 326:	80 e0       	ldi	r24, 0x00	; 0
+ 328:	0e 94 51 01 	call	0x2a2	; 0x2a2 <SetPointOLED>
+	
+	i2cstart(SSD1306_ADDR);
+ 32c:	88 e7       	ldi	r24, 0x78	; 120
+ 32e:	0e 94 ff 01 	call	0x3fe	; 0x3fe <i2cstart>
+	i2cwrite(CODE_DATA);
+ 332:	80 e4       	ldi	r24, 0x40	; 64
+ 334:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+ 338:	04 e0       	ldi	r16, 0x04	; 4
+ 33a:	10 e0       	ldi	r17, 0x00	; 0
+	i2cwrite(CODE_COMMAND);      // Co = 0, D/C = 0
+	i2cwrite(data);
+	i2cstop();
+}
+void ClearOLED()
+{
+ 33c:	68 94       	set
+ 33e:	ee 24       	eor	r14, r14
+ 340:	e7 f8       	bld	r14, 7
+ 342:	f1 2c       	mov	r15, r1
+ 344:	0b c0       	rjmp	.+22     	; 0x35c <ClearOLED+0x48>
+	
+	for(int kk = 0; kk < 4; kk++)
+	{
+		for(int k = 0; k < 128; k++)
+		{
+			i2cwrite(0x00);	//LSB вверху, MSB снизу
+ 346:	80 e0       	ldi	r24, 0x00	; 0
+ 348:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+ 34c:	21 97       	sbiw	r28, 0x01	; 1
+	i2cstart(SSD1306_ADDR);
+	i2cwrite(CODE_DATA);
+	
+	for(int kk = 0; kk < 4; kk++)
+	{
+		for(int k = 0; k < 128; k++)
+ 34e:	20 97       	sbiw	r28, 0x00	; 0
+ 350:	d1 f7       	brne	.-12     	; 0x346 <ClearOLED+0x32>
+ 352:	01 50       	subi	r16, 0x01	; 1
+ 354:	11 09       	sbc	r17, r1
+	SetPointOLED(0x00, 0x7F, 0x04, 0x07);
+	
+	i2cstart(SSD1306_ADDR);
+	i2cwrite(CODE_DATA);
+	
+	for(int kk = 0; kk < 4; kk++)
+ 356:	01 15       	cp	r16, r1
+ 358:	11 05       	cpc	r17, r1
+ 35a:	19 f0       	breq	.+6      	; 0x362 <ClearOLED+0x4e>
+	i2cwrite(CODE_COMMAND);      // Co = 0, D/C = 0
+	i2cwrite(data);
+	i2cstop();
+}
+void ClearOLED()
+{
+ 35c:	ce 2d       	mov	r28, r14
+ 35e:	df 2d       	mov	r29, r15
+ 360:	f2 cf       	rjmp	.-28     	; 0x346 <ClearOLED+0x32>
+		for(int k = 0; k < 128; k++)
+		{
+			i2cwrite(0x00);	//LSB вверху, MSB снизу
+		}
+	}
+	i2cstop();
+ 362:	0e 94 30 02 	call	0x460	; 0x460 <i2cstop>
+}
+ 366:	df 91       	pop	r29
+ 368:	cf 91       	pop	r28
+ 36a:	1f 91       	pop	r17
+ 36c:	0f 91       	pop	r16
+ 36e:	ff 90       	pop	r15
+ 370:	ef 90       	pop	r14
+ 372:	08 95       	ret
 
+00000374 <SetOLED>:
 
+void SetOLED(void)
+{
+ 374:	0f 93       	push	r16
+ 376:	1f 93       	push	r17
+ 378:	cf 93       	push	r28
+ 37a:	df 93       	push	r29
+	oled_pointer = 0x00;
+ 37c:	10 92 46 02 	sts	0x0246, r1
+	OLED_Command(SSD1306_DISPLAYOFF);
+ 380:	8e ea       	ldi	r24, 0xAE	; 174
+ 382:	0e 94 7b 01 	call	0x2f6	; 0x2f6 <OLED_Command>
+	SetPointOLED(0x00, oled_pointer += serp_logo.long_image, 0x04, (0x04 + serp_logo.height_image));
+ 386:	60 91 46 02 	lds	r22, 0x0246
+ 38a:	61 5e       	subi	r22, 0xE1	; 225
+ 38c:	60 93 46 02 	sts	0x0246, r22
+ 390:	27 e0       	ldi	r18, 0x07	; 7
+ 392:	44 e0       	ldi	r20, 0x04	; 4
+ 394:	80 e0       	ldi	r24, 0x00	; 0
+ 396:	0e 94 51 01 	call	0x2a2	; 0x2a2 <SetPointOLED>
+
+	i2cstart(SSD1306_ADDR);
+ 39a:	88 e7       	ldi	r24, 0x78	; 120
+ 39c:	0e 94 ff 01 	call	0x3fe	; 0x3fe <i2cstart>
+	i2cwrite(CODE_DATA);
+ 3a0:	80 e4       	ldi	r24, 0x40	; 64
+ 3a2:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+ 3a6:	c2 e6       	ldi	r28, 0x62	; 98
+ 3a8:	d1 e0       	ldi	r29, 0x01	; 1
+ 3aa:	02 ee       	ldi	r16, 0xE2	; 226
+ 3ac:	11 e0       	ldi	r17, 0x01	; 1
+	for(int kk = 0; kk < serp_logo.long_array; kk++)
+	{
+		i2cwrite(serp_logo.serp[kk]);	//LSB вверху, MSB снизу
+ 3ae:	89 91       	ld	r24, Y+
+ 3b0:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	OLED_Command(SSD1306_DISPLAYOFF);
+	SetPointOLED(0x00, oled_pointer += serp_logo.long_image, 0x04, (0x04 + serp_logo.height_image));
+
+	i2cstart(SSD1306_ADDR);
+	i2cwrite(CODE_DATA);
+	for(int kk = 0; kk < serp_logo.long_array; kk++)
+ 3b4:	c0 17       	cp	r28, r16
+ 3b6:	d1 07       	cpc	r29, r17
+ 3b8:	d1 f7       	brne	.-12     	; 0x3ae <SetOLED+0x3a>
+	{
+		i2cwrite(serp_logo.serp[kk]);	//LSB вверху, MSB снизу
+	}
+	i2cstop();
+ 3ba:	0e 94 30 02 	call	0x460	; 0x460 <i2cstop>
+	OLED_Command(SSD1306_DISPLAYON);
+ 3be:	8f ea       	ldi	r24, 0xAF	; 175
+ 3c0:	0e 94 7b 01 	call	0x2f6	; 0x2f6 <OLED_Command>
+	
+	//_delay_ms(1000);
+	//OLED_Command(SSD1306_DISPLAYOFF);
+	SetPointOLED(0x2a, 0x2a+bsuir_logo.long_image, 0x04, 0x04 + bsuir_logo.height_image);
+ 3c4:	27 e0       	ldi	r18, 0x07	; 7
+ 3c6:	44 e0       	ldi	r20, 0x04	; 4
+ 3c8:	66 e6       	ldi	r22, 0x66	; 102
+ 3ca:	8a e2       	ldi	r24, 0x2A	; 42
+ 3cc:	0e 94 51 01 	call	0x2a2	; 0x2a2 <SetPointOLED>
+	i2cstart(SSD1306_ADDR);
+ 3d0:	88 e7       	ldi	r24, 0x78	; 120
+ 3d2:	0e 94 ff 01 	call	0x3fe	; 0x3fe <i2cstart>
+	i2cwrite(CODE_DATA);
+ 3d6:	80 e4       	ldi	r24, 0x40	; 64
+ 3d8:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+ 3dc:	c0 e6       	ldi	r28, 0x60	; 96
+ 3de:	d0 e0       	ldi	r29, 0x00	; 0
+ 3e0:	00 e5       	ldi	r16, 0x50	; 80
+ 3e2:	11 e0       	ldi	r17, 0x01	; 1
+	for(int kk = 0; kk < bsuir_logo.long_array; kk++)
+	{
+		i2cwrite(bsuir_logo.bsuir[kk]);
+ 3e4:	89 91       	ld	r24, Y+
+ 3e6:	0e 94 21 02 	call	0x442	; 0x442 <i2cwrite>
+	//_delay_ms(1000);
+	//OLED_Command(SSD1306_DISPLAYOFF);
+	SetPointOLED(0x2a, 0x2a+bsuir_logo.long_image, 0x04, 0x04 + bsuir_logo.height_image);
+	i2cstart(SSD1306_ADDR);
+	i2cwrite(CODE_DATA);
+	for(int kk = 0; kk < bsuir_logo.long_array; kk++)
+ 3ea:	c0 17       	cp	r28, r16
+ 3ec:	d1 07       	cpc	r29, r17
+ 3ee:	d1 f7       	brne	.-12     	; 0x3e4 <SetOLED+0x70>
+	{
+		i2cwrite(bsuir_logo.bsuir[kk]);
+	}
+	i2cstop();
+ 3f0:	0e 94 30 02 	call	0x460	; 0x460 <i2cstop>
+	//
+	//i2cwrite(AVRlogo[kk]);	//LSB вверху, MSB снизу
+	//}
+	//i2cstop();
+	
+}
+ 3f4:	df 91       	pop	r29
+ 3f6:	cf 91       	pop	r28
+ 3f8:	1f 91       	pop	r17
+ 3fa:	0f 91       	pop	r16
+ 3fc:	08 95       	ret
+
+000003fe <i2cstart>:
+
+uint8_t twi_status_register;
+
+uint8_t i2cstart(uint8_t address)
+{
+	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
+ 3fe:	94 ea       	ldi	r25, 0xA4	; 164
+ 400:	96 bf       	out	0x36, r25	; 54
+	while(!(TWCR & (1<<TWINT)))
+ 402:	06 b6       	in	r0, 0x36	; 54
+ 404:	07 fe       	sbrs	r0, 7
+ 406:	fd cf       	rjmp	.-6      	; 0x402 <i2cstart+0x4>
+		;
+
+	twi_status_register = TW_STATUS & 0xF8;
+ 408:	91 b1       	in	r25, 0x01	; 1
+ 40a:	98 7f       	andi	r25, 0xF8	; 248
+ 40c:	90 93 47 02 	sts	0x0247, r25
+	if ((twi_status_register != TW_START) && (twi_status_register != TW_REP_START))
+ 410:	98 30       	cpi	r25, 0x08	; 8
+ 412:	11 f0       	breq	.+4      	; 0x418 <i2cstart+0x1a>
+ 414:	90 31       	cpi	r25, 0x10	; 16
+ 416:	89 f4       	brne	.+34     	; 0x43a <i2cstart+0x3c>
+	{
+		return 1;
+	}
+
+	TWDR = address;
+ 418:	83 b9       	out	0x03, r24	; 3
+	TWCR = (1<<TWINT) | (1<<TWEN);
+ 41a:	84 e8       	ldi	r24, 0x84	; 132
+ 41c:	86 bf       	out	0x36, r24	; 54
+
+	while(!(TWCR & (1<<TWINT)))
+ 41e:	06 b6       	in	r0, 0x36	; 54
+ 420:	07 fe       	sbrs	r0, 7
+ 422:	fd cf       	rjmp	.-6      	; 0x41e <i2cstart+0x20>
+		;
+
+	twi_status_register = TW_STATUS & 0xF8;
+ 424:	91 b1       	in	r25, 0x01	; 1
+ 426:	98 7f       	andi	r25, 0xF8	; 248
+ 428:	90 93 47 02 	sts	0x0247, r25
+	if ((twi_status_register != TW_MT_SLA_ACK) && (twi_status_register != TW_MR_SLA_ACK))
+ 42c:	98 31       	cpi	r25, 0x18	; 24
+ 42e:	39 f0       	breq	.+14     	; 0x43e <i2cstart+0x40>
+ 430:	81 e0       	ldi	r24, 0x01	; 1
+ 432:	90 34       	cpi	r25, 0x40	; 64
+ 434:	29 f4       	brne	.+10     	; 0x440 <i2cstart+0x42>
+ 436:	80 e0       	ldi	r24, 0x00	; 0
+ 438:	08 95       	ret
+		;
+
+	twi_status_register = TW_STATUS & 0xF8;
+	if ((twi_status_register != TW_START) && (twi_status_register != TW_REP_START))
+	{
+		return 1;
+ 43a:	81 e0       	ldi	r24, 0x01	; 1
+ 43c:	08 95       	ret
+	twi_status_register = TW_STATUS & 0xF8;
+	if ((twi_status_register != TW_MT_SLA_ACK) && (twi_status_register != TW_MR_SLA_ACK))
+	{
+		return 1;
+	}
+	return 0;
+ 43e:	80 e0       	ldi	r24, 0x00	; 0
+}
+ 440:	08 95       	ret
+
+00000442 <i2cwrite>:
+
+uint8_t i2cwrite(uint8_t data)
+{
+	TWDR = data;
+ 442:	83 b9       	out	0x03, r24	; 3
+	TWCR = (1<<TWINT) | (1<<TWEN);
+ 444:	84 e8       	ldi	r24, 0x84	; 132
+ 446:	86 bf       	out	0x36, r24	; 54
+	
+	while(!(TWCR & (1<<TWINT)));
+ 448:	06 b6       	in	r0, 0x36	; 54
+ 44a:	07 fe       	sbrs	r0, 7
+ 44c:	fd cf       	rjmp	.-6      	; 0x448 <i2cwrite+0x6>
+
+	twi_status_register = TW_STATUS & 0xF8;
+ 44e:	91 b1       	in	r25, 0x01	; 1
+ 450:	98 7f       	andi	r25, 0xF8	; 248
+ 452:	90 93 47 02 	sts	0x0247, r25
+	if (twi_status_register != TW_MT_DATA_ACK)
+ 456:	81 e0       	ldi	r24, 0x01	; 1
+ 458:	98 32       	cpi	r25, 0x28	; 40
+ 45a:	09 f4       	brne	.+2      	; 0x45e <i2cwrite+0x1c>
+ 45c:	80 e0       	ldi	r24, 0x00	; 0
+	}
+	else
+	{
+		return 0;
+	}	
+}
+ 45e:	08 95       	ret
+
+00000460 <i2cstop>:
+
+void i2cstop(void)
+{
+	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
+ 460:	84 e9       	ldi	r24, 0x94	; 148
+ 462:	86 bf       	out	0x36, r24	; 54
+	while(TWCR & (1<<TWSTO));
+ 464:	06 b6       	in	r0, 0x36	; 54
+ 466:	04 fc       	sbrc	r0, 4
+ 468:	fd cf       	rjmp	.-6      	; 0x464 <i2cstop+0x4>
+ 46a:	08 95       	ret
+
+0000046c <init_ports>:
+void init_ports()
+{
+    // Input/Output Ports initialization
+    // Port A initialization
+    // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
+    DDRA=(0<<DDA7) | (0<<DDA6) | (0<<DDA5) | (0<<DDA4) | (0<<DDA3) | (0<<DDA2) | (0<<DDA1) | (0<<DDA0);
+ 46c:	1a ba       	out	0x1a, r1	; 26
+    // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
+    PORTA=(0<<PORTA7) | (0<<PORTA6) | (0<<PORTA5) | (0<<PORTA4) | (0<<PORTA3) | (0<<PORTA2) | (0<<PORTA1) | (0<<PORTA0);
+ 46e:	1b ba       	out	0x1b, r1	; 27
+
+    // Port B initialization
+    // Function: Bit7=Out Bit6=In Bit5=Out Bit4=Out Bit3=In Bit2=In Bit1=In Bit0=Out
+    DDRB = (1<<DDB7) | (1<<DDB6) | (1<<DDB5) | (1<<DDB4) | (1<<DDB3) | (1<<DDB2) | (1<<DDB1) | (1<<DDB0);
+ 470:	8f ef       	ldi	r24, 0xFF	; 255
+ 472:	87 bb       	out	0x17, r24	; 23
+    // State: Bit7=0 Bit6=T Bit5=0 Bit4=0 Bit3=T Bit2=T Bit1=T Bit0=T
+    PORTB=(0<<PORTB7) | (0<<PORTB6) | (0<<PORTB5) | (0<<PORTB4) | (0<<PORTB3) | (0<<PORTB2) | (0<<PORTB1) | (1<<PORTB0);
+ 474:	81 e0       	ldi	r24, 0x01	; 1
+ 476:	88 bb       	out	0x18, r24	; 24
+
+    // Port C initialization
+    // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
+    DDRC=(0<<DDC7) | (0<<DDC6) | (0<<DDC5) | (0<<DDC4) | (0<<DDC3) | (0<<DDC2) | (0<<DDC1) | (0<<DDC0);
+ 478:	14 ba       	out	0x14, r1	; 20
+    // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
+    PORTC=(0<<PORTC7) | (0<<PORTC6) | (0<<PORTC5) | (0<<PORTC4) | (0<<PORTC3) | (0<<PORTC2) | (0<<PORTC1) | (0<<PORTC0);
+ 47a:	15 ba       	out	0x15, r1	; 21
+
+    // Port D initialization
+    // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
+    DDRD=(0<<DDD7) | (0<<DDD6) | (0<<DDD5) | (0<<DDD4) | (0<<DDD3) | (0<<DDD2) | (0<<DDD1) | (0<<DDD0);
+ 47c:	11 ba       	out	0x11, r1	; 17
+    // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
+    PORTD=(0<<PORTD7) | (0<<PORTD6) | (0<<PORTD5) | (0<<PORTD4) | (0<<PORTD3) | (0<<PORTD2) | (0<<PORTD1) | (0<<PORTD0);
+ 47e:	12 ba       	out	0x12, r1	; 18
+	
+	SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
+ 480:	80 e5       	ldi	r24, 0x50	; 80
+ 482:	8d b9       	out	0x0d, r24	; 13
+	SPSR=(0<<SPI2X);
+ 484:	1e b8       	out	0x0e, r1	; 14
+ 486:	08 95       	ret
+
+00000488 <main>:
 int main(void)
 {
-	DDRB |= ((1<<PORTB0)|(1<<PORTB1)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
- 48a:	87 b3       	in	r24, 0x17	; 23
- 48c:	83 6b       	ori	r24, 0xB3	; 179
- 48e:	87 bb       	out	0x17, r24	; 23
+	//DDRB |= ((1<<PORTB0)|(1<<PORTB1)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //ножки SPI на выход
 
-	PORTB &= ~((1<<PORTB0)|(1<<PORTB1)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
- 490:	88 b3       	in	r24, 0x18	; 24
- 492:	8c 74       	andi	r24, 0x4C	; 76
- 494:	88 bb       	out	0x18, r24	; 24
- 496:	87 ea       	ldi	r24, 0xA7	; 167
- 498:	91 e6       	ldi	r25, 0x61	; 97
- 49a:	01 97       	sbiw	r24, 0x01	; 1
- 49c:	f1 f7       	brne	.-4      	; 0x49a <main+0x10>
- 49e:	00 c0       	rjmp	.+0      	; 0x4a0 <main+0x16>
- 4a0:	00 00       	nop
-	
+	//PORTB &= ~((1<<PORTB0)|(1<<PORTB1)|(1<<PORTB4)|(1<<PORTB5)|(1<<PORTB7)); //низкий уровень
+	init_ports();
+ 488:	0e 94 36 02 	call	0x46c	; 0x46c <init_ports>
+ 48c:	87 ea       	ldi	r24, 0xA7	; 167
+ 48e:	91 e6       	ldi	r25, 0x61	; 97
+ 490:	01 97       	sbiw	r24, 0x01	; 1
+ 492:	f1 f7       	brne	.-4      	; 0x490 <main+0x8>
+ 494:	00 c0       	rjmp	.+0      	; 0x496 <main+0xe>
+ 496:	00 00       	nop
 	_delay_ms(100);
-	SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
- 4a2:	80 e5       	ldi	r24, 0x50	; 80
- 4a4:	8d b9       	out	0x0d, r24	; 13
-	SPSR=(0<<SPI2X);
- 4a6:	1e b8       	out	0x0e, r1	; 14
+	//SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
+	//SPSR=(0<<SPI2X);
 	
 	InitLed();
- 4a8:	0e 94 88 01 	call	0x310	; 0x310 <InitLed>
+ 498:	0e 94 49 00 	call	0x92	; 0x92 <InitLed>
 	//InitI2C();
 	ClearDisplay();
- 4ac:	0e 94 f5 01 	call	0x3ea	; 0x3ea <ClearDisplay>
+ 49c:	0e 94 a7 00 	call	0x14e	; 0x14e <ClearDisplay>
 	
 	WriteNum(THREE, TWO,ONE );
- 4b0:	4e e3       	ldi	r20, 0x3E	; 62
- 4b2:	52 e0       	ldi	r21, 0x02	; 2
- 4b4:	66 e3       	ldi	r22, 0x36	; 54
- 4b6:	72 e0       	ldi	r23, 0x02	; 2
- 4b8:	8e e2       	ldi	r24, 0x2E	; 46
- 4ba:	92 e0       	ldi	r25, 0x02	; 2
- 4bc:	0e 94 14 02 	call	0x428	; 0x428 <WriteNum>
- 4c0:	9f e3       	ldi	r25, 0x3F	; 63
- 4c2:	2d e0       	ldi	r18, 0x0D	; 13
- 4c4:	83 e0       	ldi	r24, 0x03	; 3
- 4c6:	91 50       	subi	r25, 0x01	; 1
- 4c8:	20 40       	sbci	r18, 0x00	; 0
- 4ca:	80 40       	sbci	r24, 0x00	; 0
- 4cc:	e1 f7       	brne	.-8      	; 0x4c6 <main+0x3c>
- 4ce:	00 c0       	rjmp	.+0      	; 0x4d0 <main+0x46>
- 4d0:	00 00       	nop
+ 4a0:	4e e3       	ldi	r20, 0x3E	; 62
+ 4a2:	52 e0       	ldi	r21, 0x02	; 2
+ 4a4:	66 e3       	ldi	r22, 0x36	; 54
+ 4a6:	72 e0       	ldi	r23, 0x02	; 2
+ 4a8:	8e e2       	ldi	r24, 0x2E	; 46
+ 4aa:	92 e0       	ldi	r25, 0x02	; 2
+ 4ac:	0e 94 c6 00 	call	0x18c	; 0x18c <WriteNum>
+ 4b0:	9f e3       	ldi	r25, 0x3F	; 63
+ 4b2:	2d e0       	ldi	r18, 0x0D	; 13
+ 4b4:	83 e0       	ldi	r24, 0x03	; 3
+ 4b6:	91 50       	subi	r25, 0x01	; 1
+ 4b8:	20 40       	sbci	r18, 0x00	; 0
+ 4ba:	80 40       	sbci	r24, 0x00	; 0
+ 4bc:	e1 f7       	brne	.-8      	; 0x4b6 <main+0x2e>
+ 4be:	00 c0       	rjmp	.+0      	; 0x4c0 <main+0x38>
+ 4c0:	00 00       	nop
 	_delay_ms(1000);
 	WriteNum(SIX, FIVE, FOUR);
- 4d2:	46 e2       	ldi	r20, 0x26	; 38
- 4d4:	52 e0       	ldi	r21, 0x02	; 2
- 4d6:	6e e1       	ldi	r22, 0x1E	; 30
- 4d8:	72 e0       	ldi	r23, 0x02	; 2
- 4da:	86 e1       	ldi	r24, 0x16	; 22
- 4dc:	92 e0       	ldi	r25, 0x02	; 2
- 4de:	0e 94 14 02 	call	0x428	; 0x428 <WriteNum>
- 4e2:	9f e3       	ldi	r25, 0x3F	; 63
- 4e4:	2d e0       	ldi	r18, 0x0D	; 13
- 4e6:	83 e0       	ldi	r24, 0x03	; 3
- 4e8:	91 50       	subi	r25, 0x01	; 1
- 4ea:	20 40       	sbci	r18, 0x00	; 0
- 4ec:	80 40       	sbci	r24, 0x00	; 0
- 4ee:	e1 f7       	brne	.-8      	; 0x4e8 <main+0x5e>
- 4f0:	00 c0       	rjmp	.+0      	; 0x4f2 <main+0x68>
- 4f2:	00 00       	nop
+ 4c2:	46 e2       	ldi	r20, 0x26	; 38
+ 4c4:	52 e0       	ldi	r21, 0x02	; 2
+ 4c6:	6e e1       	ldi	r22, 0x1E	; 30
+ 4c8:	72 e0       	ldi	r23, 0x02	; 2
+ 4ca:	86 e1       	ldi	r24, 0x16	; 22
+ 4cc:	92 e0       	ldi	r25, 0x02	; 2
+ 4ce:	0e 94 c6 00 	call	0x18c	; 0x18c <WriteNum>
+ 4d2:	9f e3       	ldi	r25, 0x3F	; 63
+ 4d4:	2d e0       	ldi	r18, 0x0D	; 13
+ 4d6:	83 e0       	ldi	r24, 0x03	; 3
+ 4d8:	91 50       	subi	r25, 0x01	; 1
+ 4da:	20 40       	sbci	r18, 0x00	; 0
+ 4dc:	80 40       	sbci	r24, 0x00	; 0
+ 4de:	e1 f7       	brne	.-8      	; 0x4d8 <main+0x50>
+ 4e0:	00 c0       	rjmp	.+0      	; 0x4e2 <main+0x5a>
+ 4e2:	00 00       	nop
 	_delay_ms(1000);
 	WriteNum(NINE, EITHT, SEVEN);
- 4f4:	4e e0       	ldi	r20, 0x0E	; 14
- 4f6:	52 e0       	ldi	r21, 0x02	; 2
- 4f8:	66 e0       	ldi	r22, 0x06	; 6
- 4fa:	72 e0       	ldi	r23, 0x02	; 2
- 4fc:	8e ef       	ldi	r24, 0xFE	; 254
- 4fe:	91 e0       	ldi	r25, 0x01	; 1
- 500:	0e 94 14 02 	call	0x428	; 0x428 <WriteNum>
- 504:	9f e3       	ldi	r25, 0x3F	; 63
- 506:	2d e0       	ldi	r18, 0x0D	; 13
- 508:	83 e0       	ldi	r24, 0x03	; 3
- 50a:	91 50       	subi	r25, 0x01	; 1
- 50c:	20 40       	sbci	r18, 0x00	; 0
- 50e:	80 40       	sbci	r24, 0x00	; 0
- 510:	e1 f7       	brne	.-8      	; 0x50a <main+0x80>
- 512:	00 c0       	rjmp	.+0      	; 0x514 <main+0x8a>
- 514:	00 00       	nop
+ 4e4:	4e e0       	ldi	r20, 0x0E	; 14
+ 4e6:	52 e0       	ldi	r21, 0x02	; 2
+ 4e8:	66 e0       	ldi	r22, 0x06	; 6
+ 4ea:	72 e0       	ldi	r23, 0x02	; 2
+ 4ec:	8e ef       	ldi	r24, 0xFE	; 254
+ 4ee:	91 e0       	ldi	r25, 0x01	; 1
+ 4f0:	0e 94 c6 00 	call	0x18c	; 0x18c <WriteNum>
+ 4f4:	9f e3       	ldi	r25, 0x3F	; 63
+ 4f6:	2d e0       	ldi	r18, 0x0D	; 13
+ 4f8:	83 e0       	ldi	r24, 0x03	; 3
+ 4fa:	91 50       	subi	r25, 0x01	; 1
+ 4fc:	20 40       	sbci	r18, 0x00	; 0
+ 4fe:	80 40       	sbci	r24, 0x00	; 0
+ 500:	e1 f7       	brne	.-8      	; 0x4fa <main+0x72>
+ 502:	00 c0       	rjmp	.+0      	; 0x504 <main+0x7c>
+ 504:	00 00       	nop
 	_delay_ms(1000);
 	WriteNum(Z, Y, X);
- 516:	46 ee       	ldi	r20, 0xE6	; 230
- 518:	51 e0       	ldi	r21, 0x01	; 1
- 51a:	6e ee       	ldi	r22, 0xEE	; 238
- 51c:	71 e0       	ldi	r23, 0x01	; 1
- 51e:	86 ef       	ldi	r24, 0xF6	; 246
- 520:	91 e0       	ldi	r25, 0x01	; 1
- 522:	0e 94 14 02 	call	0x428	; 0x428 <WriteNum>
+ 506:	46 ee       	ldi	r20, 0xE6	; 230
+ 508:	51 e0       	ldi	r21, 0x01	; 1
+ 50a:	6e ee       	ldi	r22, 0xEE	; 238
+ 50c:	71 e0       	ldi	r23, 0x01	; 1
+ 50e:	86 ef       	ldi	r24, 0xF6	; 246
+ 510:	91 e0       	ldi	r25, 0x01	; 1
+ 512:	0e 94 c6 00 	call	0x18c	; 0x18c <WriteNum>
 	
 	PORTB |= (1<<PORTB0);
- 526:	c0 9a       	sbi	0x18, 0	; 24
+ 516:	c0 9a       	sbi	0x18, 0	; 24
 	PORTB &= ~(1<<PORTB1);
- 528:	c1 98       	cbi	0x18, 1	; 24
- 52a:	83 ec       	ldi	r24, 0xC3	; 195
- 52c:	99 e0       	ldi	r25, 0x09	; 9
- 52e:	01 97       	sbiw	r24, 0x01	; 1
- 530:	f1 f7       	brne	.-4      	; 0x52e <main+0xa4>
- 532:	00 c0       	rjmp	.+0      	; 0x534 <main+0xaa>
- 534:	00 00       	nop
+ 518:	c1 98       	cbi	0x18, 1	; 24
+ 51a:	87 ea       	ldi	r24, 0xA7	; 167
+ 51c:	91 e6       	ldi	r25, 0x61	; 97
+ 51e:	01 97       	sbiw	r24, 0x01	; 1
+ 520:	f1 f7       	brne	.-4      	; 0x51e <main+0x96>
+ 522:	00 c0       	rjmp	.+0      	; 0x524 <main+0x9c>
+ 524:	00 00       	nop
 	
-	_delay_ms(10);
+	_delay_ms(100);
 	InitOLED();
- 536:	0e 94 49 00 	call	0x92	; 0x92 <InitOLED>
+ 526:	0e 94 f7 00 	call	0x1ee	; 0x1ee <InitOLED>
+	PORTB |= (1<<PORTB1);
+ 52a:	c1 9a       	sbi	0x18, 1	; 24
+	PORTB &= ~(1<<PORTB0);
+ 52c:	c0 98       	cbi	0x18, 0	; 24
+	InitOLED();
+ 52e:	0e 94 f7 00 	call	0x1ee	; 0x1ee <InitOLED>
+	PORTB |= (1<<PORTB0);
+ 532:	c0 9a       	sbi	0x18, 0	; 24
+	PORTB &= ~(1<<PORTB1);
+ 534:	c1 98       	cbi	0x18, 1	; 24
+	ClearOLED();
+ 536:	0e 94 8a 01 	call	0x314	; 0x314 <ClearOLED>
 	PORTB |= (1<<PORTB1);
  53a:	c1 9a       	sbi	0x18, 1	; 24
 	PORTB &= ~(1<<PORTB0);
  53c:	c0 98       	cbi	0x18, 0	; 24
-	InitOLED();
- 53e:	0e 94 49 00 	call	0x92	; 0x92 <InitOLED>
+	ClearOLED();
+ 53e:	0e 94 8a 01 	call	0x314	; 0x314 <ClearOLED>
 	PORTB |= (1<<PORTB0);
  542:	c0 9a       	sbi	0x18, 0	; 24
 	PORTB &= ~(1<<PORTB1);
  544:	c1 98       	cbi	0x18, 1	; 24
-	ClearOLED();
- 546:	0e 94 dc 00 	call	0x1b8	; 0x1b8 <ClearOLED>
+	SetOLED();
+ 546:	0e 94 ba 01 	call	0x374	; 0x374 <SetOLED>
 	PORTB |= (1<<PORTB1);
  54a:	c1 9a       	sbi	0x18, 1	; 24
 	PORTB &= ~(1<<PORTB0);
  54c:	c0 98       	cbi	0x18, 0	; 24
-	ClearOLED();
- 54e:	0e 94 dc 00 	call	0x1b8	; 0x1b8 <ClearOLED>
-	PORTB |= (1<<PORTB0);
- 552:	c0 9a       	sbi	0x18, 0	; 24
-	PORTB &= ~(1<<PORTB1);
- 554:	c1 98       	cbi	0x18, 1	; 24
 	SetOLED();
- 556:	0e 94 0c 01 	call	0x218	; 0x218 <SetOLED>
-	PORTB |= (1<<PORTB1);
- 55a:	c1 9a       	sbi	0x18, 1	; 24
-	PORTB &= ~(1<<PORTB0);
- 55c:	c0 98       	cbi	0x18, 0	; 24
-	SetOLED();
- 55e:	0e 94 0c 01 	call	0x218	; 0x218 <SetOLED>
+ 54e:	0e 94 ba 01 	call	0x374	; 0x374 <SetOLED>
 	PORTB |= (1<<PORTB3);
- 562:	c3 9a       	sbi	0x18, 3	; 24
- 564:	87 ea       	ldi	r24, 0xA7	; 167
- 566:	91 e6       	ldi	r25, 0x61	; 97
- 568:	01 97       	sbiw	r24, 0x01	; 1
- 56a:	f1 f7       	brne	.-4      	; 0x568 <main+0xde>
- 56c:	00 c0       	rjmp	.+0      	; 0x56e <main+0xe4>
- 56e:	00 00       	nop
+ 552:	c3 9a       	sbi	0x18, 3	; 24
+ 554:	87 ea       	ldi	r24, 0xA7	; 167
+ 556:	91 e6       	ldi	r25, 0x61	; 97
+ 558:	01 97       	sbiw	r24, 0x01	; 1
+ 55a:	f1 f7       	brne	.-4      	; 0x558 <main+0xd0>
+ 55c:	00 c0       	rjmp	.+0      	; 0x55e <main+0xd6>
+ 55e:	00 00       	nop
 	_delay_ms(100);
 	PORTB &= ~(1<<PORTB3);
- 570:	c3 98       	cbi	0x18, 3	; 24
- 572:	ff cf       	rjmp	.-2      	; 0x572 <main+0xe8>
+ 560:	c3 98       	cbi	0x18, 3	; 24
+ 562:	ff cf       	rjmp	.-2      	; 0x562 <main+0xda>
 
-00000574 <_exit>:
- 574:	f8 94       	cli
+00000564 <_exit>:
+ 564:	f8 94       	cli
 
-00000576 <__stop_program>:
- 576:	ff cf       	rjmp	.-2      	; 0x576 <__stop_program>
+00000566 <__stop_program>:
+ 566:	ff cf       	rjmp	.-2      	; 0x566 <__stop_program>

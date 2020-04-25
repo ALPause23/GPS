@@ -4,26 +4,31 @@
  * Created: 23.04.2020 17:36:19
  *  Author: Евген
  */ 
-	#include "library/LED_MAX7219.h"
+	#include "LED_MAX7219.h"
 
 void InitLed()
 {
+	
+	int i = 0;
 	while(i < 3){
 		// инициализация дисплея
 		PORTB &= ~(1<<PORTB4);
 		SPDR = 0x0F;
+		//SPDR = (DISPLAY_TEST >> 8);
 		while(!(SPSR & (1<<SPIF)));
 		//PORTB |= (1<<PORTB4); //высокий уровень
 		//_delay_ms(50);
 
 		//PORTB &= ~(1<<PORTB4); //низкий уровень
 		SPDR = 0x00;
+		//SPDR = (DISPLAY_TEST | 0x00);
 		while(!(SPSR & (1<<SPIF)));
 		PORTB |= (1<<PORTB4);
 
 
 		PORTB &= ~(1<<PORTB4);
-		SPDR = 0x0C;
+		//SPDR = 0x0C;
+		
 		while(!(SPSR & (1<<SPIF)));
 		//PORTB |= (1<<PORTB4); //высокий уровень
 		//_delay_ms(50);
@@ -77,7 +82,7 @@ void InitLed()
 		//_delay_ms(50);
 
 		//PORTB &= ~(1<<PORTB4); //низкий уровень
-		SPDR = 0x07;
+		SPDR = 0x00;
 		while(!(SPSR & (1<<SPIF)));
 		PORTB |= (1<<PORTB4);
 		

@@ -23,9 +23,6 @@ Discarded input sections
  .text          0x00000000        0x0 library/LED_MAX7219.o
  .data          0x00000000        0x0 library/LED_MAX7219.o
  .bss           0x00000000        0x0 library/LED_MAX7219.o
- .debug_line    0x00000000        0x0 library/LED_MAX7219.o
- .debug_str     0x00000000        0x0 library/LED_MAX7219.o
- .comment       0x00000000       0x31 library/LED_MAX7219.o
  .text          0x00000000        0x0 library/OLED.o
  .data          0x00000000        0x0 library/OLED.o
  .bss           0x00000000        0x0 library/OLED.o
@@ -49,21 +46,10 @@ Discarded input sections
  .text          0x00000000        0x0 library/ports.o
  .data          0x00000000        0x0 library/ports.o
  .bss           0x00000000        0x0 library/ports.o
- .text.init_ports
-                0x00000000       0x16 library/ports.o
- .debug_info    0x00000000       0x89 library/ports.o
- .debug_abbrev  0x00000000       0x4f library/ports.o
- .debug_aranges
-                0x00000000       0x20 library/ports.o
- .debug_ranges  0x00000000       0x10 library/ports.o
- .debug_line    0x00000000       0xb6 library/ports.o
- .debug_str     0x00000000      0x14a library/ports.o
- .comment       0x00000000       0x31 library/ports.o
- .debug_frame   0x00000000       0x24 library/ports.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
- .data.init     0x00000000       0x12 main.o
+ COMMON         0x00000000        0x4 main.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
@@ -233,7 +219,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x578
+.text           0x00000000      0x568
  *(.vectors)
  .vectors       0x00000000       0x54 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm16.o
                 0x00000000                __vector_default
@@ -313,54 +299,57 @@ END GROUP
                 0x0000008e                __vector_20
                 0x00000092                . = ALIGN (0x2)
  *(.text.*)
- .text.InitOLED
-                0x00000092       0xb4 library/OLED.o
-                0x00000092                InitOLED
- .text.SetPointOLED
-                0x00000146       0x54 library/OLED.o
-                0x00000146                SetPointOLED
- .text.OLED_Command
-                0x0000019a       0x1e library/OLED.o
-                0x0000019a                OLED_Command
- .text.ClearOLED
-                0x000001b8       0x60 library/OLED.o
-                0x000001b8                ClearOLED
- .text.SetOLED  0x00000218       0x8a library/OLED.o
-                0x00000218                SetOLED
- .text.i2cstart
-                0x000002a2       0x44 library/I2C.o
-                0x000002a2                i2cstart
- .text.i2cwrite
-                0x000002e6       0x1e library/I2C.o
-                0x000002e6                i2cwrite
- .text.i2cstop  0x00000304        0xc library/I2C.o
-                0x00000304                i2cstop
- .text.InitLed  0x00000310       0x94 main.o
-                0x00000310                InitLed
+ .text.InitLed  0x00000092       0x76 library/LED_MAX7219.o
+                0x00000092                InitLed
  .text.SPI_WriteStartByte
-                0x000003a4        0xa main.o
-                0x000003a4                SPI_WriteStartByte
+                0x00000108        0xa library/LED_MAX7219.o
+                0x00000108                SPI_WriteStartByte
  .text.SPI_WriteEndByte
-                0x000003ae        0xa main.o
-                0x000003ae                SPI_WriteEndByte
+                0x00000112        0xa library/LED_MAX7219.o
+                0x00000112                SPI_WriteEndByte
  .text.SPI_WriteByte
-                0x000003b8        0x8 main.o
-                0x000003b8                SPI_WriteByte
- .text.SendLed  0x000003c0       0x2a main.o
-                0x000003c0                SendLed
+                0x0000011c        0x8 library/LED_MAX7219.o
+                0x0000011c                SPI_WriteByte
+ .text.SendLed  0x00000124       0x2a library/LED_MAX7219.o
+                0x00000124                SendLed
  .text.ClearDisplay
-                0x000003ea       0x3e main.o
-                0x000003ea                ClearDisplay
+                0x0000014e       0x3e library/LED_MAX7219.o
+                0x0000014e                ClearDisplay
  .text.WriteNum
-                0x00000428       0x62 main.o
-                0x00000428                WriteNum
- .text.main     0x0000048a       0xea main.o
-                0x0000048a                main
-                0x00000574                . = ALIGN (0x2)
+                0x0000018c       0x62 library/LED_MAX7219.o
+                0x0000018c                WriteNum
+ .text.InitOLED
+                0x000001ee       0xb4 library/OLED.o
+                0x000001ee                InitOLED
+ .text.SetPointOLED
+                0x000002a2       0x54 library/OLED.o
+                0x000002a2                SetPointOLED
+ .text.OLED_Command
+                0x000002f6       0x1e library/OLED.o
+                0x000002f6                OLED_Command
+ .text.ClearOLED
+                0x00000314       0x60 library/OLED.o
+                0x00000314                ClearOLED
+ .text.SetOLED  0x00000374       0x8a library/OLED.o
+                0x00000374                SetOLED
+ .text.i2cstart
+                0x000003fe       0x44 library/I2C.o
+                0x000003fe                i2cstart
+ .text.i2cwrite
+                0x00000442       0x1e library/I2C.o
+                0x00000442                i2cwrite
+ .text.i2cstop  0x00000460        0xc library/I2C.o
+                0x00000460                i2cstop
+ .text.init_ports
+                0x0000046c       0x1c library/ports.o
+                0x0000046c                init_ports
+ .text.main     0x00000488       0xdc main.o
+                0x00000488                main
+                0x00000564                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000574        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
-                0x00000574                _exit
-                0x00000574                exit
+ .fini9         0x00000564        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x00000564                _exit
+                0x00000564                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -379,11 +368,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000574        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000564        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000578                _etext = .
+                0x00000568                _etext = .
 
-.data           0x00800060      0x1e6 load address 0x00000578
+.data           0x00800060      0x1e6 load address 0x00000568
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -410,7 +399,7 @@ END GROUP
                 0x00800246                _edata = .
                 0x00800246                PROVIDE (__data_end, .)
 
-.bss            0x00800246        0x6
+.bss            0x00800246        0x2
                 0x00800246                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
@@ -420,20 +409,16 @@ END GROUP
  *(COMMON)
  COMMON         0x00800247        0x1 library/I2C.o
                 0x00800247                twi_status_register
- COMMON         0x00800248        0x4 main.o
-                0x00800248                b
-                0x00800249                i
-                0x0080024b                a
-                0x0080024c                PROVIDE (__bss_end, .)
-                0x00000578                __data_load_start = LOADADDR (.data)
-                0x0000075e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00800248                PROVIDE (__bss_end, .)
+                0x00000568                __data_load_start = LOADADDR (.data)
+                0x0000074e                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080024c        0x0
-                0x0080024c                PROVIDE (__noinit_start, .)
+.noinit         0x00800248        0x0
+                0x00800248                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0080024c                PROVIDE (__noinit_end, .)
-                0x0080024c                _end = .
-                0x0080024c                PROVIDE (__heap_start, .)
+                0x00800248                PROVIDE (__noinit_end, .)
+                0x00800248                _end = .
+                0x00800248                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -474,9 +459,11 @@ END GROUP
 
 .comment        0x00000000       0x30
  *(.comment)
- .comment       0x00000000       0x30 library/OLED.o
+ .comment       0x00000000       0x30 library/LED_MAX7219.o
                                  0x31 (size before relaxing)
+ .comment       0x00000000       0x31 library/OLED.o
  .comment       0x00000000       0x31 library/I2C.o
+ .comment       0x00000000       0x31 library/ports.o
  .comment       0x00000000       0x31 main.o
 
 .note.gnu.build-id
@@ -494,56 +481,72 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xc8
+.debug_aranges  0x00000000      0x100
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x40 library/OLED.o
+                0x00000000       0x50 library/LED_MAX7219.o
  .debug_aranges
-                0x00000040       0x30 library/I2C.o
+                0x00000050       0x40 library/OLED.o
  .debug_aranges
-                0x00000070       0x58 main.o
+                0x00000090       0x30 library/I2C.o
+ .debug_aranges
+                0x000000c0       0x20 library/ports.o
+ .debug_aranges
+                0x000000e0       0x20 main.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1123
+.debug_info     0x00000000     0x13af
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x75a library/OLED.o
- .debug_info    0x0000075a       0xf1 library/I2C.o
- .debug_info    0x0000084b      0x8d8 main.o
+ .debug_info    0x00000000      0x451 library/LED_MAX7219.o
+ .debug_info    0x00000451      0x75a library/OLED.o
+ .debug_info    0x00000bab       0xf1 library/I2C.o
+ .debug_info    0x00000c9c       0x89 library/ports.o
+ .debug_info    0x00000d25      0x68a main.o
 
-.debug_abbrev   0x00000000      0x47c
+.debug_abbrev   0x00000000      0x5db
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x173 library/OLED.o
- .debug_abbrev  0x00000173       0x8d library/I2C.o
- .debug_abbrev  0x00000200      0x27c main.o
+ .debug_abbrev  0x00000000      0x1d4 library/LED_MAX7219.o
+ .debug_abbrev  0x000001d4      0x173 library/OLED.o
+ .debug_abbrev  0x00000347       0x8d library/I2C.o
+ .debug_abbrev  0x000003d4       0x4f library/ports.o
+ .debug_abbrev  0x00000423      0x1b8 main.o
 
-.debug_line     0x00000000      0x560
+.debug_line     0x00000000      0x753
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x16d library/OLED.o
- .debug_line    0x0000016d      0x101 library/I2C.o
- .debug_line    0x0000026e      0x2f2 main.o
+ .debug_line    0x00000000      0x27f library/LED_MAX7219.o
+ .debug_line    0x0000027f      0x16d library/OLED.o
+ .debug_line    0x000003ec      0x101 library/I2C.o
+ .debug_line    0x000004ed       0xb8 library/ports.o
+ .debug_line    0x000005a5      0x1ae main.o
 
-.debug_frame    0x00000000      0x1cc
+.debug_frame    0x00000000      0x204
  *(.debug_frame)
- .debug_frame   0x00000000       0xb4 library/OLED.o
- .debug_frame   0x000000b4       0x44 library/I2C.o
- .debug_frame   0x000000f8       0xd4 main.o
+ .debug_frame   0x00000000       0xc4 library/LED_MAX7219.o
+ .debug_frame   0x000000c4       0xb4 library/OLED.o
+ .debug_frame   0x00000178       0x44 library/I2C.o
+ .debug_frame   0x000001bc       0x24 library/ports.o
+ .debug_frame   0x000001e0       0x24 main.o
 
-.debug_str      0x00000000      0x300
+.debug_str      0x00000000      0x332
  *(.debug_str)
- .debug_str     0x00000000      0x1eb library/OLED.o
+ .debug_str     0x00000000      0x1e3 library/LED_MAX7219.o
+                                0x21c (size before relaxing)
+ .debug_str     0x000001e3       0xea library/OLED.o
                                 0x21f (size before relaxing)
- .debug_str     0x000001eb       0x2d library/I2C.o
+ .debug_str     0x000002cd       0x2d library/I2C.o
                                 0x173 (size before relaxing)
- .debug_str     0x00000218       0xe8 main.o
-                                0x28b (size before relaxing)
+ .debug_str     0x000002fa       0x1e library/ports.o
+                                0x14a (size before relaxing)
+ .debug_str     0x00000318       0x1a main.o
+                                0x252 (size before relaxing)
 
-.debug_loc      0x00000000      0x658
+.debug_loc      0x00000000      0x699
  *(.debug_loc)
- .debug_loc     0x00000000      0x324 library/OLED.o
- .debug_loc     0x00000324       0x73 library/I2C.o
- .debug_loc     0x00000397      0x2c1 main.o
+ .debug_loc     0x00000000      0x302 library/LED_MAX7219.o
+ .debug_loc     0x00000302      0x324 library/OLED.o
+ .debug_loc     0x00000626       0x73 library/I2C.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -563,11 +566,13 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0x98
+.debug_ranges   0x00000000       0xb0
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x30 library/OLED.o
- .debug_ranges  0x00000030       0x20 library/I2C.o
- .debug_ranges  0x00000050       0x48 main.o
+ .debug_ranges  0x00000000       0x40 library/LED_MAX7219.o
+ .debug_ranges  0x00000040       0x30 library/OLED.o
+ .debug_ranges  0x00000070       0x20 library/I2C.o
+ .debug_ranges  0x00000090       0x10 library/ports.o
+ .debug_ranges  0x000000a0       0x10 main.o
 
 .debug_macro
  *(.debug_macro)
