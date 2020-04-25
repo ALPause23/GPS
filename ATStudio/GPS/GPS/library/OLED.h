@@ -71,16 +71,7 @@
 	
 	extern uint8_t oled_pointer;
 	
-	void SetPointer(uint8_t a);
-	uint8_t GetPointer();
-	
-	void SelectDisplay(int i);
-	void InitOLED();
-	void ClearOLED();
-	void SetOLED();
-	
-	
-	typedef struct   
+	typedef struct
 	{
 		uint8_t image [512];
 		uint8_t long_array;
@@ -88,7 +79,18 @@
 		uint8_t	height_image;
 	}IMAGE_OLED;
 	
-	static const IMAGE_OLED  serp_logo PROGMEM= {
+	void SetPointer(uint8_t a);
+	uint8_t GetPointer();
+	
+	void SelectDisplay(int i);
+	void InitOLED();
+	void ClearOLED();
+	void SetOLED(uint8_t point, IMAGE_OLED a);
+	
+	
+	
+	
+	static const IMAGE_OLED PROGMEM serp_logo = {
 		
 		{
 			// #########
@@ -148,7 +150,7 @@
 			0x03
 		};
 
-	static const IMAGE_OLED  bsuir_logo PROGMEM= {
+	static const IMAGE_OLED PROGMEM bsuir_logo = {
 		{
 			//                                ###  ###  ##  ###
 			//                               ####   ### #### ###

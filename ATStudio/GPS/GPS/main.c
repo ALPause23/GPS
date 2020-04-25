@@ -15,25 +15,33 @@ int main(void)
 	
 	InitLed();
 	ClearDisplay();
-	//
+	
 	//WriteNum(ONE, TWO, THREE);
-	//_delay_ms(5000);
+	//_delay_ms(1000);
 	//WriteNum(SIX, FIVE, FOUR);
-	//_delay_ms(5000);
+	//_delay_ms(1000);
 	//WriteNum(NINE, EITHT, SEVEN);
-	//_delay_ms(5000);
+	//_delay_ms(1000);
 	//WriteNum(EMPTY, ZERO, ZERO);
-	//_delay_ms(5000);
+	//_delay_ms(1000);
 	WriteNum(G, P, S);
 	
 	
-	_delay_ms(1000);
+	//_delay_ms(1000);
+	SetIntensity(0);
 	SelectDisplay(2);
-
 	InitOLED();
 	ClearOLED();
-	SetOLED();
-	SetIntensity(0);
+	
+	SelectDisplay(0);
+	_delay_ms(1000);
+	SetOLED((uint8_t)0, serp_logo);
+	
+	//SelectDisplay(1);
+	//_delay_ms(1000);
+	//SetOLED((uint8_t)0, bsuir_logo);
+	_delay_ms(1000);
+	SelectDisplay(2);
 	while(1)
 	{
 		

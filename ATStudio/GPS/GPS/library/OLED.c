@@ -107,6 +107,7 @@ void ClearOLED()
 	}
 	i2cstop();
 	oled_pointer = 0x00;
+	OLED_Command(SSD1306_DISPLAYON);
 }
 
 void SelectDisplay(int i)
@@ -114,31 +115,38 @@ void SelectDisplay(int i)
 	switch(i)
 	{
 		case 2:
-		{
+		
 			PORTB |= (PortB0 | PortB1);
 			break; 
-		}
+		
 		case 0:
-		{
+		
 			PORTB |= (PortB0);
 			PORTB &= ~(PortB1);
 			break;
-		}
+		
 		case 1:
-		{
+		
 			PORTB |= (PortB1);
 			PORTB &= ~(PortB0);
 			break;
-		}
+		
+		default:
+		
+			break;
+		
 	}
+
 }
 
-void SetOLED(void)
+void SetOLED(uint8_t point, IMAGE_OLED a)
 {
-	oled_pointer = 0x00;
-	OLED_Command(SSD1306_DISPLAYOFF);
-	SetPointOLED(0x00, oled_pointer += pgm_read_byte(&(serp_logo.long_image)), 0x04, (0x04 + pgm_read_byte(&(serp_logo.height_image))));
-
+	//OLED_Command(SSD1306_DISPLAYOFF);
+	SetPointOLED(point, 
+			point + pgm_read_byte(&(serp_logo.long_image)), 
+			0x04, 
+			(0x04 + pgm_read_byte(&(serp_logo.height_image)))
+			);
 	i2cstart(SSD1306_ADDR);
 	i2cwrite(CODE_DATA);
 	for(int kk = 0; kk < pgm_read_byte(&(serp_logo.long_array)); kk++)
@@ -147,15 +155,19 @@ void SetOLED(void)
 	}
 	i2cstop();
 	OLED_Command(SSD1306_DISPLAYON);
-	
+}
 	//_delay_ms(1000);
 	//OLED_Command(SSD1306_DISPLAYOFF);
-	//SetPointOLED(0x2a, 0x2a+bsuir_logo.long_image, 0x04, 0x04 + bsuir_logo.height_image);
+	//SetPointOLED(0x2a, 
+			//0x2a + pgm_read_byte(&(bsuir_logo.long_image)), 
+			//0x04, 
+			//0x04 + pgm_read_byte(&(bsuir_logo.height_image))
+			//);
 	//i2cstart(SSD1306_ADDR);
 	//i2cwrite(CODE_DATA);
-	//for(int kk = 0; kk < bsuir_logo.long_array; kk++)
+	//for(int kk = 0; kk < pgm_read_byte(&(bsuir_logo.long_array)); kk++)
 	//{
-		//i2cwrite(bsuir_logo.image[kk]);
+		//i2cwrite(pgm_read_byte(&(bsuir_logo.image[kk])));
 	//}
 	//i2cstop();
 	
@@ -231,5 +243,5 @@ void SetOLED(void)
 	//}
 	//i2cstop();
 	
-}
+
 

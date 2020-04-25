@@ -66,13 +66,13 @@ void WriteNum(char *z, char *y, char *x)
 		PORTB &= ~(CS);
 		
 		SPI_WriteByte(i + 1);
-		SPI_WriteByte(z[i]);
+		SPI_WriteByte(pgm_read_byte(&(z[i])));
 		
 		SPI_WriteByte(i + 1);
-		SPI_WriteByte(y[i]);
+		SPI_WriteByte(pgm_read_byte(&(y[i])));
 		
 		SPI_WriteByte(i + 1);
-		SPI_WriteByte(x[i]);
+		SPI_WriteByte(pgm_read_byte(&(x[i])));
 		
 		PORTB |= CS;
 	}
