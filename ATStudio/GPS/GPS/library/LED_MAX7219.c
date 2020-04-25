@@ -74,7 +74,7 @@ void WriteNum(char *z, char *y, char *x)
 		SPI_WriteByte(i + 1);
 		SPI_WriteByte(x[i]);
 		
-		PORTB |= (1<<PORTB4);
+		PORTB |= CS;
 	}
 }
 

@@ -9,7 +9,7 @@ D=27.03.2020
 Files=4
 OpenedFiles=9
 OF1=main.c
-Active1=0
+Active1=1
 DebugOutputListFilesDirectory=Debug\List
 DebugOutputObjectFilesDirectory=Debug
 DebugOutputExecutableFilesDirectory=Debug\Exe
@@ -55,7 +55,7 @@ EditorPanel6=0
 TimeStamp6=1351445962
 PageIndex6=6
 OF7=uart_spi.h
-Active7=1
+Active7=0
 EditorPanel7=0
 TimeStamp7=1351445962
 PageIndex7=7
@@ -514,7 +514,7 @@ Row=0
 Column=0
 ScrollPosX=0
 ScrollPosY=0
-TimeStamp=1351991132
+TimeStamp=1352245461
 [BookmarksFoldedCode]
 Files=21
 F1=main.c
@@ -540,8 +540,8 @@ F20=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
 F21=C:\Program Files (x86)\CodeVisionAVR\inc\twi.h
 [Bookmarks1]
 TimeStamp=1351991098
-Row=5
-Column=13
+Row=17
+Column=0
 ScrollPosX=0
 ScrollPosY=0
 BK0=-1
@@ -942,6 +942,24 @@ Blocks=0
 Blocks=0
 [FoldedCode16]
 Blocks=0
+[FoldedCode20]
+Blocks=0
+[Bookmarks21]
+TimeStamp=1045855260
+Row=17
+Column=20
+ScrollPosX=0
+ScrollPosY=0
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
 [HeadersList]
 Files=4
 F1=E:\GitHub\GPS\GPS\main.c
@@ -980,8 +998,6 @@ Files=3
 F1=uart_spi.h
 F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
 F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
-[FoldedCode20]
-Blocks=0
 [FoldedCode1]
 Blocks=0
 [FoldedCode10]
@@ -990,22 +1006,6 @@ Blocks=0
 Blocks=0
 [FoldedCode11]
 Blocks=0
-[Bookmarks21]
-TimeStamp=1045855260
-Row=17
-Column=20
-ScrollPosX=0
-ScrollPosY=0
-BK0=-1
-BK1=-1
-BK2=-1
-BK3=-1
-BK4=-1
-BK5=-1
-BK6=-1
-BK7=-1
-BK8=-1
-BK9=-1
 [FoldedCode21]
 Blocks=0
 [FoldedCode9]

@@ -9,7 +9,8 @@
     #define F_CPU 8000000UL
     #define F_I2C 50000UL
     #define TWBR_VALUE (((F_CPU)/(F_I2C)-16)/2)
-    #define RTC_RESET_POINTER   0xff
+    
+	#define RTC_RESET_POINTER   0xFF
 
     #if ((TWBR_VALUE > 255) || (TWBR_VALUE == 0))
         #error "TWBR value is not correct"

@@ -1,6 +1,15 @@
 ﻿#include "OLED.h"
 
-uint8_t oled_pointer = 0x00;
+uint8_t oled_pointer;
+
+void SetPointer(uint8_t a)
+{
+	oled_pointer = a;
+}
+uint8_t GetPointer()
+{
+	return oled_pointer;
+}
 
 void InitOLED()
 {
@@ -56,7 +65,9 @@ void InitOLED()
 
 	i2cwrite(SSD1306_DISPLAYON);//--turn on oled panel
 	i2cstop();
+	oled_pointer = 0x00;
 }
+
 void SetPointOLED(uint8_t Start_Collumn, uint8_t End_Collumn, uint8_t Start_Page, uint8_t End_Page)
 {
 	i2cstart(SSD1306_ADDR);
@@ -71,6 +82,7 @@ void SetPointOLED(uint8_t Start_Collumn, uint8_t End_Collumn, uint8_t Start_Page
 	i2cwrite(End_Page);
 	i2cstop();
 }
+
 void OLED_Command(uint8_t data)
 {
 	i2cstart(SSD1306_ADDR);
@@ -78,6 +90,7 @@ void OLED_Command(uint8_t data)
 	i2cwrite(data);
 	i2cstop();
 }
+
 void ClearOLED()
 {
 	SetPointOLED(0x00, 0x7F, 0x04, 0x07);
@@ -100,14 +113,22 @@ void SelectDisplay(int i)
 {
 	switch(i)
 	{
-		case 0:
+		case 2:
 		{
 			PORTB |= (PortB0 | PortB1);
 			break; 
 		}
+		case 0:
+		{
+			PORTB |= (PortB0);
+			PORTB &= ~(PortB1);
+			break;
+		}
 		case 1:
 		{
-			
+			PORTB |= (PortB1);
+			PORTB &= ~(PortB0);
+			break;
 		}
 	}
 }
@@ -116,27 +137,27 @@ void SetOLED(void)
 {
 	oled_pointer = 0x00;
 	OLED_Command(SSD1306_DISPLAYOFF);
-	SetPointOLED(0x00, oled_pointer += serp_logo.long_image, 0x04, (0x04 + serp_logo.height_image));
+	SetPointOLED(0x00, oled_pointer += pgm_read_byte(&(serp_logo.long_image)), 0x04, (0x04 + pgm_read_byte(&(serp_logo.height_image))));
 
 	i2cstart(SSD1306_ADDR);
 	i2cwrite(CODE_DATA);
-	for(int kk = 0; kk < serp_logo.long_array; kk++)
+	for(int kk = 0; kk < pgm_read_byte(&(serp_logo.long_array)); kk++)
 	{
-		i2cwrite(serp_logo.serp[kk]);	//LSB вверху, MSB снизу
+		i2cwrite(pgm_read_byte(&(serp_logo.image[kk])));	//LSB вверху, MSB снизу
 	}
 	i2cstop();
 	OLED_Command(SSD1306_DISPLAYON);
 	
 	//_delay_ms(1000);
 	//OLED_Command(SSD1306_DISPLAYOFF);
-	SetPointOLED(0x2a, 0x2a+bsuir_logo.long_image, 0x04, 0x04 + bsuir_logo.height_image);
-	i2cstart(SSD1306_ADDR);
-	i2cwrite(CODE_DATA);
-	for(int kk = 0; kk < bsuir_logo.long_array; kk++)
-	{
-		i2cwrite(bsuir_logo.bsuir[kk]);
-	}
-	i2cstop();
+	//SetPointOLED(0x2a, 0x2a+bsuir_logo.long_image, 0x04, 0x04 + bsuir_logo.height_image);
+	//i2cstart(SSD1306_ADDR);
+	//i2cwrite(CODE_DATA);
+	//for(int kk = 0; kk < bsuir_logo.long_array; kk++)
+	//{
+		//i2cwrite(bsuir_logo.image[kk]);
+	//}
+	//i2cstop();
 	
 	//OLED_Command(SSD1306_DISPLAYOFF);
 	//i2cstart(SSD1306_ADDR);
