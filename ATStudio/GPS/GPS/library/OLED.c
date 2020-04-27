@@ -11,6 +11,8 @@ uint8_t GetPointer()
 	return oled_pointer;
 }
 
+
+
 void InitOLED()
 {
 	TWBR = TWBR_VALUE;
@@ -66,6 +68,8 @@ void InitOLED()
 	i2cwrite(SSD1306_DISPLAYON);//--turn on oled panel
 	i2cstop();
 	oled_pointer = 0x00;
+	
+
 }
 
 void SetPointOLED(uint8_t Start_Collumn, uint8_t End_Collumn, uint8_t Start_Page, uint8_t End_Page)
@@ -107,7 +111,6 @@ void ClearOLED()
 	}
 	i2cstop();
 	oled_pointer = 0x00;
-	OLED_Command(SSD1306_DISPLAYON);
 }
 
 void SelectDisplay(int i)
@@ -115,59 +118,73 @@ void SelectDisplay(int i)
 	switch(i)
 	{
 		case 2:
-		
+		{
 			PORTB |= (PortB0 | PortB1);
 			break; 
-		
+		}
 		case 0:
-		
+		{
 			PORTB |= (PortB0);
 			PORTB &= ~(PortB1);
 			break;
-		
+		}
 		case 1:
-		
+		{
 			PORTB |= (PortB1);
 			PORTB &= ~(PortB0);
 			break;
-		
-		default:
-		
-			break;
-		
+		}
 	}
-
 }
 
-void SetOLED(uint8_t point, IMAGE_OLED a)
+void SetOLED1(IMAGE_OLED a, unsigned char *b)
 {
+	oled_pointer = 0x00;
+
 	//OLED_Command(SSD1306_DISPLAYOFF);
-	SetPointOLED(point, 
-			point + pgm_read_byte(&(serp_logo.long_image)), 
-			0x04, 
-			(0x04 + pgm_read_byte(&(serp_logo.height_image)))
-			);
+	SetPointOLED(0x00, a.long_image - 1, 0x04, (0x04 + a.height_image));
 	i2cstart(SSD1306_ADDR);
 	i2cwrite(CODE_DATA);
-	for(int kk = 0; kk < pgm_read_byte(&(serp_logo.long_array)); kk++)
+	for(long int kk = 0; kk < a.array_size; kk++)
 	{
-		i2cwrite(pgm_read_byte(&(serp_logo.image[kk])));	//LSB вверху, MSB снизу
+		i2cwrite(pgm_read_byte(&(b[kk])));	//LSB вверху, MSB снизу
 	}
 	i2cstop();
-	OLED_Command(SSD1306_DISPLAYON);
 }
-	//_delay_ms(1000);
-	//OLED_Command(SSD1306_DISPLAYOFF);
-	//SetPointOLED(0x2a, 
-			//0x2a + pgm_read_byte(&(bsuir_logo.long_image)), 
-			//0x04, 
-			//0x04 + pgm_read_byte(&(bsuir_logo.height_image))
-			//);
+
+uint8_t SetOLED2(int i)
+{
+	SetPointOLED(0x00, 0x11, 0x04, 0x07);
+	i2cstart(SSD1306_ADDR);
+	i2cwrite(CODE_DATA);
+	unsigned char buffer[72];
+	for(int b = 0; b < 2; b++)
+		strcpy_P(buffer, (PGM_P)pgm_read_word(&(number_table[b])));
+	for(long int kk = 0; kk < 72; kk++)
+	{
+		i2cwrite(pgm_read_byte(&buffer[kk]));	//LSB вверху, MSB снизу
+	}
+	i2cstop();
+}
+	//OLED_Command(SSD1306_DISPLAYON);
+	
+		//SetPointOLED(35, 95, 0x04, 0x07);
+//
 	//i2cstart(SSD1306_ADDR);
 	//i2cwrite(CODE_DATA);
-	//for(int kk = 0; kk < pgm_read_byte(&(bsuir_logo.long_array)); kk++)
+	//for(int kk = 0; kk < 258; kk++)
 	//{
-		//i2cwrite(pgm_read_byte(&(bsuir_logo.image[kk])));
+		//i2cwrite(pgm_read_byte(&(b[kk])));	//LSB вверху, MSB снизу
+	//}
+	//i2cstop();
+	//_delay_ms(1000);
+	//OLED_Command(SSD1306_DISPLAYOFF);
+	//SetPointOLED(0x2a, 0x2a+bsuir_logo.long_image, 0x04, 0x04 + bsuir_logo.height_image);
+	//i2cstart(SSD1306_ADDR);
+	//i2cwrite(CODE_DATA);
+	//for(int kk = 0; kk < bsuir_logo.long_array; kk++)
+	//{
+		//i2cwrite(bsuir_logo.image[kk]);
 	//}
 	//i2cstop();
 	
