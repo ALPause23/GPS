@@ -7,7 +7,7 @@ A=
 C=
 D=27.03.2020
 Files=4
-OpenedFiles=9
+OpenedFiles=8
 OF1=main.c
 Active1=1
 DebugOutputListFilesDirectory=Debug\List
@@ -18,7 +18,7 @@ OutputListFilesDirectory=Release\List
 OutputObjectFilesDirectory=Release
 OutputExecutableFilesDirectory=Release\Exe
 OutputLinkerFilesDirectory=Release\Exe
-AllowDisplayFunctionCallTree=0
+AllowDisplayFunctionCallTree=1
 CleanUp=2
 EditorPanelMode=0
 ActiveEditorPanel=0
@@ -26,7 +26,7 @@ Active0=0
 EditorPanel0=0
 PageIndex0=0
 EditorPanel1=0
-TimeStamp1=1351991098
+TimeStamp1=1352446991
 PageIndex1=1
 TimeStamp0=1350280896
 OF2=ports.h
@@ -64,10 +64,6 @@ Active8=0
 EditorPanel8=0
 TimeStamp8=1351445962
 PageIndex8=8
-F1=main.c
-F2=init_perif.c
-F3=ports.c
-F4=uart_spi.c
 OF9=C:\Program Files (x86)\CodeVisionAVR\inc\twi.h
 Active9=0
 EditorPanel9=0
@@ -93,6 +89,10 @@ Active13=0
 EditorPanel13=0
 TimeStamp13=711006688
 PageIndex13=13
+F1=main.c
+F2=init_perif.c
+F3=ports.c
+F4=uart_spi.c
 [CompilerDebug]
 Chip=ATmega16
 CPUClock=8000000
@@ -191,8 +191,8 @@ WatchAVR8LAutoVariables=0
 UseEEPROMLocation0=1
 RebuildAll=0
 LinkageInformationPresent=1
-COFFileTimeStamp=1351978224
-Build=86
+COFFileTimeStamp=1352447392
+Build=91
 [DefinedSymbolsDebug]
 Count=0
 [Compiler]
@@ -294,7 +294,7 @@ UseEEPROMLocation0=1
 RebuildAll=1
 LinkageInformationPresent=0
 COFFileTimeStamp=-1
-Build=86
+Build=91
 IncludePath0=
 IncludePath1=
 IncludePath2=
@@ -429,13 +429,16 @@ Count=0
 DisableWatchdog=0
 [Libraries]
 Use1Wire=0
-UseI2C=0
+UseI2C=1
 I2CBitRate=100
 UseDS1302=0
 UseFATFS=0
 UseAlphanumericLCD=0
 GLCDDisplayIndex=0
 UseResistiveTouchscreen=0
+I2CPort=2
+SDA=1
+SCL=0
 [BeforeMake]
 RunUserProg=0
 WaitUserProgFinish=1
@@ -514,9 +517,9 @@ Row=0
 Column=0
 ScrollPosX=0
 ScrollPosY=0
-TimeStamp=1352245461
+TimeStamp=1352447353
 [BookmarksFoldedCode]
-Files=21
+Files=22
 F1=main.c
 F2=C:\Program Files (x86)\CodeVisionAVR\inc\interrupt.h
 F3=E:\GitHub\GPS\ports.h
@@ -538,12 +541,13 @@ F18=C:\Program Files (x86)\CodeVisionAVR\inc\stdio.h
 F19=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
 F20=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
 F21=C:\Program Files (x86)\CodeVisionAVR\inc\twi.h
+F22=C:\Program Files (x86)\CodeVisionAVR\inc\i2c.h
 [Bookmarks1]
-TimeStamp=1351991098
-Row=17
-Column=0
+TimeStamp=1352446991
+Row=115
+Column=29
 ScrollPosX=0
-ScrollPosY=0
+ScrollPosY=174
 BK0=-1
 BK1=-1
 BK2=-1
@@ -571,16 +575,16 @@ L13=Enhanced function parameters passing: Yes
 L14=Automatic register allocation: Yes
 L15=Smart register allocation: Yes
 L16=
-L17=Build: 86
-L18=5189 line(s) compiled
-L19=6 error(s)
+L17=Build: 91
+L18=5153 line(s) compiled
+L19=1 error(s)
 L20=4 warning(s)
 L21=
 L22=Bit variables size: 0 byte(s)
 L23=
 L24=Data Stack area: 0x60 to 0x15F
 L25=Data Stack size: 256 byte(s)
-L26=Estimated Data Stack usage: 0 byte(s)
+L26=Estimated Data Stack usage: 12 byte(s)
 L27=
 L28=RAM Global variables size: 0 byte(s)
 L29=
@@ -592,19 +596,19 @@ L34=
 L35=EEPROM usage: 0 byte(s), 0,0% of EEPROM
 L36=
 L37=EEPROM usage: 0 byte(s), 0,0% of EEPROM
-L38=Program size: 335 words (670 bytes), 4,1% of FLASH
+L38=Program size: 457 words (914 bytes), 5,6% of FLASH
 L39=0 words (0 bytes), 0,0% reduced by Code Compression
 Lines=35
 [BuildInfoAssembler]
 L1=AVRASM: AVR macro assembler 2.1.30 (build 592 Nov  7 2008 12:38:17)
 L2=Copyright (C) 1995-2008 ATMEL Corporation
 L3=
-L4=E:\GitHub\GPS\GPS\Debug\List\GPS.asm(1924): No EEPROM data, deleting E:\GitHub\GPS\GPS\Debug\Exe\GPS.eep
+L4=E:\GitHub\GPS\GPS\Debug\List\GPS.asm(2144): No EEPROM data, deleting E:\GitHub\GPS\GPS\Debug\Exe\GPS.eep
 L5=
 L6=ATmega16 memory use summary [bytes]:
 L7=Segment   Begin    End      Code   Data   Used    Size   Use%
 L8=---------------------------------------------------------------
-L9=[.cseg] 0x000000 0x00029e    634     36    670   16384   4.1%
+L9=[.cseg] 0x000000 0x000392    878     36    914   16384   5.6%
 L10=[.dseg] 0x000060 0x0001b0      0     80     80    1024   7.8%
 L11=[.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 L12=
@@ -960,6 +964,42 @@ BK6=-1
 BK7=-1
 BK8=-1
 BK9=-1
+[FoldedCode21]
+Blocks=0
+[Bookmarks22]
+TimeStamp=1045597212
+Row=0
+Column=0
+ScrollPosX=0
+ScrollPosY=0
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[FoldedCode22]
+Blocks=0
+[FoldedCode1]
+Blocks=0
+[FoldedCode10]
+Blocks=0
+[FoldedCode5]
+Blocks=0
+[FoldedCode11]
+Blocks=0
+[FoldedCode9]
+Blocks=0
+[FoldedCode14]
+Blocks=0
+[FoldedCode15]
+Blocks=0
+[FoldedCode4]
+Blocks=0
 [HeadersList]
 Files=4
 F1=E:\GitHub\GPS\GPS\main.c
@@ -967,7 +1007,7 @@ F2=E:\GitHub\GPS\GPS\init_perif.c
 F3=E:\GitHub\GPS\GPS\ports.c
 F4=E:\GitHub\GPS\GPS\uart_spi.c
 [Header1]
-Files=12
+Files=11
 F1=ports.h
 F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
 F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
@@ -978,8 +1018,7 @@ F7=init_perif.h
 F8=uart_spi.h
 F9=C:\Program Files (x86)\CodeVisionAVR\inc\delay.h
 F10=C:\Program Files (x86)\CodeVisionAVR\inc\stdint.h
-F11=C:\Program Files (x86)\CodeVisionAVR\inc\twi.h
-F12=C:\Program Files (x86)\CodeVisionAVR\inc\stdbool.h
+F11=C:\Program Files (x86)\CodeVisionAVR\inc\i2c.h
 [Header2]
 Files=3
 F1=init_perif.h
@@ -998,21 +1037,3 @@ Files=3
 F1=uart_spi.h
 F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
 F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
-[FoldedCode1]
-Blocks=0
-[FoldedCode10]
-Blocks=0
-[FoldedCode5]
-Blocks=0
-[FoldedCode11]
-Blocks=0
-[FoldedCode21]
-Blocks=0
-[FoldedCode9]
-Blocks=0
-[FoldedCode14]
-Blocks=0
-[FoldedCode15]
-Blocks=0
-[FoldedCode4]
-Blocks=0

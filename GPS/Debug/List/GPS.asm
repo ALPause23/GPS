@@ -1232,17 +1232,75 @@ __GLOBAL_INI_END:
 ;#include "init_perif.h"
 ;#include "uart_spi.h"
 ;#include "delay.h"
+;#include "stdint.h"
+;//#include "twi.h"
+;//#include <i2c.h>
 ;
+;// DS1307 Real Time Clock functions
+;#include <ds1307.h>
 ;
+;// uint8_t twi_status_register;
+;//	uint8_t i2cstart(uint8_t address);
+;//	uint8_t i2cwrite(uint8_t data);
+;//	void i2cstop(void);
+;//uint8_t i2cstart(uint8_t address)
+;//{
+;//    TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
+;//    while(!(TWCR & (1<<TWINT)))
+;//        ;
+;//
+;//    twi_status_register = TW_STATUS & 0xF8;
+;//    if ((twi_status_register != TW_START) && (twi_status_register != TW_REP_START))
+;//    {
+;//        return 1;
+;//    }
+;//
+;//    TWDR = address;
+;//    TWCR = (1<<TWINT) | (1<<TWEN);
+;//
+;//    while(!(TWCR & (1<<TWINT)))
+;//        ;
+;//
+;//    twi_status_register = TW_STATUS & 0xF8;
+;//    if ((twi_status_register != TW_MT_SLA_ACK) && (twi_status_register != TW_MR_SLA_ACK))
+;//    {
+;//        return 1;
+;//    }
+;//    return 0;
+;//}
+;//
+;//uint8_t i2cwrite(uint8_t data)
+;//{
+;//    TWDR = data;
+;//    TWCR = (1<<TWINT) | (1<<TWEN);
+;//
+;//    while(!(TWCR & (1<<TWINT)));
+;//
+;//    twi_status_register = TW_STATUS & 0xF8;
+;//    if (twi_status_register != TW_MT_DATA_ACK)
+;//    {
+;//        return 1;
+;//    }
+;//    else
+;//    {
+;//        return 0;
+;//    }
+;//}
+;//
+;//void i2cstop(void)
+;//{
+;//	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
+;//	while(TWCR & (1<<TWSTO));
+;//}
 ;
 ;void InitLed()
-; 0000 0009 {
+; 0000 0043 {
 
 	.CSEG
 _InitLed:
 ; .FSTART _InitLed
-; 0000 000A     int i = 0;
-; 0000 000B     while(i < 4)
+; 0000 0044     int i = 0;
+; 0000 0045     while(i < 4)
 	ST   -Y,R17
 	ST   -Y,R16
 ;	i -> R16,R17
@@ -1250,133 +1308,133 @@ _InitLed:
 _0x3:
 	__CPWRN 16,17,4
 	BRGE _0x5
-; 0000 000C     {
-; 0000 000D         // инициализация дисплея
-; 0000 000E         PORTB &= ~(1<<PORTB4);
+; 0000 0046     {
+; 0000 0047         // инициализация дисплея
+; 0000 0048         PORTB &= ~(1<<PORTB4);
 	CBI  0x18,4
-; 0000 000F         SPDR = 0x0F;
+; 0000 0049         SPDR = 0x0F;
 	LDI  R30,LOW(15)
 	OUT  0xF,R30
-; 0000 0010         while(!(SPSR & (1<<SPIF)));
+; 0000 004A         while(!(SPSR & (1<<SPIF)));
 _0x6:
 	SBIS 0xE,7
 	RJMP _0x6
-; 0000 0011         //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 0012         //_delay_ms(50);
-; 0000 0013 
-; 0000 0014         //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 0015         SPDR = 0x00;
+; 0000 004B         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 004C         //_delay_ms(50);
+; 0000 004D 
+; 0000 004E         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 004F         SPDR = 0x00;
 	LDI  R30,LOW(0)
 	OUT  0xF,R30
-; 0000 0016         while(!(SPSR & (1<<SPIF)));
+; 0000 0050         while(!(SPSR & (1<<SPIF)));
 _0x9:
 	SBIS 0xE,7
 	RJMP _0x9
-; 0000 0017         PORTB |= (1<<PORTB4);
+; 0000 0051         PORTB |= (1<<PORTB4);
 	SBI  0x18,4
-; 0000 0018 
-; 0000 0019 
-; 0000 001A         PORTB &= ~(1<<PORTB4);
+; 0000 0052 
+; 0000 0053 
+; 0000 0054         PORTB &= ~(1<<PORTB4);
 	CBI  0x18,4
-; 0000 001B         SPDR = 0x0C;
+; 0000 0055         SPDR = 0x0C;
 	LDI  R30,LOW(12)
 	OUT  0xF,R30
-; 0000 001C         while(!(SPSR & (1<<SPIF)));
+; 0000 0056         while(!(SPSR & (1<<SPIF)));
 _0xC:
 	SBIS 0xE,7
 	RJMP _0xC
-; 0000 001D         //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 001E         //_delay_ms(50);
-; 0000 001F 
-; 0000 0020         //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 0021         SPDR = 0x01;
+; 0000 0057         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0058         //_delay_ms(50);
+; 0000 0059 
+; 0000 005A         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 005B         SPDR = 0x01;
 	LDI  R30,LOW(1)
 	OUT  0xF,R30
-; 0000 0022         while(!(SPSR & (1<<SPIF)));
+; 0000 005C         while(!(SPSR & (1<<SPIF)));
 _0xF:
 	SBIS 0xE,7
 	RJMP _0xF
-; 0000 0023         PORTB |= (1<<PORTB4);
+; 0000 005D         PORTB |= (1<<PORTB4);
 	SBI  0x18,4
-; 0000 0024 
-; 0000 0025 
-; 0000 0026         PORTB &= ~(1<<PORTB4);
+; 0000 005E 
+; 0000 005F 
+; 0000 0060         PORTB &= ~(1<<PORTB4);
 	CBI  0x18,4
-; 0000 0027         SPDR = 0x0A;
+; 0000 0061         SPDR = 0x0A;
 	LDI  R30,LOW(10)
 	OUT  0xF,R30
-; 0000 0028         while(!(SPSR & (1<<SPIF)));
+; 0000 0062         while(!(SPSR & (1<<SPIF)));
 _0x12:
 	SBIS 0xE,7
 	RJMP _0x12
-; 0000 0029         //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 002A         //_delay_ms(50);
-; 0000 002B 
-; 0000 002C         //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 002D         SPDR = 0x0F;
+; 0000 0063         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0064         //_delay_ms(50);
+; 0000 0065 
+; 0000 0066         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 0067         SPDR = 0x0F;
 	LDI  R30,LOW(15)
 	OUT  0xF,R30
-; 0000 002E         while(!(SPSR & (1<<SPIF)));
+; 0000 0068         while(!(SPSR & (1<<SPIF)));
 _0x15:
 	SBIS 0xE,7
 	RJMP _0x15
-; 0000 002F         PORTB |= (1<<PORTB4);
+; 0000 0069         PORTB |= (1<<PORTB4);
 	SBI  0x18,4
-; 0000 0030 
-; 0000 0031 
-; 0000 0032         PORTB &= ~(1<<PORTB4);
+; 0000 006A 
+; 0000 006B 
+; 0000 006C         PORTB &= ~(1<<PORTB4);
 	CBI  0x18,4
-; 0000 0033         SPDR = 0x0B;
+; 0000 006D         SPDR = 0x0B;
 	LDI  R30,LOW(11)
 	OUT  0xF,R30
-; 0000 0034         while(!(SPSR & (1<<SPIF)));
+; 0000 006E         while(!(SPSR & (1<<SPIF)));
 _0x18:
 	SBIS 0xE,7
 	RJMP _0x18
-; 0000 0035         //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 0036         //_delay_ms(50);
-; 0000 0037 
-; 0000 0038         //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 0039         SPDR = 0x07;
+; 0000 006F         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 0070         //_delay_ms(50);
+; 0000 0071 
+; 0000 0072         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 0073         SPDR = 0x07;
 	LDI  R30,LOW(7)
 	OUT  0xF,R30
-; 0000 003A         while(!(SPSR & (1<<SPIF)));
+; 0000 0074         while(!(SPSR & (1<<SPIF)));
 _0x1B:
 	SBIS 0xE,7
 	RJMP _0x1B
-; 0000 003B         PORTB |= (1<<PORTB4);
+; 0000 0075         PORTB |= (1<<PORTB4);
 	SBI  0x18,4
-; 0000 003C 
-; 0000 003D 
-; 0000 003E         PORTB &= ~(1<<PORTB4);
+; 0000 0076 
+; 0000 0077 
+; 0000 0078         PORTB &= ~(1<<PORTB4);
 	CBI  0x18,4
-; 0000 003F         SPDR = 0x09;
+; 0000 0079         SPDR = 0x09;
 	LDI  R30,LOW(9)
 	OUT  0xF,R30
-; 0000 0040         while(!(SPSR & (1<<SPIF)));
+; 0000 007A         while(!(SPSR & (1<<SPIF)));
 _0x1E:
 	SBIS 0xE,7
 	RJMP _0x1E
-; 0000 0041         //PORTB |= (1<<PORTB4); //высокий уровень
-; 0000 0042         //_delay_ms(50);
-; 0000 0043 
-; 0000 0044         //PORTB &= ~(1<<PORTB4); //низкий уровень
-; 0000 0045 		SPDR = 0x00;
+; 0000 007B         //PORTB |= (1<<PORTB4); //высокий уровень
+; 0000 007C         //_delay_ms(50);
+; 0000 007D 
+; 0000 007E         //PORTB &= ~(1<<PORTB4); //низкий уровень
+; 0000 007F 		SPDR = 0x00;
 	LDI  R30,LOW(0)
 	OUT  0xF,R30
-; 0000 0046 		while(!(SPSR & (1<<SPIF)));
+; 0000 0080 		while(!(SPSR & (1<<SPIF)));
 _0x21:
 	SBIS 0xE,7
 	RJMP _0x21
-; 0000 0047 		PORTB |= (1<<PORTB4);
+; 0000 0081 		PORTB |= (1<<PORTB4);
 	SBI  0x18,4
-; 0000 0048 
-; 0000 0049         i++;
+; 0000 0082 
+; 0000 0083         i++;
 	__ADDWRN 16,17,1
-; 0000 004A 	}
+; 0000 0084 	}
 	RJMP _0x3
 _0x5:
-; 0000 004B }
+; 0000 0085 }
 	LD   R16,Y+
 	LD   R17,Y+
 	RET
@@ -1384,51 +1442,51 @@ _0x5:
 ;
 ;// Declare your global variables here
 ;void SPI_WriteStartByte(char data)
-; 0000 004F {
+; 0000 0089 {
 _SPI_WriteStartByte:
 ; .FSTART _SPI_WriteStartByte
-; 0000 0050    PORTB &= ~(1<<PORTB4);
+; 0000 008A    PORTB &= ~(1<<PORTB4);
 	ST   -Y,R26
 ;	data -> Y+0
 	CBI  0x18,4
-; 0000 0051    SPDR = data;
+; 0000 008B    SPDR = data;
 	LD   R30,Y
 	OUT  0xF,R30
-; 0000 0052    while(!(SPSR & (1<<SPIF)));
+; 0000 008C    while(!(SPSR & (1<<SPIF)));
 _0x24:
 	SBIS 0xE,7
 	RJMP _0x24
-; 0000 0053 }
-	RJMP _0x2060001
+; 0000 008D }
+	RJMP _0x20A0001
 ; .FEND
 ;
 ;void SPI_WriteEndByte(char data)
-; 0000 0056 {
+; 0000 0090 {
 _SPI_WriteEndByte:
 ; .FSTART _SPI_WriteEndByte
-; 0000 0057    SPDR = data;
+; 0000 0091    SPDR = data;
 	ST   -Y,R26
 ;	data -> Y+0
 	LD   R30,Y
 	OUT  0xF,R30
-; 0000 0058    while(!(SPSR & (1<<SPIF)));
+; 0000 0092    while(!(SPSR & (1<<SPIF)));
 _0x27:
 	SBIS 0xE,7
 	RJMP _0x27
-; 0000 0059    PORTB |= (1<<PORTB4);
+; 0000 0093    PORTB |= (1<<PORTB4);
 	SBI  0x18,4
-; 0000 005A }
-_0x2060001:
+; 0000 0094 }
+_0x20A0001:
 	ADIW R28,1
 	RET
 ; .FEND
 ;
 ;void SendLed(char adr, char data)
-; 0000 005D {
+; 0000 0097 {
 _SendLed:
 ; .FSTART _SendLed
-; 0000 005E     char a, b;
-; 0000 005F     a = adr;
+; 0000 0098     char a, b;
+; 0000 0099     a = adr;
 	ST   -Y,R26
 	ST   -Y,R17
 	ST   -Y,R16
@@ -1437,18 +1495,18 @@ _SendLed:
 ;	a -> R17
 ;	b -> R16
 	LDD  R17,Y+3
-; 0000 0060     b = data;
+; 0000 009A     b = data;
 	LDD  R16,Y+2
-; 0000 0061 
-; 0000 0062     SPI_WriteStartByte(adr);
+; 0000 009B 
+; 0000 009C     SPI_WriteStartByte(adr);
 	LDD  R26,Y+3
 	RCALL _SPI_WriteStartByte
-; 0000 0063     //delay_ms(10);
-; 0000 0064     SPI_WriteEndByte(data);
+; 0000 009D     //delay_ms(10);
+; 0000 009E     SPI_WriteEndByte(data);
 	LDD  R26,Y+2
 	RCALL _SPI_WriteEndByte
-; 0000 0065     //delay_ms(10);
-; 0000 0066 }
+; 0000 009F     //delay_ms(10);
+; 0000 00A0 }
 	LDD  R17,Y+1
 	LDD  R16,Y+0
 	ADIW R28,4
@@ -1456,89 +1514,111 @@ _SendLed:
 ; .FEND
 ;
 ;void main(void)
-; 0000 0069 {
+; 0000 00A3 {
 _main:
 ; .FSTART _main
-; 0000 006A     int i = 0;// Declare your local variables here
-; 0000 006B     char j = 0;
-; 0000 006C     init_ports();
+; 0000 00A4 
+; 0000 00A5     int i = 0;// Declare your local variables here
+; 0000 00A6     char j = 0;
+; 0000 00A7     init_ports();
 ;	i -> R16,R17
 ;	j -> R19
 	__GETWRN 16,17,0
 	LDI  R19,0
 	CALL _init_ports
-; 0000 006D     init_periferal();
+; 0000 00A8     init_periferal();
 	RCALL _init_periferal
-; 0000 006E     //
-; 0000 006F     // Global enable interrupts
-; 0000 0070     #asm("sei")
+; 0000 00A9     //
+; 0000 00AA     // Global enable interrupts
+; 0000 00AB     #asm("sei")
 	sei
-; 0000 0071     InitLed();
+; 0000 00AC     InitLed();
 	RCALL _InitLed
-; 0000 0072 
-; 0000 0073 
-; 0000 0074     while(i <= 4)
+; 0000 00AD     TWCR=(0<<TWEA) | (0<<TWSTA) | (0<<TWSTO) | (0<<TWEN) | (0<<TWIE);
+	LDI  R30,LOW(0)
+	OUT  0x36,R30
+; 0000 00AE 
+; 0000 00AF         // Bit-Banged I2C Bus initialization
+; 0000 00B0     // I2C Port: PORTC
+; 0000 00B1     // I2C SDA bit: 1
+; 0000 00B2     // I2C SCL bit: 0
+; 0000 00B3     // Bit Rate: 100 kHz
+; 0000 00B4     // Note: I2C settings are specified in the
+; 0000 00B5     // Project|Configure|C Compiler|Libraries|I2C menu.
+; 0000 00B6     i2c_init();
+	CALL _i2c_init
+; 0000 00B7 
+; 0000 00B8     // DS1307 Real Time Clock initialization
+; 0000 00B9     // Square wave output on pin SQW/OUT: Off
+; 0000 00BA     // SQW/OUT pin state: 0
+; 0000 00BB     rtc_init(0,0,0);
+	LDI  R30,LOW(0)
+	ST   -Y,R30
+	ST   -Y,R30
+	LDI  R26,LOW(0)
+	CALL _rtc_init
+; 0000 00BC     while(i <= 4)
 _0x2A:
 	__CPWRN 16,17,5
 	BRGE _0x2C
-; 0000 0075     {
-; 0000 0076         for(j = 0; j <= 8; j++)
+; 0000 00BD     {
+; 0000 00BE         for(j = 0; j <= 8; j++)
 	LDI  R19,LOW(0)
 _0x2E:
 	CPI  R19,9
 	BRSH _0x2F
-; 0000 0077         {
-; 0000 0078             SendLed(j,0);
+; 0000 00BF         {
+; 0000 00C0             SendLed(j,0);
 	ST   -Y,R19
 	LDI  R26,LOW(0)
 	RCALL _SendLed
-; 0000 0079         }
+; 0000 00C1         }
 	SUBI R19,-1
 	RJMP _0x2E
 _0x2F:
-; 0000 007A //        SendLed(1,0);
-; 0000 007B //        SendLed(2,0);
-; 0000 007C //        SendLed(3,0);
-; 0000 007D //        SendLed(4,0);
-; 0000 007E //        SendLed(5,0);
-; 0000 007F //        SendLed(6,0);
-; 0000 0080 //        SendLed(7,0);
-; 0000 0081 //        SendLed(8,0);
-; 0000 0082         i++;
+; 0000 00C2 //        SendLed(1,0);
+; 0000 00C3 //        SendLed(2,0);
+; 0000 00C4 //        SendLed(3,0);
+; 0000 00C5 //        SendLed(4,0);
+; 0000 00C6 //        SendLed(5,0);
+; 0000 00C7 //        SendLed(6,0);
+; 0000 00C8 //        SendLed(7,0);
+; 0000 00C9 //        SendLed(8,0);
+; 0000 00CA         i++;
 	__ADDWRN 16,17,1
-; 0000 0083         //delay_ms(10);
-; 0000 0084     }
+; 0000 00CB         //delay_ms(10);
+; 0000 00CC     }
 	RJMP _0x2A
 _0x2C:
-; 0000 0085 
-; 0000 0086     SendLed(0, 1);
+; 0000 00CD 
+; 0000 00CE     SendLed(0, 1);
 	LDI  R30,LOW(0)
 	ST   -Y,R30
 	LDI  R26,LOW(1)
 	RCALL _SendLed
-; 0000 0087     SendLed(5, 7);
+; 0000 00CF     SendLed(5, 7);
 	LDI  R30,LOW(5)
 	ST   -Y,R30
 	LDI  R26,LOW(7)
 	RCALL _SendLed
-; 0000 0088 //    delay_ms(1);
-; 0000 0089 //    SendLed(1,2);
-; 0000 008A //    delay_ms(1);
-; 0000 008B //    SendLed(1,3);
-; 0000 008C //    delay_ms(1);
-; 0000 008D //    SendLed(1,4);
-; 0000 008E //    delay_ms(1);
-; 0000 008F //    SendLed(1,5);
-; 0000 0090 //    delay_ms(1);
-; 0000 0091 //    SendLed(2,255);
-; 0000 0092 
-; 0000 0093     while (1)
+; 0000 00D0 //    delay_ms(1);
+; 0000 00D1 //    SendLed(1,2);
+; 0000 00D2 //    delay_ms(1);
+; 0000 00D3 //    SendLed(1,3);
+; 0000 00D4 //    delay_ms(1);
+; 0000 00D5 //    SendLed(1,4);
+; 0000 00D6 //    delay_ms(1);
+; 0000 00D7 //    SendLed(1,5);
+; 0000 00D8 //    delay_ms(1);
+; 0000 00D9 //    SendLed(2,255);
+; 0000 00DA 
+; 0000 00DB     while (1)
 _0x30:
-; 0000 0094     {
-; 0000 0095 
-; 0000 0096     }
+; 0000 00DC     {
+; 0000 00DD 
+; 0000 00DE     }
 	RJMP _0x30
-; 0000 0097 }
+; 0000 00DF }
 _0x33:
 	RJMP _0x33
 ; .FEND
@@ -1891,6 +1971,41 @@ _0x60003:
 	.CSEG
 
 	.CSEG
+_rtc_init:
+; .FSTART _rtc_init
+	ST   -Y,R26
+	LDD  R30,Y+2
+	ANDI R30,LOW(0x3)
+	STD  Y+2,R30
+	LDD  R30,Y+1
+	CPI  R30,0
+	BREQ _0x2020003
+	LDD  R30,Y+2
+	ORI  R30,0x10
+	STD  Y+2,R30
+_0x2020003:
+	LD   R30,Y
+	CPI  R30,0
+	BREQ _0x2020004
+	LDD  R30,Y+2
+	ORI  R30,0x80
+	STD  Y+2,R30
+_0x2020004:
+	CALL _i2c_start
+	LDI  R26,LOW(208)
+	CALL _i2c_write
+	LDI  R26,LOW(7)
+	CALL _i2c_write
+	LDD  R26,Y+2
+	CALL _i2c_write
+	CALL _i2c_stop
+	ADIW R28,3
+	RET
+; .FEND
+
+	.CSEG
+
+	.CSEG
 
 	.CSEG
 
@@ -1901,6 +2016,111 @@ _rx_buffer:
 	.CSEG
 
 	.CSEG
+	.equ __sda_bit=1
+	.equ __scl_bit=0
+	.equ __i2c_port=0x15 ;PORTC
+	.equ __i2c_dir=__i2c_port-1
+	.equ __i2c_pin=__i2c_port-2
+
+_i2c_init:
+	cbi  __i2c_port,__scl_bit
+	cbi  __i2c_port,__sda_bit
+	sbi  __i2c_dir,__scl_bit
+	cbi  __i2c_dir,__sda_bit
+	rjmp __i2c_delay2
+_i2c_start:
+	cbi  __i2c_dir,__sda_bit
+	cbi  __i2c_dir,__scl_bit
+	clr  r30
+	nop
+	sbis __i2c_pin,__sda_bit
+	ret
+	sbis __i2c_pin,__scl_bit
+	ret
+	rcall __i2c_delay1
+	sbi  __i2c_dir,__sda_bit
+	rcall __i2c_delay1
+	sbi  __i2c_dir,__scl_bit
+	ldi  r30,1
+__i2c_delay1:
+	ldi  r22,13
+	rjmp __i2c_delay2l
+_i2c_stop:
+	sbi  __i2c_dir,__sda_bit
+	sbi  __i2c_dir,__scl_bit
+	rcall __i2c_delay2
+	cbi  __i2c_dir,__scl_bit
+	rcall __i2c_delay1
+	cbi  __i2c_dir,__sda_bit
+__i2c_delay2:
+	ldi  r22,27
+__i2c_delay2l:
+	dec  r22
+	brne __i2c_delay2l
+	ret
+_i2c_read:
+	ldi  r23,8
+__i2c_read0:
+	cbi  __i2c_dir,__scl_bit
+	rcall __i2c_delay1
+__i2c_read3:
+	sbis __i2c_pin,__scl_bit
+	rjmp __i2c_read3
+	rcall __i2c_delay1
+	clc
+	sbic __i2c_pin,__sda_bit
+	sec
+	sbi  __i2c_dir,__scl_bit
+	rcall __i2c_delay2
+	rol  r30
+	dec  r23
+	brne __i2c_read0
+	mov  r23,r26
+	tst  r23
+	brne __i2c_read1
+	cbi  __i2c_dir,__sda_bit
+	rjmp __i2c_read2
+__i2c_read1:
+	sbi  __i2c_dir,__sda_bit
+__i2c_read2:
+	rcall __i2c_delay1
+	cbi  __i2c_dir,__scl_bit
+	rcall __i2c_delay2
+	sbi  __i2c_dir,__scl_bit
+	rcall __i2c_delay1
+	cbi  __i2c_dir,__sda_bit
+	rjmp __i2c_delay1
+
+_i2c_write:
+	ldi  r23,8
+__i2c_write0:
+	lsl  r26
+	brcc __i2c_write1
+	cbi  __i2c_dir,__sda_bit
+	rjmp __i2c_write2
+__i2c_write1:
+	sbi  __i2c_dir,__sda_bit
+__i2c_write2:
+	rcall __i2c_delay2
+	cbi  __i2c_dir,__scl_bit
+	rcall __i2c_delay1
+__i2c_write3:
+	sbis __i2c_pin,__scl_bit
+	rjmp __i2c_write3
+	rcall __i2c_delay1
+	sbi  __i2c_dir,__scl_bit
+	dec  r23
+	brne __i2c_write0
+	cbi  __i2c_dir,__sda_bit
+	rcall __i2c_delay1
+	cbi  __i2c_dir,__scl_bit
+	rcall __i2c_delay2
+	ldi  r30,1
+	sbic __i2c_pin,__sda_bit
+	clr  r30
+	sbi  __i2c_dir,__scl_bit
+	rjmp __i2c_delay1
+
 __SAVELOCR4:
 	ST   -Y,R19
 __SAVELOCR3:
