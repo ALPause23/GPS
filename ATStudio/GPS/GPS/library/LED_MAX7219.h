@@ -1,11 +1,6 @@
 ﻿#ifndef LED_MAX7219_H__
 #define LED_MAX7219_H__
-		#include <avr/io.h>
-		#include <avr/interrupt.h>
-		#include <util/delay.h>
-		#include <stdio.h>
-		#include <stdlib.h>
-		#include <avr/pgmspace.h>  
+
 		#include "ports.h"                             
 
 		#define NO_OP				0x00

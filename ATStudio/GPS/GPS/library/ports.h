@@ -1,10 +1,13 @@
 #ifndef PORTS_H__
 #define PORTS_H__
+		
 		#include <stdio.h>
 		#include <avr/io.h>
-		#include <stdio.h>
 		#include <stdlib.h>
-		#include <avr/iom16.h>
+		#include <util/delay.h>
+		#include "util/twi.h"
+		#include <avr/eeprom.h>
+		#include <avr/pgmspace.h>
 
 		#define PortA0   (1<<PORTA0)
 		#define PortA1   (1<<PORTA1)
