@@ -13,8 +13,10 @@
         #error "TWBR value is not correct"
     #endif
 	
+	void i2cInit(void);
 	uint8_t i2cstart(uint8_t address);
 	uint8_t i2cwrite(uint8_t data);
+	uint8_t i2cread(uint8_t ask);
 	void i2cstop(void);
 	
 #endif

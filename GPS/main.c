@@ -4,10 +4,10 @@
 #include "delay.h"
 #include "stdint.h"
 //#include "twi.h"
-#include <i2c.h>
+//#include <i2c.h>
 
 // DS1307 Real Time Clock functions
-//#include <ds1307.h>
+#include <ds1307.h>
 
 // uint8_t twi_status_register;
 //	uint8_t i2cstart(uint8_t address);

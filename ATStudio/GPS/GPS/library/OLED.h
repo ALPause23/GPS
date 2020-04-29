@@ -72,15 +72,15 @@
 	extern uint8_t oled_pointer;
 	
 	void SetPointer(uint8_t a);
-	uint8_t GetPointer();
+	uint8_t GetPointer(void);
 	
 	void SelectDisplay(int i);
-	void InitOLED();
-	void ClearOLED();
+	void InitOLED(void);
+	void ClearOLED(void);
+	void OLED_Command(uint8_t data);
 	
 	//uint8_t SetLOGO(int i);
 	uint8_t SetOLED2(int i);
-	
 	
 	typedef struct   
 	{
@@ -91,71 +91,63 @@
 	
 	void Set_OLED_Num(unsigned char *a);
 	uint8_t* GetNum(int i);
-	//static const IMAGE_OLED PROGMEM serp_logo;
-		
-		static const unsigned char PROGMEM ansgrem_logo[128] = {
-			// #########
-			//  ##########
-			//  ##############
-			//       ##############
-			//         #############
-			//            #############
-			//              ############
-			//                 ############
-			//                   ############
-			//                     ############
-			//                         ###########
-			//                          ###########
-			//                           ###########
-			//                           ############
-			//                             #############
-			//                               ############
-			//                                ############
-			//                                 #############
-			//                                   ############
-			//                                    ############
-			//                                     ############
-			//                                      ###########
-			//            ######################################
-			//           ########################################
-			//           ########################################
-			//          ###########################################
-			//          ###########################################
-			//         ############################################
-			//         #############################################
-			//                     ############       ##############
-			//                     ############       ##############
-			//                    ############        ##############
-			//                   ############        ##############
-			//                   ############        ##############
-			//                   ############        ##############
-			//                  ###########         ###############
-			//                  ###########         ##############
-			//                  ###########        ##############
-			//                 ############       ###############
-			//             ###############     ################
-			//            #####################################
-			//            #####################################
-			//            #####################################
-			//            ##################################
-			//            ################################
-			//            ###############################
-			//            #########################
-			0x01, 0x03, 0x03, 0x03, 0x07, 0x06, 0x06, 0x0E, 0x1E, 0x1C, 0x1C, 0x3C, 0x78, 0x78, 0x70, 0xE0, 0xE0, 0xE0, 0xC0, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x83, 0x83, 0x87, 0x8F, 0x8F, 0xBF, 0xFE, 0xFC, 0xFC, 0xF8, 0xF0, 0xF0, 0xC0, 0x80, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00, 0x00, 0x0E, 0x0F, 0x0F, 0x0F, 0x0F, 0x0F, 0xEF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x3F, 0x0F, 0x0F, 0x0F, 0x0F, 0xCF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0x38,
-			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xF8, 0xF8, 0xF8, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF8, 0xF8, 0xF8, 0xF8, 0xFC, 0x7F, 0x7F, 0x7F, 0x7F, 0x3F, 0x1F, 0x1F, 0x07, 0x01, 0x00
-			};
-			//128,
-			//0x1F,
-			//0x03
-		//};
-		static const IMAGE_OLED ansgrem_struct = {128, 0x20, 0x03};
-		
+			
+	static const unsigned char PROGMEM ansgrem_logo[128] = {
+		// #########
+		//  ##########
+		//  ##############
+		//       ##############
+		//         #############
+		//            #############
+		//              ############
+		//                 ############
+		//                   ############
+		//                     ############
+		//                         ###########
+		//                          ###########
+		//                           ###########
+		//                           ############
+		//                             #############
+		//                               ############
+		//                                ############
+		//                                 #############
+		//                                   ############
+		//                                    ############
+		//                                     ############
+		//                                      ###########
+		//            ######################################
+		//           ########################################
+		//           ########################################
+		//          ###########################################
+		//          ###########################################
+		//         ############################################
+		//         #############################################
+		//                     ############       ##############
+		//                     ############       ##############
+		//                    ############        ##############
+		//                   ############        ##############
+		//                   ############        ##############
+		//                   ############        ##############
+		//                  ###########         ###############
+		//                  ###########         ##############
+		//                  ###########        ##############
+		//                 ############       ###############
+		//             ###############     ################
+		//            #####################################
+		//            #####################################
+		//            #####################################
+		//            ##################################
+		//            ################################
+		//            ###############################
+		//            #########################
+		0x01, 0x03, 0x03, 0x03, 0x07, 0x06, 0x06, 0x0E, 0x1E, 0x1C, 0x1C, 0x3C, 0x78, 0x78, 0x70, 0xE0, 0xE0, 0xE0, 0xC0, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x83, 0x83, 0x87, 0x8F, 0x8F, 0xBF, 0xFE, 0xFC, 0xFC, 0xF8, 0xF0, 0xF0, 0xC0, 0x80, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x0E, 0x0F, 0x0F, 0x0F, 0x0F, 0x0F, 0xEF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x3F, 0x0F, 0x0F, 0x0F, 0x0F, 0xCF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0x38,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xF8, 0xF8, 0xF8, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF8, 0xF8, 0xF8, 0xF8, 0xFC, 0x7F, 0x7F, 0x7F, 0x7F, 0x3F, 0x1F, 0x1F, 0x07, 0x01, 0x00
+		};
+	static const IMAGE_OLED ansgrem_struct = {128, 0x20, 0x03};
 	
-
-	static const unsigned char PROGMEM  bsuir_logo[244] = 
-		{
+	static const unsigned char PROGMEM  bsuir_logo[244] = {
 			//                                ###  ###  ##  ###
 			//                               ####   ### #### ###
 			//                              ######   ##   ##   ##
@@ -193,11 +185,9 @@
 			0x00, 0x00, 0x00, 0x00, 0x80, 0xC0, 0xE0, 0xF0, 0x78, 0x3C, 0x1E, 0x0F, 0x07, 0x07, 0x03, 0x09, 0x1C, 0x0E, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7F, 0x3F, 0x1F, 0x0F, 0x87, 0xC3, 0x1C, 0x0E, 0x07, 0x03, 0x7F, 0x3F, 0x3F, 0x1F, 0x8F, 0xC7, 0xE3, 0x0E, 0x0E, 0x07, 0x03, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00,
 			0x3C, 0x1E, 0x0F, 0x07, 0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0x38, 0x38, 0x1C, 0x0E, 0x07, 0xFC, 0xFE, 0xFF, 0xFF, 0xFF, 0x7F, 0x38, 0x1C, 0x0E, 0x0F, 0x78, 0xFE, 0xFE, 0xFF, 0xFF, 0xFF, 0x7F, 0x3C, 0x1C, 0x08, 0x00, 0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0x38, 0x1C, 0x08, 0x00
 		};
+	static const IMAGE_OLED bsuir_struct = {244, 61, 0x03};
 
-static const IMAGE_OLED bsuir_struct = {244, 61, 0x03};
-
-	static const unsigned char PROGMEM avr_logo[512] =
-	{
+	static const unsigned char PROGMEM avr_logo[512] = {
 		//                   ###########        ##############                         ############         ####################
 		//                  ############        ###############                       ############        ########################
 		//                 ##############        ##############                      ############        ############################
@@ -236,13 +226,7 @@ static const IMAGE_OLED bsuir_struct = {244, 61, 0x03};
 	};
 	static const IMAGE_OLED avr_struct = {500, 125, 0x03};
 	
-	//
-	//  Font data for Microsoft YaHei UI 32pt
-	//
-
-	// Character bitmaps for Microsoft YaHei UI 32pt
-	static const unsigned char PROGMEM zero_logo[512] =
-	{
+	static const unsigned char PROGMEM zero_logo[512] = {
 			// @0 '0' (18 pixels wide)
 			//     ######  ##
 			//   ########  ####
@@ -281,9 +265,7 @@ static const IMAGE_OLED bsuir_struct = {244, 61, 0x03};
 			0x01, 0x01, 0x01, 0x01, 0x1F, 0x3F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7E, 0x7C, 0x7C, 0x00, 0x00, 0x7F, 0x7F, 0x7F, 0x7F, 0x3F, 0x1F, 0x01, 0x01, 0x01, 0xFF
 		};
 
-
-	static const unsigned char PROGMEM one_logo[512] =	{
-
+	static const unsigned char PROGMEM one_logo[512] ={
 			// @0 '1' (12 pixels wide)
 			//       ######
 			//       ######
@@ -322,13 +304,7 @@ static const IMAGE_OLED bsuir_struct = {244, 61, 0x03};
 			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0xFF,
 		};
 		
-	//
-	//  Font data for Gonchukov_Son 32pt
-	//
-
-	// Character bitmaps for Gonchukov_Son 32pt
-	static const unsigned char PROGMEM two_logo[512] =
-	{
+	static const unsigned char PROGMEM two_logo[512] = {
 		// @0 '2' (20 pixels wide)
 		//     #############
 		//   ################
@@ -367,11 +343,6 @@ static const IMAGE_OLED bsuir_struct = {244, 61, 0x03};
 		0x01, 0x01, 0x01, 0x00, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7E, 0x7E, 0x7E, 0x7E, 0x7E, 0x7E, 0x7E, 0x7E, 0x7E, 0x01, 0x01, 0xFF
 	};
 
-	//
-	//  Font data for Gonchukov_Son 32pt
-	//
-
-	// Character bitmaps for Gonchukov_Son 32pt
 	static const unsigned char PROGMEM thee_logo[512] =
 	{
 		// @0 '3' (18 pixels wide)

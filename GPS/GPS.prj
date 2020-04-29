@@ -18,7 +18,7 @@ OutputListFilesDirectory=Release\List
 OutputObjectFilesDirectory=Release
 OutputExecutableFilesDirectory=Release\Exe
 OutputLinkerFilesDirectory=Release\Exe
-AllowDisplayFunctionCallTree=1
+AllowDisplayFunctionCallTree=0
 CleanUp=2
 EditorPanelMode=0
 ActiveEditorPanel=0
@@ -26,9 +26,9 @@ Active0=0
 EditorPanel0=0
 PageIndex0=0
 EditorPanel1=0
-TimeStamp1=1352446991
+TimeStamp1=1352468910
 PageIndex1=1
-TimeStamp0=1350280896
+TimeStamp0=1352468910
 OF2=ports.h
 Active2=0
 EditorPanel2=0
@@ -517,7 +517,7 @@ Row=0
 Column=0
 ScrollPosX=0
 ScrollPosY=0
-TimeStamp=1352447353
+TimeStamp=1352468910
 [BookmarksFoldedCode]
 Files=22
 F1=main.c
@@ -543,11 +543,11 @@ F20=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
 F21=C:\Program Files (x86)\CodeVisionAVR\inc\twi.h
 F22=C:\Program Files (x86)\CodeVisionAVR\inc\i2c.h
 [Bookmarks1]
-TimeStamp=1352446991
-Row=115
-Column=29
+TimeStamp=1352468910
+Row=185
+Column=84
 ScrollPosX=0
-ScrollPosY=174
+ScrollPosY=105
 BK0=-1
 BK1=-1
 BK2=-1
@@ -654,7 +654,7 @@ TimeStamp=1351978194
 Row=3
 Column=23
 ScrollPosX=0
-ScrollPosY=0
+ScrollPosY=30
 BK0=-1
 BK1=-1
 BK2=-1
@@ -984,22 +984,6 @@ BK8=-1
 BK9=-1
 [FoldedCode22]
 Blocks=0
-[FoldedCode1]
-Blocks=0
-[FoldedCode10]
-Blocks=0
-[FoldedCode5]
-Blocks=0
-[FoldedCode11]
-Blocks=0
-[FoldedCode9]
-Blocks=0
-[FoldedCode14]
-Blocks=0
-[FoldedCode15]
-Blocks=0
-[FoldedCode4]
-Blocks=0
 [HeadersList]
 Files=4
 F1=E:\GitHub\GPS\GPS\main.c
@@ -1037,3 +1021,23 @@ Files=3
 F1=uart_spi.h
 F2=C:\Program Files (x86)\CodeVisionAVR\inc\mega16.h
 F3=C:\Program Files (x86)\CodeVisionAVR\inc\mega16_bits.h
+[FoldedCode1]
+Line1=66
+Line2=136
+Line3=143
+Line4=150
+Blocks=4
+[FoldedCode10]
+Blocks=0
+[FoldedCode5]
+Blocks=0
+[FoldedCode11]
+Blocks=0
+[FoldedCode9]
+Blocks=0
+[FoldedCode14]
+Blocks=0
+[FoldedCode15]
+Blocks=0
+[FoldedCode4]
+Blocks=0

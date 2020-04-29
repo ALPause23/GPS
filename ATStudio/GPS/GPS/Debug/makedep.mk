@@ -4,6 +4,8 @@
 
 library\CFile1.c
 
+library\ds1307.c
+
 library\LED_MAX7219.c
 
 library\OLED.c

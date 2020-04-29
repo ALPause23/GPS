@@ -14,8 +14,6 @@ uint8_t GetPointer()
 void InitOLED()
 {
 	
-	TWBR = TWBR_VALUE;
-	TWSR = 0;
 	i2cstart(SSD1306_ADDR);
 	i2cwrite(0x00);
 	
@@ -93,6 +91,11 @@ void OLED_Command(uint8_t data)
 	i2cwrite(CODE_COMMAND);      // Co = 0, D/C = 0
 	i2cwrite(data);
 	i2cstop();
+}
+
+void SSD1306_fast_command(uint8_t command)
+{
+	
 }
 
 void ClearOLED()
