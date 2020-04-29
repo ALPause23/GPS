@@ -107,9 +107,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="library\CFile1.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="library\ds1307.c">
       <SubType>compile</SubType>
     </Compile>

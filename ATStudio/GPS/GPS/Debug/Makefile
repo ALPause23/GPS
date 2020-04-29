@@ -38,7 +38,6 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../library/CFile1.c \
 ../library/ds1307.c \
 ../library/LED_MAX7219.c \
 ../library/OLED.c \
@@ -55,7 +54,6 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-library/CFile1.o \
 library/ds1307.o \
 library/LED_MAX7219.o \
 library/OLED.o \
@@ -65,7 +63,6 @@ library/ports.o \
 main.o
 
 OBJS_AS_ARGS +=  \
-library/CFile1.o \
 library/ds1307.o \
 library/LED_MAX7219.o \
 library/OLED.o \
@@ -75,7 +72,6 @@ library/ports.o \
 main.o
 
 C_DEPS +=  \
-library/CFile1.d \
 library/ds1307.d \
 library/LED_MAX7219.d \
 library/OLED.d \
@@ -85,7 +81,6 @@ library/ports.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
-library/CFile1.d \
 library/ds1307.d \
 library/LED_MAX7219.d \
 library/OLED.d \
@@ -108,8 +103,6 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
-
-
 
 
 

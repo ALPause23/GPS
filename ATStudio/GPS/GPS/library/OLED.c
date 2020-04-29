@@ -140,7 +140,7 @@ void SelectDisplay(int i)
 	}
 }
 
-void SetOLED1(IMAGE_OLED a, unsigned char *b)
+void Set_OLED_Image(IMAGE_OLED a, unsigned char *b)
 {
 	oled_pointer = 0x00;
 
