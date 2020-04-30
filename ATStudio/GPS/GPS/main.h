@@ -6,7 +6,7 @@
 	#include "library/ports.h"
 	#include "library/ds1307.h"
 	
-	
+	void initSymbolOLED(void);
 
 #endif /* MAIN_H_ */
 

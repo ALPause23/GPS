@@ -142,10 +142,8 @@ void SelectDisplay(int i)
 
 void Set_OLED_Image(IMAGE_OLED a, unsigned char *b)
 {
-	oled_pointer = 0x00;
-
 	//OLED_Command(SSD1306_DISPLAYOFF);
-	SetPointOLED(0x00, a.long_image - 1, 0x04, (0x04 + a.height_image));
+	SetPointOLED(oled_pointer, oled_pointer + a.long_image - 1, 0x04, (0x04 + a.height_image));
 	i2cstart(SSD1306_ADDR);
 	i2cwrite(CODE_DATA);
 	for(long int kk = 0; kk < a.array_size; kk++)

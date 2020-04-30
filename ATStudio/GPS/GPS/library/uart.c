@@ -1,4 +1,4 @@
-#include "uart.h"
+﻿#include "uart.h"
 //#include "init_perif.h"
 
 char rx_buffer[RX_BUFFER_SIZE];

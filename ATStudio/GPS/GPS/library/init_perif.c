@@ -1,4 +1,4 @@
-#include "init_perif.h"
+п»ї#include "init_perif.h"
 
 
 
@@ -7,4 +7,4 @@ void init_periferal()
     
 }
 
-//  Получение байта
+//  РџРѕР»СѓС‡РµРЅРёРµ Р±Р°Р№С‚Р°
