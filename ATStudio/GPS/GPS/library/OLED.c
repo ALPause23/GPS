@@ -65,8 +65,6 @@ void InitOLED()
 	i2cwrite(SSD1306_DISPLAYON);//--turn on oled panel
 	i2cstop();
 	oled_pointer = 0x00;
-	
-
 }
 
 void SetPointOLED(uint8_t Start_Collumn, uint8_t End_Collumn, uint8_t Start_Page, uint8_t End_Page)
@@ -93,11 +91,6 @@ void OLED_Command(uint8_t data)
 	i2cstop();
 }
 
-void SSD1306_fast_command(uint8_t command)
-{
-	
-}
-
 void ClearOLED()
 {
 	SetPointOLED(0x00, 0x7F, 0x04, 0x07);
@@ -109,7 +102,7 @@ void ClearOLED()
 	{
 		for(int k = 0; k < 128; k++)
 		{
-			i2cwrite(0x00);	//LSB вверху, MSB снизу
+			i2cwrite(0x00);	
 		}
 	}
 	i2cstop();
@@ -148,7 +141,7 @@ void Set_OLED_Image(IMAGE_OLED a, unsigned char *b)
 	i2cwrite(CODE_DATA);
 	for(long int kk = 0; kk < a.array_size; kk++)
 	{
-		i2cwrite(pgm_read_byte(&(b[kk])));	//LSB вверху, MSB снизу
+		i2cwrite(pgm_read_byte(&(b[kk])));	
 	}
 	i2cstop();
 }

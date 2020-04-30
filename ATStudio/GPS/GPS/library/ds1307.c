@@ -1,7 +1,6 @@
 ﻿#include "ds1307.h"
 
 
-
 void DS1307_Init(uint8_t rs)
 {
 	rs &= 0x03;
@@ -18,14 +17,11 @@ void DS1307_Init(uint8_t rs)
 // Функция читает байт из внутреннего регистра slave-устройства.
 uint8_t DS1307_ReadRegister(uint8_t deviceRegister)
 {
-	uint8_t data0, data1, data2,boo = 0;
+	uint8_t boo = 0;
 	i2cstart(DS1307_ADDR);
 	i2cwrite(deviceRegister);
 	i2cstop();
 	i2cstart(DS1307_ADDR | 0x01);
-	//data0 = i2cread(0x01);
-	//data1 = i2cread(0x01);
-	//data2 = i2cread(0x01);
 	boo = i2cread(0x00);
 	i2cstop();
 	return boo;
@@ -35,10 +31,8 @@ void DS1307_SetTime(uint8_t hour, uint8_t minutes)
 {
 	i2cstart(DS1307_ADDR);
 	i2cwrite(DS1307_MINUTES_REGISTER);
-	//i2cwrite(In_BCD(minutes));
-	//i2cwrite(In_BCD(hour));
-		i2cwrite(minutes);
-		i2cwrite(hour);
+	i2cwrite(minutes);
+	i2cwrite(hour);
 	i2cstop();
 }
 

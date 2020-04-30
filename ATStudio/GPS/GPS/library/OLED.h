@@ -79,8 +79,8 @@
 	void ClearOLED(void);
 	void OLED_Command(uint8_t data);
 	
-	//uint8_t SetLOGO(int i);
-	uint8_t SetOLED2(int i);
+	////uint8_t SetLOGO(int i);
+	//uint8_t SetOLED2(int i);
 	
 	typedef struct   
 	{
@@ -91,7 +91,8 @@
 	
 	void Set_OLED_Num(unsigned char *a);
 	uint8_t* GetNum(int i);
-	void Set_OLED_Image(IMAGE_OLED a, unsigned char *b);		
+	void Set_OLED_Image(IMAGE_OLED a, unsigned char *b);
+			
 	static const unsigned char PROGMEM ansgrem_logo[128] = {
 		// #########
 		//  ##########
