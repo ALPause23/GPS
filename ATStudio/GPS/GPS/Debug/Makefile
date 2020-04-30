@@ -44,6 +44,7 @@ C_SRCS +=  \
 ../library/I2C.c \
 ../library/init_perif.c \
 ../library/ports.c \
+../library/uart.c \
 ../main.c
 
 
@@ -60,6 +61,7 @@ library/OLED.o \
 library/I2C.o \
 library/init_perif.o \
 library/ports.o \
+library/uart.o \
 main.o
 
 OBJS_AS_ARGS +=  \
@@ -69,6 +71,7 @@ library/OLED.o \
 library/I2C.o \
 library/init_perif.o \
 library/ports.o \
+library/uart.o \
 main.o
 
 C_DEPS +=  \
@@ -78,6 +81,7 @@ library/OLED.d \
 library/I2C.d \
 library/init_perif.d \
 library/ports.d \
+library/uart.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
@@ -87,6 +91,7 @@ library/OLED.d \
 library/I2C.d \
 library/init_perif.d \
 library/ports.d \
+library/uart.d \
 main.d
 
 OUTPUT_FILE_PATH +=GPS.elf
@@ -103,6 +108,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

@@ -1,8 +1,11 @@
 ﻿#include "ds1307.h"
-
+uint8_t buffer0, buffer1, buffer2;
 
 void DS1307_Init(uint8_t rs)
 {
+	buffer0 = 0xFF;
+	buffer1 = 0xFF;
+	buffer2 = 0xFF;
 	rs &= 0x03;
 	i2cstart(DS1307_ADDR);
 	i2cwrite(DS1307_CONTROL_REGISTER);
@@ -36,39 +39,66 @@ void DS1307_SetTime(uint8_t hour, uint8_t minutes)
 	i2cstop();
 }
 
+
 void GetTime(void)
 {
-	uint8_t minute, hour, a, b, buffer0, buffer1;
+	uint8_t second, minute, hour, a, b;
 	
-	minute = Out_BCD(DS1307_ReadRegister(DS1307_MINUTES_REGISTER));
+	second = DS1307_ReadRegister(DS1307_SECONDS_REGISTER);
 	
-	a = (minute>>4);
-	b = minute;
+	a = (second>>4);
+	b = second;
 	a&= 7;
 	b&= 15;
-	
-	if(a != buffer0)
+	if(b != buffer0)
 	{
 		SelectDisplay(0);
-
+		if(b == 0x00 || b == 0x02|| b == 0x04 || b == 0x06||b == 0x08)
+		{
+			SetPointer(0x3C);
+			Set_OLED_Image(Ncolon_struct, Ncolon_logo);
+		}
+		else
+		{
+			SetPointer(0x3C);
+			Set_OLED_Image(colon_struct, colon_logo);
+		}
+		buffer0 = b;
+		SelectDisplay(1);
 		SetPointer(0x5B);
 		Set_OLED_Num(GetNum(b));
 		SetPointer(0x41);
 		Set_OLED_Num(GetNum(a));
-		buffer0 = a;
 		
-		hour = Out_BCD(DS1307_ReadRegister(DS1307_HOURS_REGISTER));
-		a = (hour>>4);
-		b = hour;
+		minute = DS1307_ReadRegister(DS1307_MINUTES_REGISTER);
+		
+		a = (minute>>4);
+		b = minute;
 		a&= 7;
 		b&= 15;
-		if(a != buffer1)
+	
+		if(b != buffer1)
 		{
-			SetPointer(0x22);
+			SelectDisplay(0);
+			SetPointer(0x5B);
 			Set_OLED_Num(GetNum(b));
-			SetPointer(0x08);
+			SetPointer(0x41);
 			Set_OLED_Num(GetNum(a));
-			buffer1 = a;
+			buffer1 = b;
+		
+			hour = DS1307_ReadRegister(DS1307_HOURS_REGISTER);
+			a = (hour>>4);
+			b = hour;
+			a&= 7;
+			b&= 15;
+			if(b != buffer2)
+			{
+				SetPointer(0x22);
+				Set_OLED_Num(GetNum(b));
+				SetPointer(0x08);
+				Set_OLED_Num(GetNum(a));
+				buffer2 = b;
+			}
 		}
 	}
 	else

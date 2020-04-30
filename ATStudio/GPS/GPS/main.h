@@ -5,6 +5,7 @@
 	#include "library/LED_MAX7219.h"
 	#include "library/ports.h"
 	#include "library/ds1307.h"
+	#include "library/uart.h"
 	
 	void initSymbolOLED(void);
 

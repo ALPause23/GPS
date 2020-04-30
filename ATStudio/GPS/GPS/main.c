@@ -52,7 +52,7 @@ int main(void)
 	
 	initSymbolOLED();
 	
-	//DS1307_SetTime(0x18, 0x14);
+	//DS1307_SetTime(0x00, 0x45);
 	
 	SelectDisplay(1);
 	SetPointer(0x00);
@@ -65,6 +65,7 @@ int main(void)
 	while(1)
 	{
 		GetTime();
+		//_delay_ms(200);
 	}
 	return 0;
 }

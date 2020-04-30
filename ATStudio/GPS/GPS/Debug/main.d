@@ -22,7 +22,7 @@ main.d main.o: .././main.c .././main.h .././library/OLED.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\eeprom.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  .././library/LED_MAX7219.h .././library/ports.h .././library/ds1307.h \
- .././library/OLED.h
+ .././library/OLED.h .././library/uart.h
 
 .././main.h:
 
@@ -81,3 +81,5 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-g
 .././library/ds1307.h:
 
 .././library/OLED.h:
+
+.././library/uart.h:

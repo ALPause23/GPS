@@ -14,5 +14,7 @@ library\init_perif.c
 
 library\ports.c
 
+library\uart.c
+
 main.c
 

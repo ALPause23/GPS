@@ -143,6 +143,12 @@
     <Compile Include="library\ports.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="library\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="library\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
