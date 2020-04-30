@@ -91,7 +91,7 @@ int main(void)
 	while(1)
 	{
 		SelectDisplay(0);
-		d = DS1307_ReadRegister(HOURS_REGISTER);
+		d = bcd2bin(DS1307_ReadRegister(HOURS_REGISTER));
 		a = (int)(d>>4);
 		b = (int)d;
 		a&= 7;
@@ -100,7 +100,7 @@ int main(void)
 		Set_OLED_Num(GetNum(a));
 		SetPointer(0x22);
 		Set_OLED_Num(GetNum(b));
-		d = DS1307_ReadRegister(MINUTES_REGISTER);
+		d = bcd2bin(DS1307_ReadRegister(MINUTES_REGISTER));
 		a = (int)(d>>4);
 		b = (int)d;
 		a&= 7;
@@ -110,7 +110,7 @@ int main(void)
 		SetPointer(0x5B);
 		Set_OLED_Num(GetNum(b));
 		SelectDisplay(1);
-		d = DS1307_ReadRegister(SECONDS_REGISTER);
+		d = bcd2bin(DS1307_ReadRegister(SECONDS_REGISTER));
 		a = (int)(d>>4);
 		b = (int)d;
 		a&= 7;

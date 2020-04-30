@@ -28,4 +28,7 @@
 	void DS1307_Init(unsigned char rs);
 	uint8_t DS1307_ReadRegister(uint8_t deviceRegister);
 	void SetTime(uint8_t hour, uint8_t min);
+	
+	uint8_t bcd2bin(uint8_t n);
+	//unsigned char bin2bcd(uint8_t char n);
 #endif
