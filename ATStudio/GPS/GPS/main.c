@@ -54,6 +54,12 @@ int main(void)
 	
 	//DS1307_SetTime(0x18, 0x14);
 	
+	SelectDisplay(1);
+	SetPointer(0x00);
+	Set_OLED_Image(sputnik_struct, sputnik_logo);
+	_delay_ms(1000);
+	
+	SelectDisplay(0);
 	SetPointer(0x3C);
 	Set_OLED_Image(colon_struct, colon_logo);
 	while(1)
