@@ -1,11 +1,13 @@
 ﻿#ifndef PORTS_H__
 #define PORTS_H__
 		
+		#define F_CPU 8000000UL
 		#include <stdio.h>
 		#include <avr/io.h>
 		#include <stdlib.h>
 		#include <util/delay.h>
 		#include "util/twi.h"
+		#include <avr/interrupt.h>
 		#include <avr/eeprom.h>
 		#include <avr/pgmspace.h>
 
