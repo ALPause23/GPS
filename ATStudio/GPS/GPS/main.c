@@ -10,11 +10,11 @@ int main(void)
 {
 
 	init_ports();
-	//i2cInit();
-	//DS1307_Init(0);
-	////_delay_ms(100);
-	////
-	////
+	i2cInit();
+	DS1307_Init(0);
+	//_delay_ms(100);
+	//
+	//
 	//InitLed();
 	//ClearDisplay();
 	//SetIntensity(0x0F);
@@ -52,7 +52,7 @@ int main(void)
 	//
 	//initSymbolOLED();
 	//
-	////DS1307_SetTime(0x20, 0x48);
+	//DS1307_SetTime(0x20, 0x48);
 	//
 	//SelectDisplay(1);
 	//SetPointer(0x00);

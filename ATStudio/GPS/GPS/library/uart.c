@@ -1,13 +1,16 @@
 ﻿#include "uart.h"
 #include "init_perif.h"
+#include "OLED.h"
+#include "LED_MAX7219.h"
+#include "ds1307.h"
 
 char rx_buffer[RX_BUFFER_SIZE];
 
 
-unsigned char rx_wr_index = 0, rx_rd_index = 0;
-unsigned char rx_counter = 0;
-uint8_t rx_buffer_overflow;
-char flagEr, flagRX = 0;
+int rx_wr_index = 0, rx_rd_index = 0;
+//unsigned char rx_counter = 0;
+uint8_t buffer;
+char flagEr = 0, flagRX = 0, flag_Set_Time = 0;
 
 char Get_flagRX(void)
 {
@@ -18,28 +21,89 @@ void USARTReceiveChar(void) {
 	//  Устанавливается, когда регистр свободен
 	char status,data;
 	int i = 0;
-	while(1)
+	while(!(UCSRA & (1<<RXC)))
+	;
+	if(UDR != '$')
 	{
-		while(!(UCSRA & (1<<RXC)));
-		status = UCSRA;
-		data = UDR;
-		//if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
-		//{
-			rx_buffer[rx_wr_index++] = data;
-		//}
-		
-		if(i == 5)
-		{
-			//flagEr = 255;	
-			break;
-		}
-		i++;		
-		//return UDR;
+		flagEr = 0;
+		flagRX &= 0;
+		UCSRB |= (1<<RXCIE);
+		return;
 	}
-	flagRX &= 0;
-	UCSRB |= (1<<RXCIE);
-	_delay_ms(100);
+	else
+	{
+		rx_wr_index = 0;
+	}
 	
+		while(i != 4)
+		{
+			
+			while(!(UCSRA & (1<<RXC)))
+			;
+			rx_buffer[rx_wr_index++] = UDR;
+			i++;
+			
+			//status = UCSRA;
+			//data = UDR;
+			//if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
+			//{
+				//rx_buffer[rx_wr_index++] = data;
+			//}
+		
+			//if(data == 0x43)
+			//{
+				//flagEr = 255;	
+				//break;
+			//}
+				
+			//return UDR;
+		}
+	
+
+	if(/*rx_buffer[2] == 'G' /*|| rx_buffer[2] == 'L' ||*/ (rx_buffer[3] == 'M' && flag_Set_Time == 0) || rx_buffer[3] == 'S' || rx_buffer[3] == 'T')
+	{
+		while(1)
+		{
+			while(!(UCSRA & (1<<RXC)))
+				;
+			buffer = UDR;	
+			if(buffer == '*')
+				break;
+			else
+			{
+				rx_buffer[rx_wr_index++] = buffer;
+			}
+		}
+	}
+	ProcessingBufferRx();
+	flagEr = 0;
+	flagRX &= 0;
+	UCSRB |= (1<<RXCIE);	
+}
+
+void ProcessingBufferRx(void)
+{
+	//if(rx_buffer[2] == 'G')
+	//{
+		//if(rx_buffer[
+	//}
+	if(rx_buffer[3] == 'M')
+	{
+		if(rx_buffer[16] == 'A')
+		{
+			DS1307_SetTime(In_BCD(rx_buffer[6]*10 + rx_buffer[7]), In_BCD(rx_buffer[8]*10 + rx_buffer[9]));
+			flag_Set_Time = 1;
+		}
+		else return;
+	}
+	else if(rx_buffer[3] == 'T')
+	{
+		
+	}
+	else if(rx_buffer[3] == 'S')
+	{
+		
+	}
 }
 
 ISR(USARTRXC_vect)

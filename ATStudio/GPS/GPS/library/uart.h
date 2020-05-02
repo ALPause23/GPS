@@ -13,8 +13,10 @@
 	#define DATA_OVERRUN (1<<DOR)
 
 	// USART Receiver buffer
-	#define RX_BUFFER_SIZE 80
+	#define RX_BUFFER_SIZE 400
 	extern char flagRX;
+	
+	void ProcessingBufferRx(void);
 	char Get_flagRX(void);
 
 	//interrupt [USART_RXC] void usart_rx_isr(void);
