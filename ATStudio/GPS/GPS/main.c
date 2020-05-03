@@ -64,7 +64,7 @@ int main(void)
 	//Set_OLED_Image(colon_struct, colon_logo);
 	
 	USART_Init(MYUBRR);
-	sei();
+	//sei();
 	while(1)
 	{
 		//GetTime();

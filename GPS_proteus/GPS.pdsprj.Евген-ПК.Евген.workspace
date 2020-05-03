@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c00000000000000010000000083ffff0083ffffffffffffffffffff4d0100000000000077070000f6030000</PLACEMENT>
+  <PLACEMENT>2c0000000000000001000000ffffffffffffffffffffffffffffffff4d0100000000000077070000f6030000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
@@ -48,7 +48,7 @@
      <ITEM name="VSplitter1Pos">238</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="450" x="417" flags="00000023" y="244" h="250" pid="0" iid="10">
+   <POPUP w="450" x="559" flags="00000023" y="557" h="250" pid="0" iid="10">
     <PROPERTIES>
      <ITEM name="AutoEcho">0</ITEM>
      <ITEM name="HexMode">0</ITEM>
@@ -87,7 +87,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="16" x="539" flags="80000000" y="296" h="32" pid="14" iid="1">
+   <POPUP w="16" x="539" flags="00000000" y="296" h="32" pid="14" iid="1">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>
@@ -119,17 +119,17 @@
    </POPUP>
    <POPUP w="600" x="1126" flags="0000802b" y="91" h="400" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"USARTReceiveChar",028C,0092,4703,8FF2,1
+     <ITEM name="Breakpoint 0">"USARTReceiveChar",0218,001E,8FC8,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 1">"USARTReceiveChar",01D8,0022,A788,8FF2,-1
+     <ITEM name="Breakpoint 1">"USARTReceiveChar",022C,0032,02A1,8FF2,-1
 </ITEM>
-     <ITEM name="Breakpoint 2">"USARTReceiveChar",01DC,0026,1F66,8FF2,-1
+     <ITEM name="Breakpoint 2">"USARTReceiveChar",0268,006E,EC31,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 3">"USARTReceiveChar",0202,004C,ED7C,8FF2,1
+     <ITEM name="Breakpoint 3">"__vector_11",0162,0000,F7A2,8FF2,-1
 </ITEM>
-     <ITEM name="Breakpoint 4">"USARTReceiveChar",021A,0064,A788,8FF2,-1
+     <ITEM name="Breakpoint 4">"__vector_11",0178,0016,9882,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 5">"USARTReceiveChar",021E,0068,8B45,8FF2,1
+     <ITEM name="Breakpoint 5">"USART_Init",019A,0010,BE92,8FF2,1
 </ITEM>
      <ITEM name="Breakpoint 6">"USARTReceiveChar",0224,006E,2568,8FF2,1
 </ITEM>
@@ -145,7 +145,7 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">1</ITEM>
+     <ITEM name="nBreakpoints">3</ITEM>
     </PROPERTIES>
    </POPUP>
    <POPUP w="348" x="1324" flags="0000000b" y="579" h="398" pid="2" iid="1">

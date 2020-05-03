@@ -8,7 +8,7 @@ char rx_buffer[RX_BUFFER_SIZE];
 
 
 int rx_wr_index = 0, rx_rd_index = 0;
-//unsigned char rx_counter = 0;
+unsigned char rx_counter = 0;
 uint8_t buffer;
 char flagEr = 0, flagRX = 0, flag_Set_Time = 0;
 
@@ -17,32 +17,66 @@ char Get_flagRX(void)
 	return flagRX;
 }
 
-void USARTReceiveChar(void) {
+void USARTReceiveChar(void)
+{
 	//  Устанавливается, когда регистр свободен
-	char status,data;
+	char status, data;
 	int i = 0;
+	rx_wr_index = 0;
 	while(!(UCSRA & (1<<RXC)))
-	;
-	if(UDR != '$')
+		;
+	rx_buffer[rx_wr_index++] = UDR;
+	if(rx_buffer[0] != '$') /*&& rx_wr_index == 0*/
 	{
-		flagEr = 0;
+		flagEr &= 0;
 		flagRX &= 0;
 		UCSRB |= (1<<RXCIE);
 		return;
 	}
 	else
 	{
-		rx_wr_index = 0;
-	}
-	
-		while(i != 4)
+		while(1)
+		{
+			while(!(UCSRA & (1<<RXC)))
+				;
+			status = UCSRA;
+			data = UDR;
+			if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN)) == 0)
+			{
+				rx_buffer[rx_wr_index++]=data;
+				#if RX_BUFFER_SIZE == 255
+				// special case for receiver buffer size=256
+				if (++rx_counter == 0)
+				{
+					rx_buffer_overflow = 1;
+				}
+				#else
+				if (rx_wr_index == RX_BUFFER_SIZE)
+				{
+					rx_wr_index = 0;
+				}
+				if (++rx_counter == RX_BUFFER_SIZE)
+				{
+					rx_counter = 0;
+					//rx_buffer_overflow = 1;
+				}
+				#endif
+			}
+			if (data == '*')
+			{
+				break;
+			}
+			
+		}
+		if((rx_buffer[4] == 'M' && flag_Set_Time == 0) || 
+			(rx_buffer[4] == 'S') || 
+			(rx_buffer[4] == 'T')) /*rx_buffer[2] == 'G' /*|| rx_buffer[2] == 'L' ||*/ 
 		{
 			
-			while(!(UCSRA & (1<<RXC)))
-			;
-			rx_buffer[rx_wr_index++] = UDR;
-			i++;
-			
+		}
+	}
+
+
 			//status = UCSRA;
 			//data = UDR;
 			//if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
@@ -57,24 +91,11 @@ void USARTReceiveChar(void) {
 			//}
 				
 			//return UDR;
-		}
+		
 	
 
-	if(/*rx_buffer[2] == 'G' /*|| rx_buffer[2] == 'L' ||*/ (rx_buffer[3] == 'M' && flag_Set_Time == 0) || rx_buffer[3] == 'S' || rx_buffer[3] == 'T')
-	{
-		while(1)
-		{
-			while(!(UCSRA & (1<<RXC)))
-				;
-			buffer = UDR;	
-			if(buffer == '*')
-				break;
-			else
-			{
-				rx_buffer[rx_wr_index++] = buffer;
-			}
-		}
-	}
+
+	
 	ProcessingBufferRx();
 	flagEr = 0;
 	flagRX &= 0;
