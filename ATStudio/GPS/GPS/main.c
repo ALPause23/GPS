@@ -11,68 +11,75 @@ int main(void)
 
 	init_ports();
 	i2cInit();
-	DS1307_Init(0);
-	//_delay_ms(100);
-	//
-	//
-	//InitLed();
-	//ClearDisplay();
-	//SetIntensity(0x0F);
-	//WriteNum(ONE, TWO, THREE);
-	//_delay_ms(1000);
-	//WriteNum(SIX, FIVE, FOUR);
-	//_delay_ms(1000);
-	//WriteNum(NINE, EITHT, SEVEN);
-	//_delay_ms(1000);
-	//WriteNum(EMPTY, ZERO, ZERO);
-	//_delay_ms(1000);
-	//WriteNum(G, P, S);
-	//
-	//
-	//_delay_ms(1000);
-	//
-	//SelectDisplay(2);
-	//InitOLED();
-	//OLED_Command(SSD1306_DISPLAYON);
-	//ClearOLED();
-	//
-	//SetPointer(0x00);
-	//SelectDisplay(0);
-	//Set_OLED_Image(ansgrem_struct, ansgrem_logo);
-	//_delay_ms(1000);
-	//
-	//SelectDisplay(1);
-	//Set_OLED_Image(bsuir_struct, bsuir_logo);
-	//_delay_ms(1000);
-	//
-	//SelectDisplay(2);
-	//Set_OLED_Image(avr_struct, avr_logo);
-	//_delay_ms(1000);
-	//ClearOLED();
-	//
-	//initSymbolOLED();
-	//
-	//DS1307_SetTime(0x20, 0x48);
-	//
-	//SelectDisplay(1);
-	//SetPointer(0x00);
-	//Set_OLED_Image(sputnik_struct, sputnik_logo);
-	//_delay_ms(1000);
-	//
-	//SelectDisplay(0);
-	//SetPointer(0x3C);
-	//Set_OLED_Image(colon_struct, colon_logo);
 	
-	USART_Init(MYUBRR);
+	_delay_ms(100);
+	
+	PORTA |= PortA2;
+	_delay_ms(500);
+	PORTA &= ~PortA2;
+	
+	InitLed();
+	ClearDisplay();
+	SetIntensity(0x0F);
+	WriteNum(ONE, TWO, THREE);
+	_delay_ms(100);
+	WriteNum(SIX, FIVE, FOUR);
+	_delay_ms(100);
+	WriteNum(NINE, EITHT, SEVEN);
+	_delay_ms(500);
+	WriteNum(EMPTY, ZERO, ZERO);
+	_delay_ms(100);
+	WriteNum(G, P, S);
+	_delay_ms(100);
+	
+	SelectDisplay(3);
+	InitOLED();
+	OLED_Command(SSD1306_DISPLAYON);
+	ClearOLED();
+	
+	SetPointer(0x00);
+	SelectDisplay(0);
+	Set_OLED_Image(ansgrem_struct, ansgrem_logo);
+	_delay_ms(100);
+	
+	SelectDisplay(1);
+	Set_OLED_Image(bsuir_struct, bsuir_logo);
+	_delay_ms(100);
+	
+	SelectDisplay(3);
+	Set_OLED_Image(avr_struct, avr_logo);
+	_delay_ms(500);
+	ClearOLED();
+	
+	//initSymbolOLED();
+	DS1307_Init(0);
+	DS1307_SetTime(0x20, 0x48);
+	
+	SelectDisplay(1);
+	SetPointer(0x00);
+	Set_OLED_Image(sputnik_struct, sputnik_logo);
+	_delay_ms(1000);
+	
+	SelectDisplay(0);
+	SetPointer(0x3C);
+	Set_OLED_Image(colon_struct, colon_logo);
+	SetIntensity(0x00);
+	
+	//USART_Init(MYUBRR);
 	//sei();
 	while(1)
 	{
-		//GetTime();
+		GetTime();
 		//_delay_ms(200);
-		if(Get_flagRX() == 1)
-		{
-			USARTReceiveChar();
-		}
+		//if(Get_flagRX() == 1)
+		//{
+			//USARTReceiveChar();
+		//}
+		//if((PINA & (PortA0)) == 0)
+		//{
+			//_delay_ms(3000);
+			//PORTA |= PortA2;
+		//}
 	}
 	return 0;
 }
@@ -82,7 +89,7 @@ void initSymbolOLED(void)
 {
 	OLED_Command(SSD1306_DISPLAYOFF);
 
-	SelectDisplay(2);
+	SelectDisplay(0);
 	SetPointer(0x08);
 	Set_OLED_Num(GetNum(0));
 	//_delay_ms(1000);
@@ -109,7 +116,6 @@ void initSymbolOLED(void)
 	SelectDisplay(2);
 	SetPointer(0x08);
 	Set_OLED_Num(GetNum(8));
-	//_delay_ms(1000);
 	SetPointer(0x22);
 	Set_OLED_Num(GetNum(9));
 	

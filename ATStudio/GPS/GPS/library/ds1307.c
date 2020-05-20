@@ -42,7 +42,7 @@ void DS1307_SetTime(uint8_t hour, uint8_t minutes)
 
 void GetTime(void)
 {
-	uint8_t second, minute, hour, a, b;
+	uint8_t second = 0x00, minute = 0x00, hour = 0x00, a = 0x00, b = 0x00;
 	
 	second = DS1307_ReadRegister(DS1307_SECONDS_REGISTER);
 	
@@ -89,7 +89,7 @@ void GetTime(void)
 			hour = DS1307_ReadRegister(DS1307_HOURS_REGISTER);
 			a = (hour>>4);
 			b = hour;
-			a&= 7;
+			a&= 3;
 			b&= 15;
 			if(b != buffer2)
 			{

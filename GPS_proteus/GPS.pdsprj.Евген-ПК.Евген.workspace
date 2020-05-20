@@ -1,12 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000000000001000000ffffffffffffffffffffffffffffffff4d0100000000000077070000f6030000</PLACEMENT>
+  <PLACEMENT>2c0000000200000003000000ffffffffffffffffffffffffffffffff4d0100000000000077070000f6030000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
+  <WINDOW type="default" module="DXP"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
   <PWI>
-   <POPUP w="800" x="379" flags="00000002" y="136" h="200" pid="0" iid="-1">
+   <POPUP w="800" x="998" flags="00000003" y="72" h="200" pid="0" iid="-1">
     <PROPERTIES>
      <ITEM name="Message Column Width">663</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
@@ -32,7 +33,7 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="450" x="419" flags="00000023" y="176" h="250" pid="0" iid="6">
+   <POPUP w="728" x="152" flags="00000023" y="74" h="321" pid="0" iid="6">
     <PROPERTIES>
      <ITEM name="ComboBox1000">S</ITEM>
      <ITEM name="ComboBox1001">Sr</ITEM>
@@ -48,7 +49,7 @@
      <ITEM name="VSplitter1Pos">238</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="450" x="559" flags="00000023" y="557" h="250" pid="0" iid="10">
+   <POPUP w="695" x="1178" flags="00000001" y="82" h="448" pid="0" iid="10">
     <PROPERTIES>
      <ITEM name="AutoEcho">0</ITEM>
      <ITEM name="HexMode">0</ITEM>
@@ -117,13 +118,13 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="1126" flags="0000802b" y="91" h="400" pid="1" iid="1">
+   <POPUP w="600" x="1071" flags="0000002b" y="550" h="400" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"USARTReceiveChar",0218,001E,8FC8,8FF2,1
+     <ITEM name="Breakpoint 0">"main",27B0,0030,297F,A927,-1
 </ITEM>
-     <ITEM name="Breakpoint 1">"USARTReceiveChar",022C,0032,02A1,8FF2,-1
+     <ITEM name="Breakpoint 1">"main",27BE,003E,516D,A927,1
 </ITEM>
-     <ITEM name="Breakpoint 2">"USARTReceiveChar",0268,006E,EC31,8FF2,1
+     <ITEM name="Breakpoint 2">"main",0100,002C,ABF9,A927,1
 </ITEM>
      <ITEM name="Breakpoint 3">"__vector_11",0162,0000,F7A2,8FF2,-1
 </ITEM>
@@ -145,10 +146,10 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">3</ITEM>
+     <ITEM name="nBreakpoints">2</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="348" x="1324" flags="0000000b" y="579" h="398" pid="2" iid="1">
+   <POPUP w="348" x="1523" flags="0000000b" y="589" h="398" pid="2" iid="1">
     <PROPERTIES>
      <ITEM name="Address Column Width">48</ITEM>
      <ITEM name="AutoResize">No</ITEM>
@@ -165,7 +166,7 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="20" x="262" flags="00000001" y="554" h="3" pid="1" iid="11">
+   <POPUP w="20" x="970" flags="00000001" y="307" h="3" pid="1" iid="11">
     <PROPERTIES/>
    </POPUP>
    <POPUP w="8" x="659" flags="00000008" y="416" h="8" pid="2" iid="11">
@@ -177,6 +178,9 @@
      <ITEM name="ShowToolTips">Yes</ITEM>
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
+   </POPUP>
+   <POPUP w="695" x="1225" flags="00008001" y="26" h="448" pid="0" iid="27">
+    <PROPERTIES/>
    </POPUP>
   </PWI>
  </MODULE>

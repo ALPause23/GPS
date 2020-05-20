@@ -44,7 +44,7 @@ void InitOLED()
 	i2cwrite(SSD1306_SETCOMPINS);                    // 0xDA
 	i2cwrite(0x02);
 	i2cwrite(SSD1306_SETCONTRAST);                   // 0x81
-	i2cwrite(0x8F);
+	i2cwrite(0xFF);
 	
 	i2cwrite(SSD1306_SETPRECHARGE);                  // 0xd9
 	if (0x2 == SSD1306_EXTERNALVCC)
@@ -113,21 +113,27 @@ void SelectDisplay(int i)
 {
 	switch(i)
 	{
-		case 2:
+		case 3:
 		{
-			PORTB |= (PortB0 | PortB1);
+			PORTB |= (PortB0 | PortB1 | PortB2);
 			break; 
 		}
 		case 0:
 		{
 			PORTB |= (PortB0);
-			PORTB &= ~(PortB1);
+			PORTB &= ~(PortB1 | PortB2);
 			break;
 		}
 		case 1:
 		{
 			PORTB |= (PortB1);
-			PORTB &= ~(PortB0);
+			PORTB &= ~(PortB0 | PortB2);
+			break;
+		}
+		case 2:
+		{
+			PORTB |= (PortB2);
+			PORTB &= ~(PortB0 | PortB1);
 			break;
 		}
 	}
