@@ -64,11 +64,11 @@ void GetTime(void)
 			Set_OLED_Image(colon_struct, colon_logo);
 		}
 		buffer0 = b;
-		SelectDisplay(1);
-		SetPointer(0x5B);
-		Set_OLED_Num(GetNum(b));
-		SetPointer(0x41);
-		Set_OLED_Num(GetNum(a));
+		//SelectDisplay(0);
+		//SetPointer(0x5B);
+		//Set_OLED_Num(GetNum(b));
+		//SetPointer(0x41);
+		//Set_OLED_Num(GetNum(a));
 		
 		minute = DS1307_ReadRegister(DS1307_MINUTES_REGISTER);
 		
@@ -77,9 +77,9 @@ void GetTime(void)
 		a&= 7;
 		b&= 15;
 	
-		if(b != buffer1)
-		{
-			SelectDisplay(0);
+		//if(b != buffer1)
+		//{
+			//SelectDisplay(0);
 			SetPointer(0x5B);
 			Set_OLED_Num(GetNum(b));
 			SetPointer(0x41);
@@ -91,15 +91,15 @@ void GetTime(void)
 			b = hour;
 			a&= 3;
 			b&= 15;
-			if(b != buffer2)
-			{
-				SetPointer(0x22);
+			//if(b != buffer2)
+			//{
+				//SetPointer(0x22);
 				Set_OLED_Num(GetNum(b));
 				SetPointer(0x08);
 				Set_OLED_Num(GetNum(a));
 				buffer2 = b;
-			}
-		}
+			//}
+		//}
 	}
 	else
 	{
