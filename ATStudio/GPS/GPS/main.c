@@ -12,25 +12,25 @@ int main(void)
 	init_ports();
 	i2cInit();
 	
-	_delay_ms(1000);
+	_delay_ms(100);
 	
 	PORTA |= PortA2;
-	_delay_ms(1000);
+	_delay_ms(100);
 	PORTA &= ~PortA2;
 	
 	InitLed();
 	ClearDisplay();
 	SetIntensity(0x0F);
 	WriteNum(ONE, TWO, THREE);
-	_delay_ms(1000);
+	_delay_ms(100);
 	WriteNum(SIX, FIVE, FOUR);
-	_delay_ms(1000);
+	_delay_ms(100);
 	WriteNum(NINE, EITHT, SEVEN);
-	_delay_ms(5000);
+	_delay_ms(500);
 	WriteNum(EMPTY, ZERO, ZERO);
-	_delay_ms(1000);
+	_delay_ms(100);
 	WriteNum(G, P, S);
-	_delay_ms(1000);
+	_delay_ms(100);
 	
 	SelectDisplay(3);
 	InitOLED();
@@ -40,20 +40,20 @@ int main(void)
 	SetPointer(0x00);
 	SelectDisplay(0);
 	Set_OLED_Image(ansgrem_struct, ansgrem_logo);
-	_delay_ms(1000);
+	_delay_ms(100);
 	
 	SelectDisplay(1);
 	Set_OLED_Image(bsuir_struct, bsuir_logo);
-	_delay_ms(1000);
+	_delay_ms(100);
 	
 	SelectDisplay(3);
 	Set_OLED_Image(avr_struct, avr_logo);
-	_delay_ms(5000);
+	_delay_ms(500);
 	ClearOLED();
 	
 	//initSymbolOLED();
 	DS1307_Init(0);
-	DS1307_SetTime(0x20, 0x48);
+	//DS1307_SetTime(0x21, 0x38);
 	
 	SelectDisplay(1);
 	SetPointer(0x00);
@@ -71,7 +71,7 @@ int main(void)
 	{
 		GetTime();
 		WriteNum(ZERO, SEVEN, FOUR);
-		_delay_ms(10000);
+		_delay_ms(7000);
 		WriteNum(ZERO, ZERO, ZERO);
 		_delay_ms(2000);
 		//if(Get_flagRX() == 1)
@@ -83,6 +83,17 @@ int main(void)
 			//_delay_ms(3000);
 			//PORTA |= PortA2;
 		//}
+		SelectDisplay(1);
+		SetPointer(0x5B);
+		Set_OLED_Num(GetNum(4));
+		SetPointer(0x41);
+		Set_OLED_Num(GetNum(0));
+		SelectDisplay(2);
+		SetPointer(0x5B);
+		Set_OLED_Num(GetNum(3));
+		SetPointer(0x41);
+		Set_OLED_Num(GetNum(1));
+		
 	}
 	return 0;
 }

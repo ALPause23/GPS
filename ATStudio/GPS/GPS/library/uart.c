@@ -161,15 +161,15 @@ ISR(USARTRXC_vect)
 
 void USART_Init(unsigned int speed)//Инициализация модуля USART
 {
-	UBRRH = (unsigned char)(speed>>8);
-	UBRRL = (unsigned char)speed;
-	
-	UCSRB = (1<<RXEN) | (1<<RXCIE); //Включаем прием и передачу по USART
-	UCSRB |= (1<<RXCIE); //Разрешаем прерывание при передаче
-	UCSRA = 0;
-	//UCSRA |= (1<<U2X); // Для 8 мгц
-	UCSRC = (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);// Обращаемся именно к регистру UCSRC (URSEL=1),
-	sei();
+	//UBRRH = (unsigned char)(speed>>8);
+	//UBRRL = (unsigned char)speed;
+	//
+	//UCSRB = (1<<RXEN) | (1<<RXCIE); //Включаем прием и передачу по USART
+	//UCSRB |= (1<<RXCIE); //Разрешаем прерывание при передаче
+	//UCSRA = 0;
+	////UCSRA |= (1<<U2X); // Для 8 мгц
+	//UCSRC = (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);// Обращаемся именно к регистру UCSRC (URSEL=1),
+	//sei();
 }
 
 //unsigned char rx_counter = 0;

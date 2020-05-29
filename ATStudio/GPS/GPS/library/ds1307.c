@@ -11,9 +11,9 @@ void DS1307_Init(uint8_t rs)
 	i2cwrite(DS1307_CONTROL_REGISTER);
 	i2cwrite(0x13);
 	i2cstop();
-	i2cstart(DS1307_ADDR);
-	i2cwrite(0x00);
-	i2cwrite(0x00);
+	//i2cstart(DS1307_ADDR);
+	//i2cwrite(0x00);
+	//i2cwrite(0x00);
 	i2cstop();
 }
 
@@ -79,7 +79,7 @@ void GetTime(void)
 	
 		//if(b != buffer1)
 		//{
-			//SelectDisplay(0);
+			SelectDisplay(0);
 			SetPointer(0x5B);
 			Set_OLED_Num(GetNum(b));
 			SetPointer(0x41);
@@ -93,7 +93,7 @@ void GetTime(void)
 			b&= 15;
 			//if(b != buffer2)
 			//{
-				//SetPointer(0x22);
+				SetPointer(0x22);
 				Set_OLED_Num(GetNum(b));
 				SetPointer(0x08);
 				Set_OLED_Num(GetNum(a));
