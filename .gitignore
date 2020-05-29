@@ -1,6 +1,5 @@
-**/*.o
 ATStudio/GPS/GPS/**/*.d
 ATStudio/GPS/GPS/**/*.sres
 ATStudio/GPS/GPS/**/*.lss
-*.o
-*.o
+ATStudio/GPS/GPS/**/*.o
+ATStudio/GPS/GPS/Debug/main.o
