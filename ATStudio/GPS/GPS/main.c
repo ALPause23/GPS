@@ -1,6 +1,6 @@
 ﻿#include "main.h"
 #define __AVR_ATmega16A__
-uint16_t i;
+float i;
 
 
 
@@ -65,15 +65,15 @@ int main(void)
 	Set_OLED_Image(colon_struct, colon_logo);
 	SetIntensity(0x00);
 	
+	init_periferal();
+	
 	//USART_Init(MYUBRR);
 	//sei();
 	while(1)
 	{
+		i = GetVoltage(ADC_convert());
+		SelectDisplay(0);
 		GetTime();
-		WriteNum(ZERO, SEVEN, FOUR);
-		_delay_ms(7000);
-		WriteNum(ZERO, ZERO, ZERO);
-		_delay_ms(2000);
 		//if(Get_flagRX() == 1)
 		//{
 			//USARTReceiveChar();
@@ -83,17 +83,6 @@ int main(void)
 			//_delay_ms(3000);
 			//PORTA |= PortA2;
 		//}
-		SelectDisplay(1);
-		SetPointer(0x5B);
-		Set_OLED_Num(GetNum(4));
-		SetPointer(0x41);
-		Set_OLED_Num(GetNum(0));
-		SelectDisplay(2);
-		SetPointer(0x5B);
-		Set_OLED_Num(GetNum(3));
-		SetPointer(0x41);
-		Set_OLED_Num(GetNum(1));
-		
 	}
 	return 0;
 }
@@ -101,7 +90,7 @@ int main(void)
 
 void initSymbolOLED(void)
 {
-	OLED_Command(SSD1306_DISPLAYOFF);
+	//OLED_Command(SSD1306_DISPLAYOFF);
 
 	SelectDisplay(0);
 	SetPointer(0x08);
