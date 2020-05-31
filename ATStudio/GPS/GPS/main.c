@@ -1,14 +1,15 @@
 ﻿#include "main.h"
 #define __AVR_ATmega16A__
-float i;
-
+float i, volt;
+int voltMSB, voltLSB;
 
 
 void ssd1306_command(uint8_t data);
-
+void Compare(void);
+void Set_OLED_voltage(void);
 int main(void)
 {
-
+	
 	init_ports();
 	i2cInit();
 	
@@ -69,57 +70,96 @@ int main(void)
 	//sei();
 	while(1)
 	{
-		i = GetVoltage(ADC_convert());
-		SelectDisplay(0);
+		Set_OLED_voltage();
 		GetTime();
+		Compare();
 		//if(Get_flagRX() == 1)
 		//{
 			//USARTReceiveChar();
 		//}
-		//if((PINA & (PortA0)) == 0)
-		//{
-			//_delay_ms(3000);
-			//PORTA |= PortA2;
-		//}
+		
 	}
 	return 0;
 }
 
-
-void initSymbolOLED(void)
+void Set_OLED_voltage(void)
 {
-	//OLED_Command(SSD1306_DISPLAYOFF);
-
-	SelectDisplay(0);
-	SetPointer(0x08);
-	Set_OLED_Num(GetNum(0));
-	//_delay_ms(1000);
-	SetPointer(0x22);
-	Set_OLED_Num(GetNum(1));
-	//_delay_ms(1000);
-	SetPointer(0x41);
-	Set_OLED_Num(GetNum(2));
-	//_delay_ms(1000);
-	SetPointer(0x5B);
-	Set_OLED_Num(GetNum(3));
-	SelectDisplay(2);
-	SetPointer(0x08);
-	Set_OLED_Num(GetNum(4));
-	//_delay_ms(1000);
-	SetPointer(0x22);
-	Set_OLED_Num(GetNum(5));
-	//_delay_ms(1000);
-	SetPointer(0x41);
-	Set_OLED_Num(GetNum(6));
-	//_delay_ms(1000);
-	SetPointer(0x5B);
-	Set_OLED_Num(GetNum(7));
-	SelectDisplay(2);
-	SetPointer(0x08);
-	Set_OLED_Num(GetNum(8));
-	SetPointer(0x22);
-	Set_OLED_Num(GetNum(9));
+	if(i == 10000.0)
+	{
+		i = 0.0;
+		SelectDisplay(2);
+		SetPointer(0x08); // set point for paint zip
+		Set_OLED_Image(molnia_struct, molnia_logo);
+		volt = GetVoltage(ADC_convert());
+		voltMSB = (int)volt;
+		voltLSB = (volt - (float)voltMSB)*10.0;
 	
-	OLED_Command(SSD1306_DISPLAYON);
-	ClearOLED();
+		SetPointer(0x5B);
+		Set_OLED_Num(GetNum(voltLSB));
+	
+		SetPointer(0x56);
+		Set_OLED_Image(point_struct, point_logo);
+	
+		SetPointer(0x3C);
+		(voltMSB >= 10) ? (Set_OLED_Num(GetNum(voltMSB - 10))) : (Set_OLED_Num(GetNum(voltMSB)));
+		SetPointer(0x22);
+		Set_OLED_Num(GetNum(voltMSB/10));
+		
+	}
+	i++;
+	//free(volt, voltMSB, voltLSB); //clear memory
 }
+
+void Compare(void)
+{
+	if((PINA & (PortA1)) == 0)
+	{
+		SetIntensity(0x00);
+		PORTA |= PortA4;
+		PORTA &= ~PortA5;
+	}
+	else
+	{
+		SetIntensity(0x0F);
+		PORTA |= PortA5;
+		PORTA &= ~PortA4;
+	}
+}
+
+//void initSymbolOLED(void)
+//{
+	////OLED_Command(SSD1306_DISPLAYOFF);
+//
+	//SelectDisplay(0);
+	//SetPointer(0x08);
+	//Set_OLED_Num(GetNum(0));
+	////_delay_ms(1000);
+	//SetPointer(0x22);
+	//Set_OLED_Num(GetNum(1));
+	////_delay_ms(1000);
+	//SetPointer(0x41);
+	//Set_OLED_Num(GetNum(2));
+	////_delay_ms(1000);
+	//SetPointer(0x5B);
+	//Set_OLED_Num(GetNum(3));
+	//SelectDisplay(2);
+	//SetPointer(0x08);
+	//Set_OLED_Num(GetNum(4));
+	////_delay_ms(1000);
+	//SetPointer(0x22);
+	//Set_OLED_Num(GetNum(5));
+	////_delay_ms(1000);
+	//SetPointer(0x41);
+	//Set_OLED_Num(GetNum(6));
+	////_delay_ms(1000);
+	//SetPointer(0x5B);
+	//Set_OLED_Num(GetNum(7));
+	//SelectDisplay(2);
+	//SetPointer(0x08);
+	//Set_OLED_Num(GetNum(8));
+	//SetPointer(0x22);
+	//Set_OLED_Num(GetNum(9));
+	//
+	//OLED_Command(SSD1306_DISPLAYON);
+	//ClearOLED();
+//}
