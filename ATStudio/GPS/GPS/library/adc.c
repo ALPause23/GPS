@@ -20,6 +20,6 @@ uint16_t ADC_convert()
 
 float GetVoltage(uint16_t adc)
 {
-	return ((((adc*100.0)/1023.0)*16.1)/100.0);
+	return (((adc*16.1)/1023.0) + 3.15);
 }
 
