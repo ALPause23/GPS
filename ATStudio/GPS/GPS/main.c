@@ -12,8 +12,6 @@ int main(void)
 	init_ports();
 	i2cInit();
 	
-	_delay_ms(100);
-	
 	PORTA |= PortA2;
 	_delay_ms(100);
 	PORTA &= ~PortA2;
@@ -26,7 +24,7 @@ int main(void)
 	WriteNum(SIX, FIVE, FOUR);
 	_delay_ms(100);
 	WriteNum(NINE, EITHT, SEVEN);
-	_delay_ms(500);
+	_delay_ms(100);
 	WriteNum(EMPTY, ZERO, ZERO);
 	_delay_ms(100);
 	WriteNum(G, P, S);

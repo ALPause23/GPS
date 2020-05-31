@@ -1,6 +1,6 @@
 ﻿#ifndef __ADC_H__
 #define __ADC_H__
-	#include "ports.h"
+	#include "OLED.h"
 	
 	void init_periferal(void);
 	uint16_t ADC_convert(void);

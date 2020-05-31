@@ -6,7 +6,7 @@
 	#include "library/ports.h"
 	#include "library/ds1307.h"
 	#include "library/uart.h"
-	#include "library/init_perif.h"
+	#include "library/adc.h"
 	
 	void initSymbolOLED(void);
 
