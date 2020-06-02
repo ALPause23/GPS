@@ -1,6 +1,6 @@
 ﻿#include "adc.h"
 
-
+int i = 0;
 
 void init_periferal()
 {
@@ -23,3 +23,29 @@ float GetVoltage(uint16_t adc)
 	return (((adc*16.1)/1023.0) + 3.15);
 }
 
+void Set_OLED_voltage(void)
+{
+	if(i == 10000)
+	{
+		i = 0;
+		SelectDisplay(2);
+		SetPointer(0x08); // set point for paint zip
+		Set_OLED_Image(molnia_struct, molnia_logo);
+		float volt = GetVoltage(ADC_convert());
+		int voltMSB = (int)volt;
+		int voltLSB = (volt - (float)voltMSB)*10.0;
+		
+		SetPointer(0x5B);
+		Set_OLED_Num(GetNum(voltLSB));
+		
+		SetPointer(0x56);
+		Set_OLED_Image(point_struct, point_logo);
+		
+		SetPointer(0x3C);
+		(voltMSB >= 10) ? (Set_OLED_Num(GetNum(voltMSB - 10))) : (Set_OLED_Num(GetNum(voltMSB)));
+		SetPointer(0x22);
+		Set_OLED_Num(GetNum(voltMSB/10));
+		
+	}
+	i++;
+}

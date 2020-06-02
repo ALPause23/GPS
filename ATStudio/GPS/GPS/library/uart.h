@@ -2,6 +2,8 @@
 	#define __UART_H__
 
 	#include "ports.h"
+	#include "OLED.h"
+	#include "LED_MAX7219.h"
 	
 	#define BAUD 9600
 	#define MYUBRR 51//F_CPU/16/(BAUD-1)
@@ -18,6 +20,8 @@
 	
 	void ProcessingBufferRx(void);
 	char Get_flagRX(void);
+	void ProcessingRCM(void);
+	void ProcessingVTG(void);
 
 	//interrupt [USART_RXC] void usart_rx_isr(void);
 	//#pragma vector = USART_RXC

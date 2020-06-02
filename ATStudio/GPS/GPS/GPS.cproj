@@ -107,6 +107,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="library\adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="library\adc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="library\ds1307.c">
       <SubType>compile</SubType>
     </Compile>
@@ -126,12 +132,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="library\I2C.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="library\init_perif.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="library\init_perif.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="library\OLED.h">

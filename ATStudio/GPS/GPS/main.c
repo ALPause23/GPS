@@ -1,21 +1,16 @@
 ﻿#include "main.h"
 #define __AVR_ATmega16A__
-float i, volt;
-int voltMSB, voltLSB;
-
 
 void ssd1306_command(uint8_t data);
 void Compare(void);
-void Set_OLED_voltage(void);
+
 int main(void)
 {
 	
 	init_ports();
 	i2cInit();
 	
-	PORTA |= PortA2;
-	_delay_ms(100);
-	PORTA &= ~PortA2;
+	Buzzer(100);
 	
 	InitLed();
 	ClearDisplay();
@@ -66,49 +61,23 @@ int main(void)
 	
 	init_periferal();
 	
-	//USART_Init(MYUBRR);
-	//sei();
+	USART_Init(MYUBRR);
+	sei();
 	while(1)
 	{
 		Set_OLED_voltage();
 		GetTime();
 		Compare();
-		//if(Get_flagRX() == 1)
-		//{
-			//USARTReceiveChar();
-		//}
+		if(Get_flagRX() == 1)
+		{
+			USARTReceiveChar();
+		}
 		
 	}
 	return 0;
 }
 
-void Set_OLED_voltage(void)
-{
-	if(i == 10000.0)
-	{
-		i = 0.0;
-		SelectDisplay(2);
-		SetPointer(0x08); // set point for paint zip
-		Set_OLED_Image(molnia_struct, molnia_logo);
-		volt = GetVoltage(ADC_convert());
-		voltMSB = (int)volt;
-		voltLSB = (volt - (float)voltMSB)*10.0;
-	
-		SetPointer(0x5B);
-		Set_OLED_Num(GetNum(voltLSB));
-	
-		SetPointer(0x56);
-		Set_OLED_Image(point_struct, point_logo);
-	
-		SetPointer(0x3C);
-		(voltMSB >= 10) ? (Set_OLED_Num(GetNum(voltMSB - 10))) : (Set_OLED_Num(GetNum(voltMSB)));
-		SetPointer(0x22);
-		Set_OLED_Num(GetNum(voltMSB/10));
-		
-	}
-	i++;
-	//free(volt, voltMSB, voltLSB); //clear memory
-}
+
 
 void Compare(void)
 {

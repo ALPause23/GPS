@@ -51,7 +51,8 @@
 		#define PortD7   (1<<PORTD7);
 
 
-		void init_ports();
+		void init_ports(void);
+		void Buzzer(uint16_t  ms);
 		
 #endif
 

@@ -1,5 +1,5 @@
 ﻿#include "ds1307.h"
-uint8_t buffer0, buffer1, buffer2;
+uint8_t buffer0, buffer1, buffer2, b;
 
 void DS1307_Init(uint8_t rs)
 {
@@ -110,19 +110,14 @@ void GetTime(void)
 //запись в бсд
 uint8_t In_BCD(uint8_t n)
 {
-	asm volatile(
-		"ld   r26,y+"	"\n\t" 
-		"clr  r30"		"\n\t" 
-	"bin2bcd0:"			"\n\t" 
-		"subi r26,10"	"\n\t" 
-		"brmi bin2bcd1" "\n\t" 
-		"subi r30,-16"	"\n\t" 
-		"rjmp bin2bcd0" "\n\t" 
-	"bin2bcd1:"			"\n\t" 
-		"subi r26,-10"	"\n\t" 
-		"add  r30,r26"	"\n\t" 
-		"ret" "\n\t" 
-	::);
+	b = n;
+	uint8_t msb, lsb;
+	msb = n/10;
+	b = msb;
+	lsb = n - msb*10;
+	b = lsb;
+	b = (((uint8_t)(msb << 4)) | ((uint8_t)(lsb)));
+	return b;
 }
 
 //чтение из бсд
@@ -142,4 +137,9 @@ uint8_t Out_BCD(uint8_t n)
 	"add  r30,r26"		"\n\t"
 	"ret" "\n\t"
 	::);
+}
+
+uint8_t Out_ASCII(uint8_t symbol)
+{
+	return (symbol - 48);
 }

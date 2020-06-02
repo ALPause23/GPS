@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000200000003000000ffffffffffffffffffffffffffffffff4d0100000000000077070000f6030000</PLACEMENT>
+  <PLACEMENT>2c00000000000000010000000083ffff0083ffffffffffffffffffff4d0100000000000077070000f6030000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
   <WINDOW type="default" module="DXP"/>
  </FRAME>
@@ -9,7 +9,7 @@
   <PWI>
    <POPUP w="800" x="131" flags="00000003" y="77" h="200" pid="0" iid="-1">
     <PROPERTIES>
-     <ITEM name="Message Column Width">663</ITEM>
+     <ITEM name="Message Column Width">542</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
      <ITEM name="Source Column Width">100</ITEM>
      <ITEM name="Time Column Width">120</ITEM>
@@ -118,25 +118,25 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="1167" flags="0000002b" y="503" h="400" pid="1" iid="1">
+   <POPUP w="600" x="556" flags="0000002b" y="396" h="400" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"main",27B0,0030,297F,A927,-1
+     <ITEM name="Breakpoint 0">"USARTReceiveChar",2E22,0072,4296,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 1">"main",27BE,003E,516D,A927,1
+     <ITEM name="Breakpoint 1">"ProcessingRCM",2D0E,0000,F7A2,8FF2,-1
 </ITEM>
-     <ITEM name="Breakpoint 2">"main",0100,002C,ABF9,A927,1
+     <ITEM name="Breakpoint 2">"ProcessingRCM",2D18,000A,02E7,8FF2,-1
 </ITEM>
-     <ITEM name="Breakpoint 3">"__vector_11",0162,0000,F7A2,8FF2,-1
+     <ITEM name="Breakpoint 3">"ProcessingRCM",2D18,000A,1ADB,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 4">"__vector_11",0178,0016,9882,8FF2,1
+     <ITEM name="Breakpoint 4">"__vector_11",2E38,000C,9DF2,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 5">"USART_Init",019A,0010,BE92,8FF2,1
+     <ITEM name="Breakpoint 5">"__vector_11",2E40,0014,ED7F,8FF2,-1
 </ITEM>
-     <ITEM name="Breakpoint 6">"USARTReceiveChar",0224,006E,2568,8FF2,1
+     <ITEM name="Breakpoint 6">"main",2EAE,002C,05FC,A927,-1
 </ITEM>
-     <ITEM name="Breakpoint 7">"USARTReceiveChar",0228,0072,5309,8FF2,-1
+     <ITEM name="Breakpoint 7">"main",2EB2,0030,0384,A927,-1
 </ITEM>
-     <ITEM name="Breakpoint 8">"USARTReceiveChar",0240,008A,1740,8FF2,1
+     <ITEM name="Breakpoint 8">"main",2FFA,0178,8E83,A927,1
 </ITEM>
      <ITEM name="Breakpoint 9">"USARTReceiveChar",0248,0092,4703,8FF2,1
 </ITEM>
@@ -146,12 +146,12 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">2</ITEM>
+     <ITEM name="nBreakpoints">4</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="348" x="1523" flags="0000000b" y="589" h="398" pid="2" iid="1">
+   <POPUP w="397" x="1466" flags="0000000b" y="521" h="506" pid="2" iid="1">
     <PROPERTIES>
-     <ITEM name="Address Column Width">48</ITEM>
+     <ITEM name="Address Column Width">101</ITEM>
      <ITEM name="AutoResize">No</ITEM>
      <ITEM name="Gridlines">Yes</ITEM>
      <ITEM name="Name Column Width">162</ITEM>
@@ -166,7 +166,7 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="20" x="385" flags="00000001" y="205" h="3" pid="1" iid="11">
+   <POPUP w="20" x="696" flags="00000001" y="268" h="3" pid="1" iid="11">
     <PROPERTIES/>
    </POPUP>
    <POPUP w="8" x="659" flags="00000008" y="416" h="8" pid="2" iid="11">
@@ -192,7 +192,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="16" x="1333" flags="0000800b" y="144" h="16" pid="256" iid="40">
+   <POPUP w="16" x="1333" flags="0000000b" y="144" h="16" pid="256" iid="40">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>
@@ -200,6 +200,12 @@
      <ITEM name="ShowChanges">Yes</ITEM>
      <ITEM name="ShowToolTips">Yes</ITEM>
      <ITEM name="TopLineAddress">00000000</ITEM>
+    </PROPERTIES>
+   </POPUP>
+   <POPUP w="468" x="53" flags="00008023" y="509" h="257" pid="0" iid="40">
+    <PROPERTIES>
+     <ITEM name="AutoEcho">0</ITEM>
+     <ITEM name="HexMode">0</ITEM>
     </PROPERTIES>
    </POPUP>
   </PWI>

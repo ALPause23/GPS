@@ -38,11 +38,11 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../library/adc.c \
 ../library/ds1307.c \
 ../library/LED_MAX7219.c \
 ../library/OLED.c \
 ../library/I2C.c \
-../library/init_perif.c \
 ../library/ports.c \
 ../library/uart.c \
 ../main.c
@@ -55,41 +55,41 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+library/adc.o \
 library/ds1307.o \
 library/LED_MAX7219.o \
 library/OLED.o \
 library/I2C.o \
-library/init_perif.o \
 library/ports.o \
 library/uart.o \
 main.o
 
 OBJS_AS_ARGS +=  \
+library/adc.o \
 library/ds1307.o \
 library/LED_MAX7219.o \
 library/OLED.o \
 library/I2C.o \
-library/init_perif.o \
 library/ports.o \
 library/uart.o \
 main.o
 
 C_DEPS +=  \
+library/adc.d \
 library/ds1307.d \
 library/LED_MAX7219.d \
 library/OLED.d \
 library/I2C.d \
-library/init_perif.d \
 library/ports.d \
 library/uart.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
+library/adc.d \
 library/ds1307.d \
 library/LED_MAX7219.d \
 library/OLED.d \
 library/I2C.d \
-library/init_perif.d \
 library/ports.d \
 library/uart.d \
 main.d

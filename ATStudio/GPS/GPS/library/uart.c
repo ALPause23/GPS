@@ -9,7 +9,7 @@ char rx_buffer[RX_BUFFER_SIZE];
 int rx_wr_index = 0, rx_rd_index = 0;
 unsigned char rx_counter = 0;
 uint8_t buffer;
-char flagEr = 0, flagRX = 0, flag_Set_Time = 0;
+char flagEr = 0, flagRX = 0, flag_Set_Time = 0, flagValid = 1;
 
 char Get_flagRX(void)
 {
@@ -65,18 +65,20 @@ void USARTReceiveChar(void)
 			{
 				break;
 			}
-			
 		}
-		if((rx_buffer[4] == 'M' && flag_Set_Time == 0) || 
-			(rx_buffer[4] == 'S') || 
-			(rx_buffer[4] == 'T')) /*rx_buffer[2] == 'G' /*|| rx_buffer[2] == 'L' ||*/ 
+		if(rx_buffer[4] == 'M' && flag_Set_Time == 0)
 		{
-			
+			ProcessingRCM();
 		}
-	}
-
-
-			//status = UCSRA;
+		if(rx_buffer[4] == 'T' && flagValid)
+		{
+			ProcessingVTG();
+		}
+		
+	}	//(rx_buffer[4] == 'S') || 
+			/*rx_buffer[2] == 'G' /*|| rx_buffer[2] == 'L' ||*/ 
+	
+				//status = UCSRA;
 			//data = UDR;
 			//if ((status & (FRAMING_ERROR | PARITY_ERROR | DATA_OVERRUN))==0)
 			//{
@@ -95,34 +97,29 @@ void USARTReceiveChar(void)
 
 
 	
-	ProcessingBufferRx();
 	flagEr = 0;
 	flagRX &= 0;
 	UCSRB |= (1<<RXCIE);	
 }
 
-void ProcessingBufferRx(void)
+void ProcessingRCM()
 {
-	//if(rx_buffer[2] == 'G')
-	//{
-		//if(rx_buffer[
-	//}
-	if(rx_buffer[3] == 'M')
+	if(rx_buffer[17] == 'A')
 	{
-		if(rx_buffer[16] == 'A')
-		{
-			DS1307_SetTime(In_BCD(rx_buffer[6]*10 + rx_buffer[7]), In_BCD(rx_buffer[8]*10 + rx_buffer[9]));
-			flag_Set_Time = 1;
-		}
-		else return;
+		DS1307_SetTime((In_BCD(
+							((Out_ASCII(rx_buffer[7])*10 + Out_ASCII(rx_buffer[8]) + 0x03)) >= 0x18) ? ((Out_ASCII(rx_buffer[7])*10 + Out_ASCII(rx_buffer[8]) + 0x03) - 0x18) : (Out_ASCII(rx_buffer[7])*10 + Out_ASCII(rx_buffer[8]) + 0x03)) , 
+						In_BCD(Out_ASCII(rx_buffer[9])*10 + Out_ASCII(rx_buffer[10])));
+		flag_Set_Time = 1;
+		Buzzer(100);
 	}
-	else if(rx_buffer[3] == 'T')
+	else flagValid = 0x00;
+}
+
+void ProcessingVTG()
+{
+	if(rx_buffer[7] == ',')
 	{
-		
-	}
-	else if(rx_buffer[3] == 'S')
-	{
-		
+		WriteNum(EMPTY, ZERO, ZERO);
 	}
 }
 
@@ -160,15 +157,15 @@ ISR(USARTRXC_vect)
 
 void USART_Init(unsigned int speed)//Инициализация модуля USART
 {
-	//UBRRH = (unsigned char)(speed>>8);
-	//UBRRL = (unsigned char)speed;
-	//
-	//UCSRB = (1<<RXEN) | (1<<RXCIE); //Включаем прием и передачу по USART
+	UBRRH = (unsigned char)(speed>>8);
+	UBRRL = (unsigned char)speed;
+	
+	UCSRB = (1<<RXEN) | (1<<RXCIE); //Включаем прием и передачу по USART
 	//UCSRB |= (1<<RXCIE); //Разрешаем прерывание при передаче
-	//UCSRA = 0;
-	////UCSRA |= (1<<U2X); // Для 8 мгц
-	//UCSRC = (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);// Обращаемся именно к регистру UCSRC (URSEL=1),
-	//sei();
+	UCSRA = 0;
+	//UCSRA |= (1<<U2X); // Для 8 мгц
+	UCSRC = (1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);// Обращаемся именно к регистру UCSRC (URSEL=1),
+	sei();
 }
 
 //unsigned char rx_counter = 0;

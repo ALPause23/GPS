@@ -29,4 +29,5 @@
 	//asm
 	uint8_t Out_BCD(uint8_t n);
 	uint8_t In_BCD(uint8_t n);
+	uint8_t Out_ASCII(uint8_t symbol);
 #endif
