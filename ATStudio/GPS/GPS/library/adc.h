@@ -7,4 +7,6 @@
 	float GetVoltage(uint16_t adc);
 	void Set_OLED_voltage(void);
 	
+	void Compare(void);
+	
 #endif

@@ -22,6 +22,7 @@
 	char Get_flagRX(void);
 	void ProcessingRCM(void);
 	void ProcessingVTG(void);
+	void ProcessingGGA(void);
 
 	//interrupt [USART_RXC] void usart_rx_isr(void);
 	//#pragma vector = USART_RXC

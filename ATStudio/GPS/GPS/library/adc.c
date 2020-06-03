@@ -1,6 +1,6 @@
 ﻿#include "adc.h"
 
-int i = 0;
+int i = 0, j = 0;
 
 void init_periferal()
 {
@@ -25,8 +25,9 @@ float GetVoltage(uint16_t adc)
 
 void Set_OLED_voltage(void)
 {
-	if(i == 10000)
+	if(i == 5000)
 	{
+		ADMUX = 0x00;
 		i = 0;
 		SelectDisplay(2);
 		SetPointer(0x08); // set point for paint zip
@@ -48,4 +49,20 @@ void Set_OLED_voltage(void)
 		
 	}
 	i++;
+}
+
+void Compare(void)
+{
+	if((PINA & (PortA1)) == 0)
+	{
+		SetIntensity(0x00);
+		PORTA |= PortA4;
+		PORTA &= ~PortA5;
+	}
+	else
+	{
+		SetIntensity(0x0F);
+		PORTA |= PortA5;
+		PORTA &= ~PortA4;
+	}
 }

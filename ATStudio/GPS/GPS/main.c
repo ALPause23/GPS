@@ -2,7 +2,7 @@
 #define __AVR_ATmega16A__
 
 void ssd1306_command(uint8_t data);
-void Compare(void);
+
 
 int main(void)
 {
@@ -79,21 +79,7 @@ int main(void)
 
 
 
-void Compare(void)
-{
-	if((PINA & (PortA1)) == 0)
-	{
-		SetIntensity(0x00);
-		PORTA |= PortA4;
-		PORTA &= ~PortA5;
-	}
-	else
-	{
-		SetIntensity(0x0F);
-		PORTA |= PortA5;
-		PORTA &= ~PortA4;
-	}
-}
+
 
 //void initSymbolOLED(void)
 //{

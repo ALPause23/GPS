@@ -74,6 +74,10 @@ void USARTReceiveChar(void)
 		{
 			ProcessingVTG();
 		}
+		if(rx_buffer[4] == 'G' && flagValid)
+		{
+			ProcessingGGA();
+		}
 		
 	}	//(rx_buffer[4] == 'S') || 
 			/*rx_buffer[2] == 'G' /*|| rx_buffer[2] == 'L' ||*/ 
@@ -106,17 +110,7 @@ void ProcessingRCM()
 {
 	if(rx_buffer[17] == 'A')
 	{
-		if((Out_ASCII(rx_buffer[7])*10 + Out_ASCII(rx_buffer[8]) + 3) < 24)
-		{
-			DS1307_SetTime(rx_buffer[7], rx_buffer[8]),
-			In_BCD(rx_buffer[9], rx_buffer[10]));
-		}
-		DS1307_SetTime(rx_buffer[7], rx_buffer[8]),
-		In_BCD(rx_buffer[9], rx_buffer[10])
-		((Out_ASCII(rx_buffer[7])*10 + Out_ASCII(rx_buffer[8]) + 3) >= 24) ? (In_BCD(rx_buffer[7], rx_buffer[8]))
-		
-		In_BCD(rx_buffer[7], rx_buffer[8]), 
-				In_BCD(rx_buffer[9], rx_buffer[10]));
+		DS1307_SetTime(In_BCD(rx_buffer[7], rx_buffer[8], 'h'), In_BCD(rx_buffer[9], rx_buffer[10], 'm'));
 		flag_Set_Time = 1;
 		Buzzer(100);
 	}
@@ -124,6 +118,14 @@ void ProcessingRCM()
 }
 
 void ProcessingVTG()
+{
+	if(rx_buffer[7] == ',')
+	{
+		WriteNum(EMPTY, ZERO, ZERO);
+	}
+}
+
+void ProcessingGGA()
 {
 	if(rx_buffer[7] == ',')
 	{
