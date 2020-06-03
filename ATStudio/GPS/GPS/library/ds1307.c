@@ -108,16 +108,14 @@ void GetTime(void)
 }
 
 //запись в бсд
-uint8_t In_BCD(uint8_t n)
+uint8_t In_BCD(uint8_t a, uint8_t b)
 {
-	b = n;
-	uint8_t msb, lsb;
-	msb = n/10;
-	b = msb;
-	lsb = n - msb*10;
-	b = lsb;
-	b = (((uint8_t)(msb << 4)) | ((uint8_t)(lsb)));
-	return b;
+	a = Out_ASCII(a);
+	b = Out_ASCII(b);
+	if((a*10 + b) > 24)
+	uint8_t num = (Out_ASCII(a) << 4);
+	num |= Out_ASCII(b);
+	return num;
 }
 
 //чтение из бсд

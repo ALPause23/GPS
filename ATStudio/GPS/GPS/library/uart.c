@@ -106,9 +106,17 @@ void ProcessingRCM()
 {
 	if(rx_buffer[17] == 'A')
 	{
-		DS1307_SetTime((In_BCD(
-							((Out_ASCII(rx_buffer[7])*10 + Out_ASCII(rx_buffer[8]) + 0x03)) >= 0x18) ? ((Out_ASCII(rx_buffer[7])*10 + Out_ASCII(rx_buffer[8]) + 0x03) - 0x18) : (Out_ASCII(rx_buffer[7])*10 + Out_ASCII(rx_buffer[8]) + 0x03)) , 
-						In_BCD(Out_ASCII(rx_buffer[9])*10 + Out_ASCII(rx_buffer[10])));
+		if((Out_ASCII(rx_buffer[7])*10 + Out_ASCII(rx_buffer[8]) + 3) < 24)
+		{
+			DS1307_SetTime(rx_buffer[7], rx_buffer[8]),
+			In_BCD(rx_buffer[9], rx_buffer[10]));
+		}
+		DS1307_SetTime(rx_buffer[7], rx_buffer[8]),
+		In_BCD(rx_buffer[9], rx_buffer[10])
+		((Out_ASCII(rx_buffer[7])*10 + Out_ASCII(rx_buffer[8]) + 3) >= 24) ? (In_BCD(rx_buffer[7], rx_buffer[8]))
+		
+		In_BCD(rx_buffer[7], rx_buffer[8]), 
+				In_BCD(rx_buffer[9], rx_buffer[10]));
 		flag_Set_Time = 1;
 		Buzzer(100);
 	}
