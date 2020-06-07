@@ -110,17 +110,24 @@ void GetTime(void)
 //запись в бсд
 uint8_t In_BCD(uint8_t a, uint8_t b, char hour)
 {
-	uint8_t num;
+	uint16_t num = 0x00;
 	
 	if(hour == 'h')
 	{
-		if(((Out_ASCII(a))*10 + Out_ASCII(b) + 3 ) >= 24)
+		if(((Out_ASCII(a)*10) + Out_ASCII(b) + 3 ) >= 24)
 		{
-			num = Out_ASCII(a)*10 + Out_ASCII(b) + 3 - 24;
+			num = (Out_ASCII(a)*10 + Out_ASCII(b) + 3) - 24;
 		}
 		else
 		{
-			((Out_ASCII(b) + 3) >= 10) ? (num = ((Out_ASCII(a) + 1) << 4) | (Out_ASCII(b))) : (num = (((Out_ASCII(a)) << 4) | (Out_ASCII(b))));
+			if((Out_ASCII(b) + 3) >= 10)
+			{
+				num = ((Out_ASCII(a) + 0x01) << 4) | (Out_ASCII(b) + 3 - 10);
+			}
+			else
+			{
+				num = (Out_ASCII(a) << 4) | (Out_ASCII(b) + 3);
+			}
 		}
 	}
 	else
@@ -128,7 +135,7 @@ uint8_t In_BCD(uint8_t a, uint8_t b, char hour)
 		num = (((Out_ASCII(a)) << 4) | (Out_ASCII(b)));
 	}
 	
-	return num;
+	return (uint8_t)num;
 }
 
 //чтение из бсд
