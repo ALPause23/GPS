@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000000000001000000ffffffffffffffffffffffffffffffff4d0100000000000077070000f6030000</PLACEMENT>
+  <PLACEMENT>2c00000002000000030000000083ffff0083ffffffffffffffffffff4d0100000000000077070000f6030000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
   <WINDOW type="default" module="DXP"/>
  </FRAME>
@@ -118,27 +118,29 @@
      <ITEM name="TopLineAddress">00000020</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="600" x="556" flags="0000002b" y="396" h="400" pid="1" iid="1">
+   <POPUP w="600" x="634" flags="0000802b" y="441" h="400" pid="1" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"USARTReceiveChar",2E22,0072,4296,8FF2,1
+     <ITEM name="Breakpoint 0">"ProcessingVTG",2E84,0008,79DD,8FF2,-1
 </ITEM>
-     <ITEM name="Breakpoint 1">"ProcessingRCM",2D0E,0000,F7A2,8FF2,-1
+     <ITEM name="Breakpoint 1">"ProcessingVTG",2ED0,0054,5403,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 2">"ProcessingRCM",2D18,000A,02E7,8FF2,-1
+     <ITEM name="Breakpoint 10">"ProcessingVTG",048E,0008,79DD,8FF2,-1
 </ITEM>
-     <ITEM name="Breakpoint 3">"ProcessingRCM",2D18,000A,1ADB,8FF2,1
+     <ITEM name="Breakpoint 2">"ProcessingGGA",2FAA,0000,F7A2,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 4">"__vector_11",2E38,000C,9DF2,8FF2,1
+     <ITEM name="Breakpoint 3">"ProcessingGGA",2FAE,0004,AEFB,8FF2,-1
 </ITEM>
-     <ITEM name="Breakpoint 5">"__vector_11",2E40,0014,ED7F,8FF2,-1
+     <ITEM name="Breakpoint 4">"ProcessingGGA",2FE8,003E,ACDC,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 6">"main",2EAE,002C,05FC,A927,-1
+     <ITEM name="Breakpoint 5">"USARTReceiveChar",066A,0078,0D3D,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 7">"main",2EB2,0030,0384,A927,-1
+     <ITEM name="Breakpoint 6">"USARTReceiveChar",067E,008C,0D3D,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 8">"main",2FFA,0178,8E83,A927,1
+     <ITEM name="Breakpoint 7">"USARTReceiveChar",0694,00A2,86AB,8FF2,1
 </ITEM>
-     <ITEM name="Breakpoint 9">"USARTReceiveChar",0248,0092,4703,8FF2,1
+     <ITEM name="Breakpoint 8">"ProcessingRCM",0446,0002,02E7,8FF2,1
+</ITEM>
+     <ITEM name="Breakpoint 9">"ProcessingVTG",0486,0000,F7A2,8FF2,1
 </ITEM>
      <ITEM name="CaseSensitive">No</ITEM>
      <ITEM name="DISPADDRS">Yes</ITEM>
@@ -146,7 +148,7 @@
      <ITEM name="DISPOPCODES">No</ITEM>
      <ITEM name="FIXUPBPTS">Yes</ITEM>
      <ITEM name="WordsOnly">No</ITEM>
-     <ITEM name="nBreakpoints">4</ITEM>
+     <ITEM name="nBreakpoints">5</ITEM>
     </PROPERTIES>
    </POPUP>
    <POPUP w="397" x="1466" flags="0000000b" y="521" h="506" pid="2" iid="1">
@@ -166,7 +168,7 @@
      <ITEM name="nItems">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="20" x="696" flags="00000001" y="268" h="3" pid="1" iid="11">
+   <POPUP w="20" x="696" flags="00000000" y="268" h="3" pid="1" iid="11">
     <PROPERTIES/>
    </POPUP>
    <POPUP w="8" x="659" flags="00000008" y="416" h="8" pid="2" iid="11">
@@ -202,7 +204,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="468" x="53" flags="00008023" y="509" h="257" pid="0" iid="40">
+   <POPUP w="468" x="156" flags="00000023" y="351" h="257" pid="0" iid="40">
     <PROPERTIES>
      <ITEM name="AutoEcho">0</ITEM>
      <ITEM name="HexMode">0</ITEM>

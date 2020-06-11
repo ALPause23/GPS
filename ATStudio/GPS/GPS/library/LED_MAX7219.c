@@ -6,10 +6,11 @@ void SPI_WriteByte(char data);
 void SPI_WriteByte(char data);
 void SendLed(char adr, char data);
 
+
 void InitLed()
 {
 	SPCR=(0<<SPIE) | (1<<SPE) | (0<<DORD) | (1<<MSTR) | (0<<CPOL) | (0<<CPHA) | (0<<SPR1) | (0<<SPR0);
-	SPSR=(0<<SPI2X);
+	SPSR=(1<<SPI2X);
 	
 	// инициализация дисплея
 	SendLed((DISPLAY_TEST >> 8), (DISPLAY_TEST | 0x00));
@@ -42,12 +43,14 @@ void SPI_WriteByte(char data)
 void SendLed(char adr, char data)
 {
 	int i = 0;
+	PORTB &= ~(CS);
 	while(i < 3)
 	{
-		SPI_WriteStartByte(adr);
-		SPI_WriteEndByte(data);
+		SPI_WriteByte(adr);
+		SPI_WriteByte(data);
 		i++;
 	}
+	PORTB |= CS;
 }
 
 void ClearDisplay()
@@ -61,6 +64,7 @@ void ClearDisplay()
 
 void WriteNum(char *z, char *y, char *x)
 {
+	//SendLed((SHUTDOWN >> 8), (SHUTDOWN | 0x00));
 	for(int i = 0; i < 8; i++)
 	{
 		PORTB &= ~(CS);
@@ -75,6 +79,69 @@ void WriteNum(char *z, char *y, char *x)
 		SPI_WriteByte(pgm_read_byte(&(x[i])));
 		
 		PORTB |= CS;
+	}
+	//SendLed((SHUTDOWN >> 8), (SHUTDOWN | 0x01));
+}
+
+char* GetNumbers(int i)
+{
+	switch(i)
+	{
+		case 0:
+		{
+			return ZERO;
+			break;
+		}
+		case 1:
+		{
+			return ONE;
+			break;
+		}
+		case 2:
+		{
+			return TWO;
+			break;
+		}
+		case 3:
+		{
+			return THREE;
+			break;
+		}
+		case 4:
+		{
+			return FOUR;
+			break;
+		}
+		case 5:
+		{
+			return FIVE;
+			break;
+		}
+		case 6:
+		{
+			return SIX;
+			break;
+		}
+		case 7:
+		{
+			return SEVEN;
+			break;
+		}
+		case 8:
+		{
+			return EITHT;
+			break;
+		}
+		case 9:
+		{
+			return NINE;
+			break;
+		}
+		default:
+		{
+			return EMPTY;
+			break;
+		}
 	}
 }
 

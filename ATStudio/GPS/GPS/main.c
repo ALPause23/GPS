@@ -14,17 +14,22 @@ int main(void)
 	
 	InitLed();
 	ClearDisplay();
-	SetIntensity(0x0F);
-	WriteNum(ONE, TWO, THREE);
-	_delay_ms(100);
-	WriteNum(SIX, FIVE, FOUR);
-	_delay_ms(100);
-	WriteNum(NINE, EITHT, SEVEN);
-	_delay_ms(100);
-	WriteNum(EMPTY, ZERO, ZERO);
-	_delay_ms(100);
+	SetIntensity(0x0A);
+	for (int i = 0; i <= 9; i++)
+	{
+		WriteNum(GetNumbers(i-2), GetNumbers(i-1), GetNumbers(i));
+		_delay_ms(500);
+	}
+	//WriteNum(GetNumbers(1), GetNumbers(2), GetNumbers(3));
+	//_delay_ms(5000);
+	//WriteNum(GetNumbers(4), GetNumbers(5), GetNumbers(6));
+	//_delay_ms(5000);
+	//WriteNum(GetNumbers(7), GetNumbers(8), GetNumbers(9));
+	//_delay_ms(5000);
+	//WriteNum(EMPTY, GetNumbers(8), GetNumbers(8));
+	//_delay_ms(5000);
 	WriteNum(G, P, S);
-	_delay_ms(100);
+	
 	
 	SelectDisplay(3);
 	InitOLED();
@@ -34,15 +39,16 @@ int main(void)
 	SetPointer(0x00);
 	SelectDisplay(0);
 	Set_OLED_Image(ansgrem_struct, ansgrem_logo);
-	_delay_ms(100);
+	_delay_ms(500);
+	
+	SelectDisplay(2);
+	Set_OLED_Image(bsuir_struct, bsuir_logo);
+	_delay_ms(500);
 	
 	SelectDisplay(1);
-	Set_OLED_Image(bsuir_struct, bsuir_logo);
-	_delay_ms(100);
-	
-	SelectDisplay(3);
 	Set_OLED_Image(avr_struct, avr_logo);
-	_delay_ms(500);
+	_delay_ms(2000);
+	SelectDisplay(3);
 	ClearOLED();
 	
 	//initSymbolOLED();
@@ -57,8 +63,7 @@ int main(void)
 	SelectDisplay(0);
 	SetPointer(0x3C);
 	Set_OLED_Image(colon_struct, colon_logo);
-	SetIntensity(0x00);
-	
+		
 	init_periferal();
 	
 	USART_Init(MYUBRR);
@@ -67,11 +72,13 @@ int main(void)
 	{
 		Set_OLED_voltage();
 		GetTime();
-		Compare();
+		Compare();//WriteNum(EMPTY, EMPTY, ZERO);
 		if(Get_flagRX() == 1)
 		{
 			USARTReceiveChar();
 		}
+		
+		
 		
 	}
 	return 0;

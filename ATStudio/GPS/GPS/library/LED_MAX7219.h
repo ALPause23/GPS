@@ -16,8 +16,9 @@
 			
 		void InitLed();
 		void ClearDisplay();
-		void WriteNum(char *x, char *y, char *z); 
-		void SetIntensity(uint8_t a) ;
+		void WriteNum(char *z, char *y, char *x); 
+		void SetIntensity(uint8_t a);
+		char* GetNumbers(int i);
 			                    
 		static const unsigned char PROGMEM ONE[8] =
 		{
@@ -129,7 +130,7 @@
 			0x66,
 			0x3C
 		};
-			
+		
 		static const unsigned char PROGMEM G[8] = {
 			0x3C,
 			0x66,
@@ -140,7 +141,7 @@
 			0x3C,
 			0x0
 		};
-			
+		
 		static const unsigned char PROGMEM P[8] = {
 			0x7C,
 			0x66,
@@ -151,7 +152,7 @@
 			0x60,
 			0x0
 		};
-			
+		
 		static const unsigned char PROGMEM S[8] = {
 			0x3C,
 			0x66,
@@ -162,7 +163,7 @@
 			0x3C,
 			0x0
 		};
-			
+		
 		static const unsigned char PROGMEM EMPTY[8] = {
 			0x00,
 			0x00,
