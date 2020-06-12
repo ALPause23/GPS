@@ -25,11 +25,12 @@ float GetVoltage(uint16_t adc)
 
 void Set_OLED_voltage(void)
 {
-	if(i == 1000)
-	{
+	//if(i == 1000)
+	//{
 		ADMUX = 0x00;
 		i = 0;
 		SelectDisplay(2);
+		ClearOLED();
 		SetPointer(0x08); // set point for paint zip
 		Set_OLED_Image(molnia_struct, molnia_logo);
 		float volt = GetVoltage(ADC_convert());
@@ -47,8 +48,8 @@ void Set_OLED_voltage(void)
 		SetPointer(0x22);
 		Set_OLED_Num(GetNum(voltMSB/10));
 		
-	}
-	i++;
+	//}
+	//i++;
 }
 
 void Compare(void)

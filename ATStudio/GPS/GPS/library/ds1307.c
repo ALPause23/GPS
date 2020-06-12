@@ -50,9 +50,11 @@ void GetTime(void)
 	b = second;
 	a&= 7;
 	b&= 15;
+	
 	if(b != buffer0)
 	{
-		SelectDisplay(0);
+		ClearOLED();
+		SelectDisplay(2);
 		if(b == 0x00 || b == 0x02|| b == 0x04 || b == 0x06||b == 0x08)
 		{
 			SetPointer(0x3C);
@@ -79,7 +81,7 @@ void GetTime(void)
 	
 		//if(b != buffer1)
 		//{
-			SelectDisplay(0);
+			SelectDisplay(2);
 			SetPointer(0x5B);
 			Set_OLED_Num(GetNum(b));
 			SetPointer(0x41);
