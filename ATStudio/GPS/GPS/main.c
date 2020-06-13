@@ -71,20 +71,20 @@ int main(void)
 	int q = 0;
 	while(1)
 	{
-		if(q == 10000)
-		{
-			
-			q = 0;
-			Set_OLED_voltage();
-			
-		}
-		else
-		{
-			q++;
-			GetTime();
+		//if(q == 10000)
+		//{
 			//
-		}
-		
+			//q = 0;
+			//Set_OLED_voltage();
+			//
+		//}
+		//else
+		//{
+			//q++;
+			//
+			////
+		//}
+		GetTime();
 		Compare();//WriteNum(EMPTY, EMPTY, ZERO);
 		if(Get_flagRX() == 1)
 		{
