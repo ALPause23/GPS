@@ -60,9 +60,9 @@ int main(void)
 	Set_OLED_Image(sputnik_struct, sputnik_logo);
 	_delay_ms(1000);
 	
-	SelectDisplay(0);
-	SetPointer(0x3C);
-	Set_OLED_Image(colon_struct, colon_logo);
+	//SelectDisplay(0);
+	//SetPointer(0x3C);
+	//Set_OLED_Image(colon_struct, colon_logo);
 		
 	init_periferal();
 	
@@ -71,7 +71,7 @@ int main(void)
 	while(1)
 	{
 		Set_OLED_voltage();
-		GetTime();
+		//GetTime();
 		Compare();//WriteNum(EMPTY, EMPTY, ZERO);
 		if(Get_flagRX() == 1)
 		{
