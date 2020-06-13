@@ -20,12 +20,13 @@ uint16_t ADC_convert()
 
 float GetVoltage(uint16_t adc)
 {
-	return (((adc*13.1)/1023.0) + 1.50);
+	//return (((adc*13.1)/1023.0) + 1.50);
+	return (adc*24.0/1023.0);
 }
 
 void Set_OLED_voltage(void)
 {
-	if(i == 20000)
+	if(i == 10000)
 	{
 		ADMUX = 0x00;
 		i = 0;
