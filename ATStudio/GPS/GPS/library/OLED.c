@@ -43,8 +43,8 @@ void InitOLED()
 	
 	i2cwrite(SSD1306_SETCOMPINS);                    // 0xDA
 	i2cwrite(0x02);
-	i2cwrite(SSD1306_SETCONTRAST);                   // 0x81
-	i2cwrite(0x1F);
+	i2cwrite(SSD1306_CONTRAST);                   // 0x81
+	i2cwrite(0xBF); //75%
 	
 	i2cwrite(SSD1306_SETPRECHARGE);                  // 0xd9
 	if (0x2 == SSD1306_EXTERNALVCC)

@@ -10,11 +10,7 @@ char status, data;
 int rx_wr_index = 0, rx_rd_index = 0;
 unsigned char rx_counter = 0;
 uint8_t buffer;
-<<<<<<< HEAD
 char flagEr = 0, flagRX = 0, flag_Set_Time = 0, flagValid = 1, flagVTG = 0, flagGGA = 0;
-=======
-char flagEr = 0, flagRX = 0, flag_Set_Time = 0, flagValid = 1;
->>>>>>> parent of d94a2eb... предрабочая версия
 
 char Get_flagRX(void)
 {
