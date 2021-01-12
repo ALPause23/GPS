@@ -20,13 +20,16 @@ uint16_t ADC_convert()
 
 float GetVoltage(uint16_t adc)
 {
-	//return (((adc*13.1)/1023.0) + 1.50);
-	return (adc*24.0/1023.0);
+	return (((adc*13.1)/1023.0) + 1.50);
 }
 
 void Set_OLED_voltage(void)
 {
+<<<<<<< HEAD
 	if(i == 5000)
+=======
+	if(i == 20000)
+>>>>>>> parent of d94a2eb... предрабочая версия
 	{
 		ADMUX = 0x00;
 		i = 0;
