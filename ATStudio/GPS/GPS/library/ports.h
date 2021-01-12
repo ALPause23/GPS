@@ -53,7 +53,6 @@
 
 		void init_ports(void);
 		void Buzzer(uint16_t  ms);
-
 		
 #endif
 

@@ -54,8 +54,7 @@ uint8_t i2cstart(uint8_t address)
 		}
 	}
 	twi_status_register = TWSR & TWSR_MASK;
-	if ((twi_status_register != TWI_START) && (twi_status_register != TWI_REP_START))
-	{
+	if ((twi_status_register != TWI_START) && (twi_status_register != TWI_REP_START)){
 		return twi_status_register;
 	}
 	while (!(TWCR & (1<<TWINT)))
@@ -80,8 +79,7 @@ uint8_t i2cstart(uint8_t address)
 	}
 	
 	twi_status_register = TWSR & TWSR_MASK;
-	if ((twi_status_register != TWI_MTX_ADR_ACK) && (twi_status_register != TWI_MRX_ADR_ACK))
-	{
+	if ((twi_status_register != TWI_MTX_ADR_ACK) && (twi_status_register != TWI_MRX_ADR_ACK)){
 		return twi_status_register;
 	}
 	return 255;

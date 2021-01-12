@@ -105,7 +105,6 @@ void GetTime(void)
 	{
 		return;
 	}
-
 }
 
 //запись в бсд
