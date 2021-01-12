@@ -66,15 +66,13 @@ int main(void)
 		
 	init_periferal();
 	
-	Set_OLED_voltage();
-	
 	USART_Init(MYUBRR);
 	sei();
 	while(1)
 	{
 		Set_OLED_voltage();
-		GetTime();
-		Compare();
+		//GetTime();
+		Compare();//WriteNum(EMPTY, EMPTY, ZERO);
 		if(Get_flagRX() == 1)
 		{
 			USARTReceiveChar();

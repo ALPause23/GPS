@@ -10,7 +10,7 @@ char status, data;
 int rx_wr_index = 0, rx_rd_index = 0;
 unsigned char rx_counter = 0;
 uint8_t buffer;
-char flagEr = 0, flagRX = 0, flag_Set_Time = 0, flagValid = 1, flagVTG = 0;
+char flagEr = 0, flagRX = 0, flag_Set_Time = 0, flagValid = 1;
 
 char Get_flagRX(void)
 {
@@ -55,7 +55,7 @@ void USARTReceiveChar(void)
 {
 	//  Устанавливается, когда регистр свободен
 	char status, data;
-	//int i = 0;
+	int i = 0;
 	rx_wr_index = 0;
 	while(!(UCSRA & (1<<RXC)))
 		;
