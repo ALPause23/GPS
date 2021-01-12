@@ -13,11 +13,11 @@ void InitLed()
 	SPSR=(1<<SPI2X);
 	
 	// инициализация дисплея
-	SendLed((DISPLAY_TEST >> 8), (DISPLAY_TEST | 0x00));
-	SendLed((INTENSITY >> 8), (INTENSITY | 0x0f));
-	SendLed((SCAN_LIMIT >> 8), (SCAN_LIMIT | 0x07));
-	SendLed((NO_DECODE_MODE >> 8), (NO_DECODE_MODE | 0x00));
-	SendLed((SHUTDOWN >> 8), (SHUTDOWN | 0x00));
+	SendLed(((char)(DISPLAY_TEST >> 8)), ((char)(DISPLAY_TEST | 0x00)));
+	SendLed(((char)(INTENSITY >> 8)), ((char)(INTENSITY | 0x0f)));
+	SendLed(((char)(SCAN_LIMIT >> 8)), ((char)(SCAN_LIMIT | 0x07)));
+	SendLed(((char)(NO_DECODE_MODE >> 8)), ((char)(NO_DECODE_MODE | 0x00)));
+	SendLed(((char)(SHUTDOWN >> 8)), ((char)(SHUTDOWN | 0x00)));
 }
 
 void SPI_WriteStartByte(char data)
@@ -59,10 +59,10 @@ void ClearDisplay()
 	{
 		SendLed(j,0);
 	}
-	SendLed((SHUTDOWN >> 8), (SHUTDOWN | 0x01));
+	SendLed((char)(SHUTDOWN >> 8), (char)(SHUTDOWN | 0x01));
 }
 
-void WriteNum(char *z, char *y, char *x)
+void WriteNum(const char *z, const char *y, const char *x)
 {
 	//SendLed((SHUTDOWN >> 8), (SHUTDOWN | 0x00));
 	for(int i = 0; i < 8; i++)
@@ -83,7 +83,7 @@ void WriteNum(char *z, char *y, char *x)
 	//SendLed((SHUTDOWN >> 8), (SHUTDOWN | 0x01));
 }
 
-char* GetNumbers(int i)
+const char* GetNumbers(int i)
 {
 	switch(i)
 	{

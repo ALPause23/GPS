@@ -26,7 +26,7 @@ float GetVoltage(uint16_t adc)
 
 void Set_OLED_voltage(void)
 {
-	if(i == 10000)
+	if(i == 5000)
 	{
 		ADMUX = 0x00;
 		i = 0;

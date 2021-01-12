@@ -1,8 +1,8 @@
 ﻿#include "main.h"
 #define __AVR_ATmega16A__
+#define __RTOS__
 
 void ssd1306_command(uint8_t data);
-
 
 int main(void)
 {
@@ -30,8 +30,7 @@ int main(void)
 	//_delay_ms(5000);
 	WriteNum(G, P, S);
 	
-	
-	SelectDisplay(3);
+		SelectDisplay(3);
 	InitOLED();
 	OLED_Command(SSD1306_DISPLAYON);
 	ClearOLED();
@@ -72,12 +71,14 @@ int main(void)
 	sei();
 	while(1)
 	{
+
 		Set_OLED_voltage();
 		GetTime();
 		Compare();
 		if(Get_flagRX() == 1)
 		{
 			USARTReceiveChar();
+			UCSRB |= (1<<RXCIE);
 		}
 		
 		
